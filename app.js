@@ -6,8 +6,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 const { PDFParse } = require('pdf-parse');
 const app = express();
 
-const url = "mongodb://nnm24is097_db_user:PH3HOsUAZfob8Es@ac-c2kmymy-shard-00-00.uqpfwdy.mongodb.net:27017,ac-c2kmymy-shard-00-01.uqpfwdy.mongodb.net:27017,ac-c2kmymy-shard-00-02.uqpfwdy.mongodb.net:27017/?ssl=true&replicaSet=atlas-ji7c33-shard-0&authSource=admin&appName=Cluster0";
-
+const url = "mongodb://karthikng:karthikng@ac-zbt2esd-shard-00-00.qsvcm0e.mongodb.net:27017,ac-zbt2esd-shard-00-01.qsvcm0e.mongodb.net:27017,ac-zbt2esd-shard-00-02.qsvcm0e.mongodb.net:27017/?ssl=true&replicaSet=atlas-f2a2zr-shard-0&authSource=admin&appName=Cluster0";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
