@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="/admin.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+
+<header class="admin-header">
+
+
+    <div>
+
+        <h1>
+            🎓 Campus Placement Portal
+        </h1>
+
+
+        <p>
+            Admin Dashboard
+        </p>
+
+    </div>
+
+
+
+    <a href="/logout" class="logout-btn">
+
+        Logout
+
+    </a>
+
+
+</header>
+
+
+
+
+
+<main class="admin-container">
+
+
+
+
+
+<!-- ========================= -->
+<!-- ADMIN MENU -->
+<!-- ========================= -->
+
+
+<section class="menu-section">
+
+
+<h2>
+    Admin Menu
+</h2>
+
+
+
+<div class="menu-grid">
+
+
+
+<a href="/company/add" class="menu-card">
+
+    <span>🏢</span>
+
+    <strong>
+        Add Company
+    </strong>
+
+    <small>
+        Add a new placement company
+    </small>
+
+</a>
+
+
+
+
+<a href="/companies" class="menu-card">
+
+    <span>📋</span>
+
+    <strong>
+        Company List
+    </strong>
+
+    <small>
+        View all companies
+    </small>
+
+</a>
+
+
+
+
+
+<a href="/drive/add" class="menu-card">
+
+    <span>➕</span>
+
+    <strong>
+        Add Placement Drive
+    </strong>
+
+    <small>
+        Create placement drive
+    </small>
+
+</a>
+
+
+
+
+
+<a href="/drives" class="menu-card">
+
+    <span>💼</span>
+
+    <strong>
+        Placement Drives
+    </strong>
+
+    <small>
+        View drives
+    </small>
+
+</a>
+
+
+
+
+
+<a href="/applications" class="menu-card">
+
+    <span>📄</span>
+
+    <strong>
+        Applications
+    </strong>
+
+    <small>
+        View applications
+    </small>
+
+</a>
+
+
+
+
+
+<a href="/announcement/add" class="menu-card">
+
+    <span>📢</span>
+
+    <strong>
+        Announcement
+    </strong>
+
+    <small>
+        Post announcement
+    </small>
+
+</a>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ========================= -->
+<!-- STATISTICS -->
+<!-- ========================= -->
+
+
+<section class="statistics-section">
+
+
+<h2>
+    Placement Statistics
+</h2>
+
+
+
+<div class="statistics-grid">
+
+
+<div class="stat-card">
+
+<span>👨‍🎓</span>
+
+<h3>
+<%= totalStudents %>
+</h3>
+
+<p>
+Total Students
+</p>
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+<span>🏢</span>
+
+<h3>
+<%= totalCompanies %>
+</h3>
+
+<p>
+Total Companies
+</p>
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+<span>💼</span>
+
+<h3>
+<%= totalDrives %>
+</h3>
+
+<p>
+Total Drives
+</p>
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+<span>📄</span>
+
+<h3>
+<%= totalApplications %>
+</h3>
+
+<p>
+Applications
+</p>
+
+</div>
+
+
+
+
+
+<div class="stat-card selected">
+
+<span>✅</span>
+
+<h3>
+<%= selectedStudents %>
+</h3>
+
+<p>
+Selected Students
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ========================= -->
+<!-- STUDENT MANAGEMENT -->
+<!-- ========================= -->
+
+
+<section class="student-section">
+
+
+
+<div class="section-header">
+
+
+<div>
+
+<h2>
+Student Management
+</h2>
+
+
+<p>
+Manage registered students
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="student-buttons">
+
+
+<a href="/add" class="primary-btn">
+
++ Add Student
+
+</a>
+
+
+
+
+<form action="/search" method="GET" class="search-form">
+
+
+<input
+
+type="text"
+
+name="usn"
+
+placeholder="Enter Student USN"
+
+required
+
+>
+
+
+
+<button 
+type="submit"
+class="secondary-btn"
+>
+
+🔍 Search
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- STUDENT TABLE -->
+
+
+<div class="table-container">
+
+
+<table class="student-table">
+
+
+<thead>
+
+
+<tr>
+
+<th>
+Photo
+</th>
+
+
+<th>
+USN
+</th>
+
+
+<th>
+Name
+</th>
+
+
+<th>
+Email
+</th>
+
+
+<th>
+Branch
+</th>
+
+
+<th>
+Semester
+</th>
+
+
+<th>
+CGPA
+</th>
+
+
+<th>
+Actions
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+<% if(data && data.length > 0){ %>
+
+
+<% data.forEach(student=>{ %>
+
+
+
+<tr>
+
+
+<td>
+
+
+<% if(student.photo){ %>
+
+
+<img
+
+src="/photo/<%= student.usn %>"
+
+class="student-photo"
+
+alt="Photo"
+
+>
+
+
+<% }else{ %>
+
+
+<div class="no-photo">
+👤
+</div>
+
+
+<% } %>
+
+
+</td>
+
+
+
+
+<td>
+
+<strong>
+<%= student.usn %>
+</strong>
+
+</td>
+
+
+
+<td>
+<%= student.fullname %>
+</td>
+
+
+
+<td>
+<%= student.email %>
+</td>
+
+
+
+<td>
+<%= student.branch %>
+</td>
+
+
+
+<td>
+<%= student.sem %>
+</td>
+
+
+
+
+<td>
+
+<span class="cgpa">
+
+<%= student.cgpa %>
+
+</span>
+
+</td>
+
+
+
+
+<td>
+
+
+<div class="action-buttons">
+
+
+<a href="/edit/<%= student.usn %>" class="edit-btn">
+
+Edit
+
+</a>
+
+
+
+<a 
+
+href="/delete/<%= student.usn %>"
+
+class="delete-btn"
+
+onclick="return confirm('Delete this student?')"
+
+>
+
+Delete
+
+</a>
+
+
+
+
+<a href="/result/<%= student.usn %>" class="result-btn">
+
+Result
+
+</a>
+
+
+
+<a href="/student/<%= student.usn %>" class="view-btn">
+
+View
+
+</a>
+
+
+
+</div>
+
+
+</td>
+
+
+
+</tr>
+
+
+
+
+<% }) %>
+
+
+
+<% }else{ %>
+
+
+
+<tr>
+
+<td colspan="8" class="no-students">
+
+👨‍🎓 No students found
+
+</td>
+
+</tr>
+
+
+
+<% } %>
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+</main>
+
+
+
+
+
+<footer>
+
+<p>
+© 2026 Campus Placement Portal
+</p>
+
+
+</footer>
+
+
+
+</body>
+
+</html>

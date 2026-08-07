@@ -1,0 +1,379 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(
+        135deg,
+        #eaf3ff,
+        #f8fbff
+    );
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+h1 {
+    margin: 0;
+    padding: 22px 45px;
+    background: linear-gradient(
+        135deg,
+        #123c69,
+        #1e5b94
+    );
+    color: white;
+    font-size: 27px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(18, 60, 105, 0.2);
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+a[href="/logout"] {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+
+    padding: 10px 20px;
+
+    background: white;
+    color: #123c69;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    border-radius: 8px;
+
+    transition: 0.3s;
+}
+
+a[href="/logout"]:hover {
+    background: #eaf3ff;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+h2 {
+    width: 92%;
+    margin: 35px auto 20px;
+
+    text-align: center;
+
+    color: #123c69;
+
+    font-size: 25px;
+}
+
+
+/* =========================
+   TABLE CONTAINER
+========================= */
+
+table {
+    width: 92%;
+    margin: 20px auto 40px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px rgba(18, 60, 105, 0.12);
+}
+
+
+/* =========================
+   TABLE HEADER
+========================= */
+
+table tr:first-child {
+    background: linear-gradient(
+        135deg,
+        #123c69,
+        #1e5b94
+    );
+
+    color: white;
+}
+
+th {
+    padding: 17px 12px;
+
+    font-size: 14px;
+
+    text-align: center;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================
+   TABLE BODY
+========================= */
+
+td {
+    padding: 15px 12px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #e8eef5;
+
+    font-size: 14px;
+}
+
+tr:not(:first-child):hover {
+    background: #f6faff;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+td a {
+    display: inline-block;
+
+    padding: 8px 13px;
+
+    margin: 3px;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition: 0.25s;
+}
+
+
+/* Shortlist */
+
+td a[href*="/shortlist/"] {
+    background: #fff4d6;
+    color: #9a6700;
+}
+
+td a[href*="/shortlist/"]:hover {
+    background: #f5b700;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* Reject */
+
+td a[href*="/reject/"] {
+    background: #ffe5e8;
+    color: #c62828;
+}
+
+td a[href*="/reject/"]:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* Select */
+
+td a[href*="/select/"] {
+    background: #dff7e8;
+    color: #16803c;
+}
+
+td a[href*="/select/"]:hover {
+    background: #198754;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   ATS BUTTON
+========================= */
+
+td a[href*="/ats/scan/"] {
+    background: #123c69;
+    color: white;
+
+    padding: 9px 17px;
+
+    box-shadow: 0 3px 8px rgba(18, 60, 105, 0.2);
+}
+
+td a[href*="/ats/scan/"]:hover {
+    background: #0d3157;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   INTERVIEW SECTION
+========================= */
+
+td[colspan="7"] {
+    background: #f7faff;
+
+    padding: 20px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #e5edf6;
+}
+
+td[colspan="7"] strong {
+    color: #123c69;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   INTERVIEW FORM
+========================= */
+
+form {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-left: 15px;
+}
+
+input[type="date"],
+input[type="time"],
+select {
+    padding: 9px 12px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 7px;
+
+    background: white;
+
+    font-size: 13px;
+
+    color: #334155;
+
+    outline: none;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+    border-color: #123c69;
+
+    box-shadow:
+        0 0 0 3px rgba(18, 60, 105, 0.1);
+}
+
+
+/* =========================
+   SCHEDULE BUTTON
+========================= */
+
+button {
+    padding: 10px 17px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: linear-gradient(
+        135deg,
+        #123c69,
+        #1e5b94
+    );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(18, 60, 105, 0.25);
+}
+
+
+/* =========================
+   NO APPLICATIONS
+========================= */
+
+p {
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    h1 {
+        padding: 20px;
+        font-size: 22px;
+    }
+
+    a[href="/logout"] {
+        right: 20px;
+        top: 15px;
+
+        padding: 8px 14px;
+    }
+
+    table {
+        width: 96%;
+
+        display: block;
+
+        overflow-x: auto;
+    }
+
+    form {
+        flex-wrap: wrap;
+
+        margin: 15px 0 0;
+    }
+}

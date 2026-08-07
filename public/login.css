@@ -1,0 +1,866 @@
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #172033;
+
+    background: #f5f7fb;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.portal-header {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 10;
+
+    padding: 24px 7%;
+}
+
+
+.header-content {
+    max-width: 1250px;
+
+    margin: auto;
+}
+
+
+.logo-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    color: white;
+}
+
+
+.portal-logo {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.16);
+
+    border: 1px solid
+        rgba(255,255,255,0.35);
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    backdrop-filter: blur(10px);
+}
+
+
+.logo-area h1 {
+    font-size: 19px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+}
+
+
+.logo-area span {
+    display: block;
+
+    font-size: 12px;
+
+    color: rgba(255,255,255,0.75);
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero-section {
+
+    min-height: 720px;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(5, 22, 48, 0.92),
+            rgba(5, 22, 48, 0.72),
+            rgba(5, 22, 48, 0.48)
+        ),
+        url("/images/placement-bg.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    padding:
+        120px 7%
+        80px;
+}
+
+
+/* =========================================
+   HERO CONTENT
+========================================= */
+
+.hero-content {
+
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 420px;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+
+/* =========================================
+   HERO TEXT
+========================================= */
+
+.hero-text {
+
+    color: white;
+
+    max-width: 600px;
+}
+
+
+.welcome-label {
+
+    display: inline-block;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    color: #75bfff;
+
+    margin-bottom: 15px;
+}
+
+
+.hero-text h2 {
+
+    font-size: 52px;
+
+    line-height: 1.12;
+
+    font-weight: 700;
+
+    margin-bottom: 22px;
+}
+
+
+.hero-text p {
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    color:
+        rgba(255,255,255,0.78);
+
+    max-width: 530px;
+}
+
+
+/* =========================================
+   LOGIN CARD
+========================================= */
+
+.login-card {
+
+    background:
+        rgba(255,255,255,0.97);
+
+    border-radius: 20px;
+
+    padding: 38px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,0.35);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.5);
+}
+
+
+.login-card-header {
+
+    margin-bottom: 28px;
+}
+
+
+.login-card-header h2 {
+
+    font-size: 28px;
+
+    color: #102a43;
+
+    margin-bottom: 5px;
+}
+
+
+.login-card-header p {
+
+    font-size: 14px;
+
+    color: #7b8794;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #334e68;
+
+    margin-bottom: 7px;
+}
+
+
+.form-group input {
+
+    width: 100%;
+
+    height: 48px;
+
+    padding:
+        0 14px;
+
+    border:
+        1px solid #d9e2ec;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    color: #243b53;
+
+    background: #f8fafc;
+
+    outline: none;
+
+    transition: all 0.2s ease;
+}
+
+
+.form-group input:focus {
+
+    border-color: #1677c8;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22,119,200,0.1);
+}
+
+
+.form-group input::placeholder {
+
+    color: #9aa5b1;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.error-message {
+
+    padding: 10px 12px;
+
+    margin-bottom: 18px;
+
+    border-radius: 7px;
+
+    background: #fff1f0;
+
+    color: #c62828;
+
+    border:
+        1px solid #ffcdd2;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+.login-button {
+
+    width: 100%;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1677c8,
+            #07549a
+        );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+
+.login-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(22,119,200,0.3);
+}
+
+
+/* =========================================
+   REGISTER
+========================================= */
+
+.register-section {
+
+    text-align: center;
+
+    margin-top: 24px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #edf2f7;
+
+    font-size: 13px;
+
+    color: #7b8794;
+}
+
+
+.register-section a {
+
+    color: #1677c8;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin-left: 5px;
+}
+
+
+.register-section a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   COMPANIES SECTION
+========================================= */
+
+.companies-section {
+
+    padding:
+        85px 7%
+        100px;
+
+    background:
+        #f5f7fb;
+}
+
+
+.section-heading {
+
+    text-align: center;
+
+    max-width: 700px;
+
+    margin:
+        0 auto 50px;
+}
+
+
+.section-heading > span {
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2.5px;
+
+    color: #1677c8;
+}
+
+
+.section-heading h2 {
+
+    font-size: 36px;
+
+    color: #102a43;
+
+    margin:
+        8px 0 10px;
+}
+
+
+.section-heading p {
+
+    color: #7b8794;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   COMPANY GRID
+========================================= */
+
+.companies-grid {
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 24px;
+}
+
+
+/* =========================================
+   COMPANY CARD
+========================================= */
+
+.company-card {
+
+    background: white;
+
+    border:
+        1px solid #e6edf3;
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    min-height: 270px;
+
+    text-align: center;
+
+    box-shadow:
+        0 5px 20px
+        rgba(16,42,67,0.06);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.company-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1677c8,
+            #45a3e8
+        );
+}
+
+
+.company-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(16,42,67,0.12);
+}
+
+
+/* =========================================
+   COMPANY LOGO
+========================================= */
+
+.company-logo-wrapper {
+
+    width: 85px;
+
+    height: 85px;
+
+    margin:
+        0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #f8fafc;
+
+    border:
+        1px solid #e6edf3;
+}
+
+
+.company-logo {
+
+    width: 65px;
+
+    height: 65px;
+
+    object-fit: contain;
+}
+
+
+.default-logo {
+
+    font-size: 30px;
+}
+
+
+/* =========================================
+   COMPANY NAME
+========================================= */
+
+.company-card h3 {
+
+    font-size: 20px;
+
+    color: #102a43;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================
+   COMPANY DETAILS
+========================================= */
+
+.company-detail {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    padding:
+        9px 0;
+
+    border-top:
+        1px solid #edf2f7;
+
+    text-align: left;
+}
+
+
+.detail-label {
+
+    color: #829ab1;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+.detail-value {
+
+    color: #334e68;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-align: right;
+}
+
+
+.package-value {
+
+    color: #16803c;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   NO COMPANIES
+========================================= */
+
+.no-companies {
+
+    grid-column:
+        1 / -1;
+
+    background: white;
+
+    padding: 60px;
+
+    border-radius: 16px;
+
+    text-align: center;
+
+    border:
+        1px solid #e6edf3;
+}
+
+
+.no-company-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 15px;
+}
+
+
+.no-companies h3 {
+
+    color: #102a43;
+
+    margin-bottom: 8px;
+}
+
+
+.no-companies p {
+
+    color: #829ab1;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+
+    background: #071b33;
+
+    color:
+        rgba(255,255,255,0.65);
+
+    text-align: center;
+
+    padding: 25px;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 950px) {
+
+    .hero-content {
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+
+    .hero-text {
+
+        text-align: center;
+
+        margin: auto;
+    }
+
+
+    .hero-text p {
+
+        margin: auto;
+    }
+
+
+    .login-card {
+
+        width: 100%;
+
+        max-width: 450px;
+
+        margin: auto;
+    }
+
+
+    .companies-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .portal-header {
+
+        padding:
+            18px 20px;
+    }
+
+
+    .hero-section {
+
+        padding:
+            110px 20px
+            60px;
+    }
+
+
+    .hero-text h2 {
+
+        font-size: 36px;
+    }
+
+
+    .hero-text p {
+
+        font-size: 16px;
+    }
+
+
+    .login-card {
+
+        padding: 28px 22px;
+    }
+
+
+    .companies-section {
+
+        padding:
+            60px 20px
+            70px;
+    }
+
+
+    .section-heading h2 {
+
+        font-size: 29px;
+    }
+
+
+    .companies-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}

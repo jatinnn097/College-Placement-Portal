@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Campus Placement Portal</title>
+
+    <link rel="stylesheet" href="/login.css">
+
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- HEADER -->
+    <!-- ========================= -->
+
+    <header class="portal-header">
+
+        <div class="header-content">
+
+            <div class="logo-area">
+
+                <div class="portal-logo">
+                    CP
+                </div>
+
+                <div>
+                    <h1>Campus Placement</h1>
+                    <span>Career Portal</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ========================= -->
+    <!-- LOGIN SECTION -->
+    <!-- ========================= -->
+
+    <main>
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="hero-text">
+
+                    <span class="welcome-label">
+                        WELCOME TO
+                    </span>
+
+                    <h2>
+                        Campus Placement Portal
+                    </h2>
+
+                    <p>
+                        Connect with leading companies,
+                        explore career opportunities and
+                        build your professional future.
+                    </p>
+
+                </div>
+
+
+                <!-- LOGIN CARD -->
+
+                <div class="login-card">
+
+                    <div class="login-card-header">
+
+                        <h2>Sign In</h2>
+
+                        <p>
+                            Access your placement account
+                        </p>
+
+                    </div>
+
+
+                    <form action="/login"
+                          method="POST">
+
+                        <div class="form-group">
+
+                            <label>
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Password / USN
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Enter password or USN"
+                                required
+                            >
+
+                        </div>
+
+
+                        <% if (error) { %>
+
+                            <div class="error-message">
+
+                                <%= error %>
+
+                            </div>
+
+                        <% } %>
+
+
+                        <button
+                            type="submit"
+                            class="login-button">
+
+                            Sign In
+
+                        </button>
+
+                    </form>
+
+
+                    <div class="register-section">
+
+                        <span>
+                            New administrator?
+                        </span>
+
+                        <a href="/register">
+                            Register Admin
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- COMPANIES -->
+        <!-- ========================= -->
+
+        <section class="companies-section">
+
+            <div class="section-heading">
+
+                <span>
+                    CAREER OPPORTUNITIES
+                </span>
+
+                <h2>
+                    Our Placement Partners
+                </h2>
+
+                <p>
+                    Explore companies offering exciting
+                    career opportunities to our students.
+                </p>
+
+            </div>
+
+
+            <div class="companies-grid">
+
+                <% if (companiesList &&
+                       companiesList.length > 0) { %>
+
+
+                    <% companiesList.forEach(company => { %>
+
+                        <div class="company-card">
+
+
+                            <!-- LOGO -->
+
+                            <div class="company-logo-wrapper">
+
+                                <% if (company.logo) { %>
+
+                                    <img
+                                        src="/company/logo/<%= company._id %>"
+                                        alt="<%= company.company %>"
+                                        class="company-logo"
+                                    >
+
+                                <% } else { %>
+
+                                    <div class="default-logo">
+                                        <span>🏢</span>
+                                    </div>
+
+                                <% } %>
+
+                            </div>
+
+
+                            <!-- COMPANY NAME -->
+
+                            <h3>
+                                <%= company.company %>
+                            </h3>
+
+
+                            <!-- ROLE -->
+
+                            <div class="company-detail">
+
+                                <span class="detail-label">
+                                    Position
+                                </span>
+
+                                <span class="detail-value">
+                                    <%= company.role ||
+                                        "Not specified" %>
+                                </span>
+
+                            </div>
+
+
+                            <!-- PACKAGE -->
+
+                            <div class="company-detail">
+
+                                <span class="detail-label">
+                                    Package
+                                </span>
+
+                                <span class="package-value">
+                                    <%= company.package ||
+                                        "Not specified" %>
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    <% }) %>
+
+
+                <% } else { %>
+
+                    <div class="no-companies">
+
+                        <div class="no-company-icon">
+                            🏢
+                        </div>
+
+                        <h3>
+                            No Placement Companies
+                        </h3>
+
+                        <p>
+                            Placement opportunities will
+                            appear here once companies are added.
+                        </p>
+
+                    </div>
+
+                <% } %>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ========================= -->
+    <!-- FOOTER -->
+    <!-- ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Campus Placement Portal
+        </p>
+
+        <p>
+            Connecting Students with Opportunities
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

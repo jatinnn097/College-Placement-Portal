@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+
+<h1>Search Results</h1>
+
+<a href="/admin">Back To Dashboard</a>
+
+<hr>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>USN</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Branch</th>
+        <th>Semester</th>
+        <th>CGPA</th>
+    </tr>
+
+    <% data.forEach(student=>{ %>
+
+    <tr>
+        <td><%= student.usn %></td>
+        <td><%= student.fullname %></td>
+        <td><%= student.email %></td>
+        <td><%= student.branch %></td>
+        <td><%= student.sem %></td>
+        <td><%= student.cgpa %></td>
+    </tr>
+
+    <% }) %>
+
+</table>
+
+</body>
+</html>

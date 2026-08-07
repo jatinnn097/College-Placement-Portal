@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Applications</title>
+
+    <link rel="stylesheet" href="/edit.css">
+
+</head>
+
+
+<body>
+
+
+<h1>Applications</h1>
+
+
+<br>
+
+
+<a href="/admin"
+   style="
+   display:inline-block;
+   background:#12355b;
+   color:white;
+   padding:12px 25px;
+   border-radius:8px;
+   text-decoration:none;
+   font-weight:bold;
+   margin-bottom:20px;
+   ">
+   
+   Dashboard
+
+</a>
+
+
+<hr>
+
+
+<br>
+
+
+<table border="1" cellpadding="10">
+
+
+<tr>
+
+    <th>USN</th>
+
+    <th>Name</th>
+
+    <th>Email</th>
+
+    <th>Company</th>
+
+    <th>Role</th>
+
+    <th>Status</th>
+
+</tr>
+
+
+
+<% data.forEach(app=>{ %>
+
+
+<tr>
+
+
+<td>
+    <%= app.usn %>
+</td>
+
+
+<td>
+    <%= app.name %>
+</td>
+
+
+<td>
+    <%= app.email %>
+</td>
+
+
+<td>
+    <%= app.company %>
+</td>
+
+
+<td>
+    <%= app.role %>
+</td>
+
+
+<td>
+    <%= app.status %>
+</td>
+
+
+</tr>
+
+
+<% }) %>
+
+
+
+</table>
+
+
+
+</body>
+
+</html>

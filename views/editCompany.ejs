@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Company</title>
+    <link rel="stylesheet" href="/add.css">
+</head>
+<body>
+
+<h1>Edit Company</h1>
+
+<form action="/company/edit/<%= company._id %>" method="POST">
+
+    <input
+        type="text"
+        name="company"
+        value="<%= company.company %>"
+        required
+    >
+
+    <br><br>
+
+    <input
+        type="email"
+        name="email"
+        value="<%= company.email %>"
+        required
+    >
+
+    <br><br>
+
+    <input
+        type="text"
+        name="role"
+        value="<%= company.role %>"
+        required
+    >
+
+    <br><br>
+
+    <input
+        type="text"
+        name="package"
+        value="<%= company.package %>"
+        required
+    >
+
+    <br><br>
+
+    <input
+        type="number"
+        step="0.01"
+        name="mincgpa"
+        value="<%= company.mincgpa %>"
+        required
+    >
+
+    <br><br>
+
+    <input
+        type="date"
+        name="deadline"
+        value="<%= company.deadline %>"
+        required
+    >
+
+    <br><br>
+
+    <textarea
+        name="description"
+        rows="5"
+        cols="40"
+        required
+    ><%= company.description %></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Update Company
+    </button>
+
+</form>
+
+<br>
+
+<a href="/companies">
+    Back
+</a>
+
+</body>
+</html>

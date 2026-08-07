@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semester Result</title>
+</head>
+<body>
+
+<h1>Semester <%= sem %> Result</h1>
+
+<h3>Name : <%= student.fullname %></h3>
+<h3>USN : <%= student.usn %></h3>
+
+<hr>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>Subject</th>
+    <th>Marks</th>
+</tr>
+
+<% result.subjects.forEach(subject=>{ %>
+
+<tr>
+
+<td>
+<%= subject.subject %>
+</td>
+
+<td>
+<%= subject.marks %>
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+<br>
+
+<h3>
+Percentage :
+<%= result.percentage %> %
+</h3>
+
+<h3>
+CGPA :
+<%= result.cgpa %>
+</h3>
+
+<br>
+
+<a href="/student/dashboard">
+Back To Dashboard
+</a>
+
+</body>
+</html>

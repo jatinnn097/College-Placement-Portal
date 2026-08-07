@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>HR Dashboard</title>
+
+<link rel="stylesheet" href="/hrDashboard.css">
+</head>
+
+<body>
+
+<h1><%= company %> HR Dashboard</h1>
+
+<a href="/logout">Logout</a>
+
+<hr>
+
+<h2>Student Applications</h2>
+
+<% if (data && data.length > 0) { %>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+
+        <tr>
+            <th>USN</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+            <th>ATS</th>
+        </tr>
+
+        <% data.forEach(function(student) { %>
+
+            <tr>
+
+                <td>
+                    <%= student.usn %>
+                </td>
+
+                <td>
+                    <%= student.name %>
+                </td>
+
+                <td>
+                    <%= student.email %>
+                </td>
+
+                <td>
+                    <%= student.role %>
+                </td>
+
+                <td>
+                    <%= student.status %>
+                </td>
+
+                <td>
+
+                    <a href="/shortlist/<%= student._id %>">
+                        Shortlist
+                    </a>
+
+                    |
+
+                    <a href="/reject/<%= student._id %>">
+                        Reject
+                    </a>
+
+                    |
+
+                    <a href="/select/<%= student._id %>">
+                        Select
+                    </a>
+
+                </td>
+
+                <td>
+
+                    <a href="/ats/scan/<%= student.usn %>/<%= student.driveId %>">
+                        Scan Resume
+                    </a>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td colspan="7">
+
+                    <strong>Schedule Interview:</strong>
+
+                    <form
+                        action="/interview/<%= student._id %>"
+                        method="POST"
+                    >
+
+                        <input
+                            type="date"
+                            name="date"
+                            required
+                        >
+
+                        <input
+                            type="time"
+                            name="time"
+                            required
+                        >
+
+                        <select name="mode">
+
+                            <option value="Online">
+                                Online
+                            </option>
+
+                            <option value="Offline">
+                                Offline
+                            </option>
+
+                        </select>
+
+                        <button type="submit">
+                            Schedule Interview
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        <% }); %>
+
+    </table>
+
+<% } else { %>
+
+    <p>
+        No students have applied for your placement drives yet.
+    </p>
+
+<% } %>
+
+<hr>
+
+<h2>ATS Resume Scanner</h2>
+
+<p>
+    Click "Scan Resume" to check the student's resume
+    against the job requirements.
+</p>
+
+<hr>
+
+<a href="/drives">
+    View Placement Drives
+</a>
+
+<br><br>
+
+
+
+</body>
+
+</html>

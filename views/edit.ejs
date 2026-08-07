@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Student</title>
+
+    <link rel="stylesheet" href="/add.css">
+
+</head>
+
+
+<body>
+
+
+<div class="add-company-container">
+
+
+    <h1>
+        Edit Student
+    </h1>
+
+
+
+    <form 
+        action="/edit/<%= student.usn %>" 
+        method="POST" 
+        enctype="multipart/form-data"
+    >
+
+
+
+        <label>
+            USN
+        </label>
+
+        <input
+            type="text"
+            value="<%= student.usn %>"
+            disabled
+        >
+
+
+
+
+        <label>
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            name="fullname"
+            value="<%= student.fullname %>"
+            placeholder="Enter Full Name"
+            required
+        >
+
+
+
+
+        <label>
+            Email
+        </label>
+
+        <input
+            type="email"
+            name="email"
+            value="<%= student.email %>"
+            placeholder="Enter Email"
+            required
+        >
+
+
+
+
+        <label>
+            Branch
+        </label>
+
+        <input
+            type="text"
+            name="branch"
+            value="<%= student.branch %>"
+            placeholder="Enter Branch"
+            required
+        >
+
+
+
+
+        <label>
+            Semester
+        </label>
+
+        <input
+            type="number"
+            name="sem"
+            value="<%= student.sem %>"
+            min="1"
+            max="8"
+            required
+        >
+
+
+
+
+        <label>
+            CGPA
+        </label>
+
+        <input
+            type="number"
+            step="0.01"
+            name="cgpa"
+            value="<%= student.cgpa %>"
+            min="0"
+            max="10"
+            required
+        >
+
+
+
+
+        <label>
+    Current Photo
+</label>
+
+<input 
+    type="text"
+    value="<%= student.photo || 'No photo uploaded' %>"
+    readonly
+>
+
+
+
+
+        <label>
+            Upload New Photo
+        </label>
+
+
+        <input 
+            type="file"
+            name="photo"
+            accept="image/*"
+        >
+
+
+
+
+        <button type="submit">
+            Update Student
+        </button>
+
+
+
+    </form>
+
+
+
+    <div class="company-links">
+
+
+        <a href="/admin">
+            Back To Dashboard
+        </a>
+
+
+        <a href="/student/<%= student.usn %>">
+            View Profile
+        </a>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+</body>
+
+</html>

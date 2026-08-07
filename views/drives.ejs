@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Placement Drives</title>
+
+
+<style>
+
+
+*{
+
+    box-sizing:border-box;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+
+
+body{
+
+    margin:0;
+
+    min-height:100vh;
+
+    background:#f1f5f9;
+
+    padding:40px 20px;
+
+}
+
+
+
+
+
+.container{
+
+    width:95%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,0.15);
+
+}
+
+
+
+
+
+h1{
+
+    text-align:center;
+
+    color:#12355b;
+
+    font-size:34px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+
+
+.top-links{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+.top-links a{
+
+    text-decoration:none;
+
+    background:#12355b;
+
+    color:white;
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+}
+
+
+
+
+
+.top-links a:hover{
+
+    background:#2563eb;
+
+}
+
+
+
+
+
+.table-container{
+
+    overflow-x:auto;
+
+}
+
+
+
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+
+
+
+
+th{
+
+    background:#12355b;
+
+    color:white;
+
+    padding:15px;
+
+    text-align:center;
+
+    font-size:15px;
+
+}
+
+
+
+
+
+td{
+
+    padding:14px;
+
+    text-align:center;
+
+    color:#334155;
+
+    border-bottom:1px solid #e2e8f0;
+
+}
+
+
+
+
+
+tr:hover{
+
+    background:#f8fafc;
+
+}
+
+
+
+
+
+.no-data{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#64748b;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+    body{
+
+        padding:20px 10px;
+
+    }
+
+
+
+    .container{
+
+        padding:25px 15px;
+
+    }
+
+
+
+    h1{
+
+        font-size:26px;
+
+    }
+
+
+
+    .top-links{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+
+
+    .top-links a{
+
+        text-align:center;
+
+    }
+
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="container">
+
+
+
+<h1>
+
+💼 Placement Drives
+
+</h1>
+
+
+
+
+<div class="top-links">
+
+
+<a href="/drive/add">
+
+➕ Add Drive
+
+</a>
+
+
+
+<a href="/admin">
+
+← Dashboard
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="table-container">
+
+
+
+<table>
+
+
+
+<thead>
+
+
+<tr>
+
+<th>
+Company
+</th>
+
+
+<th>
+Role
+</th>
+
+
+<th>
+Package
+</th>
+
+
+<th>
+Minimum CGPA
+</th>
+
+
+<th>
+Interview Date
+</th>
+
+
+<th>
+Deadline
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+<% if(data && data.length > 0){ %>
+
+
+
+<% data.forEach(drive=>{ %>
+
+
+
+<tr>
+
+
+
+<td>
+<%= drive.company %>
+</td>
+
+
+
+
+<td>
+<%= drive.role %>
+</td>
+
+
+
+
+<td>
+<%= drive.package %>
+</td>
+
+
+
+
+<td>
+<%= drive.mincgpa %>
+</td>
+
+
+
+
+<td>
+<%= drive.interviewDate %>
+</td>
+
+
+
+
+<td>
+<%= drive.deadline %>
+</td>
+
+
+
+
+</tr>
+
+
+
+<% }) %>
+
+
+
+<% } else { %>
+
+
+
+<tr>
+
+
+<td colspan="6" class="no-data">
+
+No Placement Drives Available
+
+</td>
+
+
+</tr>
+
+
+
+<% } %>
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Announcement</title>
+
+
+    <style>
+
+
+    *{
+
+        margin:0;
+
+        padding:0;
+
+        box-sizing:border-box;
+
+        font-family:Arial, Helvetica, sans-serif;
+
+    }
+
+
+
+    body{
+
+        min-height:100vh;
+
+        background:
+
+        linear-gradient(
+            rgba(10,30,55,0.88),
+            rgba(10,30,55,0.88)
+        ),
+        url("https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1600&q=80");
+
+
+        background-size:cover;
+
+        background-position:center;
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+        padding:40px 20px;
+
+    }
+
+
+
+
+    .announcement-container{
+
+
+        width:100%;
+
+        max-width:650px;
+
+        background:white;
+
+        padding:40px;
+
+        border-radius:18px;
+
+        box-shadow:
+
+        0 20px 50px rgba(0,0,0,0.35);
+
+
+    }
+
+
+
+
+
+    h1{
+
+
+        text-align:center;
+
+        color:#12355b;
+
+        margin-bottom:30px;
+
+        font-size:32px;
+
+
+    }
+
+
+
+
+    label{
+
+
+        display:block;
+
+        font-weight:bold;
+
+        color:#333;
+
+        margin-bottom:8px;
+
+
+    }
+
+
+
+
+
+    input,
+    textarea{
+
+
+        width:100%;
+
+        padding:14px 15px;
+
+        border-radius:8px;
+
+        border:1px solid #ccd3dc;
+
+        background:#f8fafc;
+
+        font-size:15px;
+
+        outline:none;
+
+        transition:0.3s;
+
+
+    }
+
+
+
+
+
+    input:focus,
+    textarea:focus{
+
+
+        border-color:#2563eb;
+
+        background:white;
+
+        box-shadow:
+
+        0 0 0 3px rgba(37,99,235,0.12);
+
+
+    }
+
+
+
+
+
+    textarea{
+
+
+        resize:vertical;
+
+        min-height:150px;
+
+
+    }
+
+
+
+
+    button{
+
+
+        width:100%;
+
+        padding:14px;
+
+        margin-top:15px;
+
+        border:none;
+
+        border-radius:8px;
+
+        background:#12355b;
+
+        color:white;
+
+        font-size:16px;
+
+        font-weight:bold;
+
+        cursor:pointer;
+
+        transition:0.3s;
+
+
+    }
+
+
+
+
+
+    button:hover{
+
+
+        background:#2563eb;
+
+        transform:translateY(-2px);
+
+
+    }
+
+
+
+
+
+    .back-link{
+
+
+        display:block;
+
+        text-align:center;
+
+        margin-top:25px;
+
+
+    }
+
+
+
+
+    .back-link a{
+
+
+        text-decoration:none;
+
+        color:#2563eb;
+
+        font-weight:bold;
+
+
+    }
+
+
+
+
+
+    .back-link a:hover{
+
+
+        text-decoration:underline;
+
+
+    }
+
+
+
+
+
+    @media(max-width:600px){
+
+
+        .announcement-container{
+
+            padding:25px 20px;
+
+        }
+
+
+
+        h1{
+
+            font-size:26px;
+
+        }
+
+
+    }
+
+
+
+    </style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="announcement-container">
+
+
+
+<h1>
+    📢 Create Announcement
+</h1>
+
+
+
+
+<form action="/announcement/add"
+      method="POST">
+
+
+
+<label>
+    Announcement Title
+</label>
+
+
+<input 
+    type="text"
+    name="title"
+    placeholder="Enter announcement title"
+    required
+>
+
+
+
+
+<br><br>
+
+
+
+
+<label>
+    Message
+</label>
+
+
+
+<textarea
+
+name="message"
+
+placeholder="Write announcement message..."
+
+required></textarea>
+
+
+
+
+<button type="submit">
+
+    Publish Announcement
+
+</button>
+
+
+
+</form>
+
+
+
+
+
+<div class="back-link">
+
+
+<a href="/admin">
+
+    ← Back To Dashboard
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</body>
+
+</html>

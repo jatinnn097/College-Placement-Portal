@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Result</title>
+
+
+<style>
+
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+
+
+body{
+
+    min-height:100vh;
+
+    background:
+
+    linear-gradient(
+        rgba(10,30,55,0.88),
+        rgba(10,30,55,0.88)
+    ),
+    url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80");
+
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+}
+
+
+
+
+.result-container{
+
+
+    width:100%;
+
+    max-width:750px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:18px;
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,0.35);
+
+
+}
+
+
+
+
+
+h1{
+
+
+    text-align:center;
+
+    color:#12355b;
+
+    font-size:30px;
+
+    margin-bottom:30px;
+
+
+}
+
+
+
+
+
+form{
+
+    width:100%;
+
+}
+
+
+
+
+input{
+
+
+    padding:13px 15px;
+
+    border:1px solid #ccd3dc;
+
+    border-radius:8px;
+
+    outline:none;
+
+    font-size:15px;
+
+    background:#f8fafc;
+
+    transition:0.3s;
+
+
+}
+
+
+
+input:focus{
+
+
+    border-color:#2563eb;
+
+    background:white;
+
+    box-shadow:
+
+    0 0 0 3px rgba(37,99,235,0.12);
+
+
+}
+
+
+
+
+
+/* Semester, percentage, cgpa */
+
+
+input[name="semester"],
+input[name="percentage"],
+input[name="cgpa"]{
+
+
+    width:100%;
+
+    margin-bottom:15px;
+
+
+}
+
+
+
+
+
+/* Subject and Marks row */
+
+
+.subject-row{
+
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:15px;
+
+
+}
+
+
+
+.subject-row input:first-child{
+
+
+    width:70%;
+
+
+}
+
+
+
+.subject-row input:last-child{
+
+
+    width:30%;
+
+
+}
+
+
+
+
+
+
+button{
+
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#12355b;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+
+}
+
+
+
+
+
+button:hover{
+
+
+    background:#2563eb;
+
+    transform:translateY(-2px);
+
+
+}
+
+
+
+
+.back-link{
+
+
+    text-align:center;
+
+    margin-top:25px;
+
+
+}
+
+
+
+.back-link a{
+
+
+    text-decoration:none;
+
+    color:#2563eb;
+
+    font-weight:bold;
+
+
+}
+
+
+
+.back-link a:hover{
+
+    text-decoration:underline;
+
+}
+
+
+
+
+@media(max-width:600px){
+
+
+    .result-container{
+
+        padding:25px 20px;
+
+    }
+
+
+
+    .subject-row{
+
+        flex-direction:column;
+
+    }
+
+
+
+    .subject-row input:first-child,
+    .subject-row input:last-child{
+
+        width:100%;
+
+    }
+
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="result-container">
+
+
+
+<h1>
+    📚 Add Result - <%= student.usn %>
+</h1>
+
+
+
+
+<form action="/result/<%= student.usn %>" method="POST">
+
+
+
+<input
+type="number"
+name="semester"
+placeholder="Semester"
+required
+>
+
+
+
+
+<div class="subject-row">
+
+<input 
+type="text"
+name="sub1"
+placeholder="Subject 1"
+required
+>
+
+<input
+type="number"
+name="mark1"
+placeholder="Marks"
+required
+>
+
+</div>
+
+
+
+<div class="subject-row">
+
+<input 
+type="text"
+name="sub2"
+placeholder="Subject 2"
+required
+>
+
+<input
+type="number"
+name="mark2"
+placeholder="Marks"
+required
+>
+
+</div>
+
+
+
+
+<div class="subject-row">
+
+<input 
+type="text"
+name="sub3"
+placeholder="Subject 3"
+required
+>
+
+<input
+type="number"
+name="mark3"
+placeholder="Marks"
+required
+>
+
+</div>
+
+
+
+
+<div class="subject-row">
+
+<input 
+type="text"
+name="sub4"
+placeholder="Subject 4"
+required
+>
+
+<input
+type="number"
+name="mark4"
+placeholder="Marks"
+required
+>
+
+</div>
+
+
+
+
+<div class="subject-row">
+
+<input 
+type="text"
+name="sub5"
+placeholder="Subject 5"
+required
+>
+
+<input
+type="number"
+name="mark5"
+placeholder="Marks"
+required
+>
+
+</div>
+
+
+
+
+<div class="subject-row">
+
+<input 
+type="text"
+name="sub6"
+placeholder="Subject 6"
+required
+>
+
+<input
+type="number"
+name="mark6"
+placeholder="Marks"
+required
+>
+
+</div>
+
+
+
+
+
+<input
+type="number"
+step="0.01"
+name="percentage"
+placeholder="Percentage"
+required
+>
+
+
+
+
+<input
+type="number"
+step="0.01"
+name="cgpa"
+placeholder="CGPA"
+required
+>
+
+
+
+
+<button type="submit">
+
+Save Result
+
+</button>
+
+
+
+
+</form>
+
+
+
+
+<div class="back-link">
+
+<a href="/admin">
+
+← Back To Dashboard
+
+</a>
+
+</div>
+
+
+
+
+</div>
+
+
+
+</body>
+
+</html>

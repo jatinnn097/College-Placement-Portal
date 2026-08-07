@@ -1,0 +1,203 @@
+/* ================================
+   ADD COMPANY PAGE
+================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        linear-gradient(
+            rgba(10, 30, 55, 0.88),
+            rgba(10, 30, 55, 0.88)
+        ),
+        url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+/* Main Card */
+
+.add-company-container {
+    width: 100%;
+    max-width: 650px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    padding: 40px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+/* Heading */
+
+.add-company-container h1 {
+    text-align: center;
+
+    color: #12355b;
+
+    font-size: 32px;
+
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+/* Form */
+
+.add-company-container form {
+    width: 100%;
+}
+
+/* Labels */
+
+.add-company-container label {
+    display: block;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    color: #333;
+
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+
+.add-company-container input,
+.add-company-container textarea {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #ccd3dc;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    background: #f8fafc;
+
+    transition: 0.2s;
+}
+
+/* Focus */
+
+.add-company-container input:focus,
+.add-company-container textarea:focus {
+    border-color: #2563eb;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Textarea */
+
+.add-company-container textarea {
+    min-height: 150px;
+
+    resize: vertical;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Button */
+
+.add-company-container button {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #12355b;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.add-company-container button:hover {
+    background: #2563eb;
+
+    transform: translateY(-1px);
+}
+
+/* Links */
+
+.company-links {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 25px;
+}
+
+.company-links a {
+    text-decoration: none;
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+.company-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
+    .add-company-container {
+        padding: 25px 20px;
+    }
+
+    .add-company-container h1 {
+        font-size: 27px;
+    }
+
+    .company-links {
+        flex-direction: column;
+
+        gap: 15px;
+
+        text-align: center;
+    }
+}

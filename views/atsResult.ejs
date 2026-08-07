@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ATS Resume Scanner</title>
+
+
+<style>
+
+
+*{
+
+    box-sizing:border-box;
+
+    font-family:"Segoe UI", Arial, sans-serif;
+
+}
+
+
+
+body{
+
+    margin:0;
+
+    min-height:100vh;
+
+    background:
+
+    linear-gradient(
+        rgba(10,30,55,0.9),
+        rgba(10,30,55,0.9)
+    ),
+    url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80");
+
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-attachment:fixed;
+
+    padding:40px 20px;
+
+}
+
+
+
+
+.container{
+
+
+    max-width:1000px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,0.35);
+
+
+}
+
+
+
+
+
+h1{
+
+    text-align:center;
+
+    color:#12355b;
+
+    font-size:36px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+h2{
+
+    color:#12355b;
+
+    font-size:22px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+hr{
+
+    border:none;
+
+    height:1px;
+
+    background:#e2e8f0;
+
+    margin:30px 0;
+
+}
+
+
+
+
+/* Student Information */
+
+
+.student-info{
+
+
+    background:#f8fafc;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    border-left:6px solid #2563eb;
+
+
+}
+
+
+
+.student-info h2{
+
+    margin-top:0;
+
+}
+
+
+
+.student-info p{
+
+    font-size:16px;
+
+    color:#475569;
+
+    margin:10px 0;
+
+}
+
+
+
+
+
+/* ATS Score */
+
+
+.score-box{
+
+
+    text-align:center;
+
+    margin:35px 0;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #eff6ff,
+        #ffffff
+    );
+
+
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,0.08);
+
+
+}
+
+
+
+.score{
+
+
+    font-size:55px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+
+}
+
+
+
+
+.result{
+
+
+    margin-top:15px;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:#16a34a;
+
+
+}
+
+
+
+
+
+
+/* Sections */
+
+
+.section{
+
+
+    margin-top:30px;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    border:1px solid #e2e8f0;
+
+    box-shadow:
+
+    0 5px 20px rgba(0,0,0,0.08);
+
+
+}
+
+
+
+
+
+
+
+/* Skills */
+
+
+.skills{
+
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:20px;
+
+
+}
+
+
+
+.skill{
+
+
+    padding:10px 18px;
+
+    border-radius:25px;
+
+    font-weight:bold;
+
+    font-size:14px;
+
+
+}
+
+
+
+
+
+.resume-skill{
+
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+
+}
+
+
+
+
+
+.matched{
+
+
+    background:#dcfce7;
+
+    color:#166534;
+
+
+}
+
+
+
+
+
+.missing{
+
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+
+}
+
+
+
+
+
+/* Required Skills */
+
+
+.required-skill{
+
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+
+}
+
+
+
+
+
+.section p{
+
+
+    color:#64748b;
+
+    font-size:16px;
+
+
+}
+
+
+
+
+
+/* Button */
+
+
+.back{
+
+
+    display:inline-block;
+
+    margin-top:30px;
+
+    padding:14px 28px;
+
+    background:#12355b;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+
+}
+
+
+
+.back:hover{
+
+
+    background:#2563eb;
+
+    transform:translateY(-2px);
+
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+body{
+
+    padding:20px 10px;
+
+}
+
+
+.container{
+
+    padding:25px 20px;
+
+}
+
+
+
+h1{
+
+    font-size:28px;
+
+}
+
+
+
+.score{
+
+    font-size:40px;
+
+}
+
+
+
+.result{
+
+    font-size:22px;
+
+}
+
+
+
+.skills{
+
+    gap:8px;
+
+}
+
+
+}
+
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="container">
+
+
+
+<h1>
+    📄 ATS Resume Scanner
+</h1>
+
+
+
+<hr>
+
+
+
+
+<!-- STUDENT INFORMATION -->
+
+
+<div class="student-info">
+
+
+<h2>
+
+Student:
+<%= student.fullname %>
+
+</h2>
+
+
+
+<p>
+
+<strong>
+USN:
+</strong>
+
+<%= student.usn %>
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Company:
+</strong>
+
+<%= drive.company %>
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Role:
+</strong>
+
+<%= drive.role %>
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- SCORE -->
+
+
+<div class="score-box">
+
+
+<div class="score">
+
+ATS Score:
+<%= ats.score %>%
+
+</div>
+
+
+
+<div class="result">
+
+<%= ats.result %>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- RESUME SKILLS -->
+
+
+<div class="section">
+
+
+<h2>
+Skills Found in Resume
+</h2>
+
+
+
+<% if(ats.resumeSkills && ats.resumeSkills.length > 0){ %>
+
+
+<div class="skills">
+
+
+<% ats.resumeSkills.forEach(function(skill){ %>
+
+
+<span class="skill resume-skill">
+
+✓ <%= skill %>
+
+</span>
+
+
+
+<% }); %>
+
+
+</div>
+
+
+
+<% }else{ %>
+
+
+<p>
+No technical skills detected in resume.
+</p>
+
+
+
+<% } %>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- REQUIRED SKILLS -->
+
+
+<div class="section">
+
+
+<h2>
+Skills Required by Company
+</h2>
+
+
+
+<% if(ats.requiredSkills && ats.requiredSkills.length > 0){ %>
+
+
+
+<div class="skills">
+
+
+
+<% ats.requiredSkills.forEach(function(skill){ %>
+
+
+<span class="skill required-skill">
+
+<%= skill %>
+
+</span>
+
+
+
+<% }); %>
+
+
+
+</div>
+
+
+
+
+<% }else{ %>
+
+
+<p>
+No skills found in job description.
+</p>
+
+
+
+<% } %>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- MATCHED SKILLS -->
+
+
+<div class="section">
+
+
+<h2>
+Matched Skills
+</h2>
+
+
+
+<% if(ats.matchedSkills && ats.matchedSkills.length > 0){ %>
+
+
+
+<div class="skills">
+
+
+
+<% ats.matchedSkills.forEach(function(skill){ %>
+
+
+<span class="skill matched">
+
+✓ <%= skill %>
+
+</span>
+
+
+
+<% }); %>
+
+
+
+</div>
+
+
+
+<% }else{ %>
+
+
+<p>
+No matching skills found.
+</p>
+
+
+
+<% } %>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- MISSING SKILLS -->
+
+
+<div class="section">
+
+
+<h2>
+Unmatched / Missing Skills
+</h2>
+
+
+
+<% if(ats.missingSkills && ats.missingSkills.length > 0){ %>
+
+
+
+<div class="skills">
+
+
+
+<% ats.missingSkills.forEach(function(skill){ %>
+
+
+<span class="skill missing">
+
+✗ <%= skill %>
+
+</span>
+
+
+
+<% }); %>
+
+
+
+</div>
+
+
+
+<% }else{ %>
+
+
+<p>
+No missing skills.
+</p>
+
+
+
+<% } %>
+
+
+
+</div>
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+<a href="/hr/dashboard" class="back">
+
+← Back to HR Dashboard
+
+</a>
+
+
+
+</div>
+
+
+
+</body>
+
+
+</html>
