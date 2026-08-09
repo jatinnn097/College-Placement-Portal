@@ -615,26 +615,121 @@ app.post(
 // VIEW STUDENT RESUME
 // =========================
 
+// =========================
+// VIEW STUDENT RESUME
+// =========================
+
 app.get("/student/resume", async (req, res) => {
 
     if (!req.session.student) {
         return res.redirect("/");
     }
 
-    const student = await students.findOne({
-        usn: req.session.student
-    });
+    try {
 
-    if (!student || !student.resume) {
-        return res.send("Resume not found");
+        const student = await students.findOne({
+            usn: req.session.student
+        });
+
+        if (!student || !student.resume) {
+            return res.status(404).send("Resume not found");
+        }
+
+        let resumeBuffer;
+
+        // Normal Node.js Buffer
+        if (Buffer.isBuffer(student.resume)) {
+
+            resumeBuffer = student.resume;
+
+        }
+
+        // MongoDB Binary
+        else if (student.resume.buffer) {
+
+            resumeBuffer = Buffer.from(
+                student.resume.buffer
+            );
+
+        }
+
+        // MongoDB $binary format
+        else if (
+            student.resume.$binary &&
+            student.resume.$binary.base64
+        ) {
+
+            resumeBuffer = Buffer.from(
+                student.resume.$binary.base64,
+                "base64"
+            );
+
+        }
+
+        else {
+
+            console.log(
+                "Unknown resume type:",
+                student.resume
+            );
+
+            return res.status(500).send(
+                "Invalid resume data"
+            );
+
+        }
+
+        if (!resumeBuffer || resumeBuffer.length === 0) {
+
+            return res.status(404).send(
+                "Resume file is empty"
+            );
+
+        }
+
+        console.log(
+            "Sending resume:",
+            student.resumeName
+        );
+
+        console.log(
+            "Resume size:",
+            resumeBuffer.length
+        );
+
+        // Tell browser this is a PDF
+        res.setHeader(
+            "Content-Type",
+            "application/pdf"
+        );
+
+        // Open PDF in browser
+        res.setHeader(
+            "Content-Disposition",
+            "inline; filename=\"" +
+            (student.resumeName || "resume.pdf") +
+            "\""
+        );
+
+        res.setHeader(
+            "Content-Length",
+            resumeBuffer.length
+        );
+
+        res.send(resumeBuffer);
+
+    } catch (error) {
+
+        console.error(
+            "RESUME ERROR:",
+            error
+        );
+
+        res.status(500).send(
+            "Error loading resume"
+        );
+
     }
-
-    res.set(
-        "Content-Type",
-        student.resumeContentType || "application/pdf"
-    );
-
-    res.send(student.resume);
 
 });
 
