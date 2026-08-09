@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Add Interview Slot</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+
+        background: linear-gradient(
+            135deg,
+            #eaf3ff,
+            #f8fbff
+        );
+
+        color: #1e293b;
+        min-height: 100vh;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+        background: linear-gradient(
+            135deg,
+            #123c69,
+            #1e5b94
+        );
+
+        color: white;
+
+        padding: 22px 45px;
+
+        box-shadow:
+            0 4px 15px rgba(18, 60, 105, 0.2);
+    }
+
+    .header h1 {
+        margin: 0;
+        padding: 0;
+
+        background: none;
+
+        color: white;
+
+        font-size: 27px;
+    }
+
+    /* =========================
+       BACK BUTTON
+    ========================= */
+
+    .back-btn {
+        position: absolute;
+
+        top: 20px;
+        right: 40px;
+
+        padding: 10px 20px;
+
+        background: white;
+        color: #123c69;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        border-radius: 8px;
+
+        transition: 0.3s;
+    }
+
+    .back-btn:hover {
+        background: #eaf3ff;
+
+        transform: translateY(-2px);
+    }
+
+    /* =========================
+       FORM CONTAINER
+    ========================= */
+
+    .container {
+        width: 90%;
+        max-width: 650px;
+
+        margin: 45px auto;
+
+        background: white;
+
+        padding: 35px;
+
+        border-radius: 15px;
+
+        box-shadow:
+            0 10px 30px rgba(18, 60, 105, 0.12);
+    }
+
+    .container h2 {
+        margin-top: 0;
+
+        margin-bottom: 30px;
+
+        text-align: center;
+
+        color: #123c69;
+
+        font-size: 25px;
+    }
+
+    /* =========================
+       FORM
+    ========================= */
+
+    form {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    label {
+        margin-top: 10px;
+
+        color: #123c69;
+
+        font-weight: bold;
+
+        font-size: 14px;
+    }
+
+    select,
+    input[type="date"],
+    input[type="time"] {
+
+        width: 100%;
+
+        padding: 12px 14px;
+
+        border: 1px solid #cbd5e1;
+
+        border-radius: 8px;
+
+        background: white;
+
+        color: #334155;
+
+        font-size: 14px;
+
+        outline: none;
+
+        transition: 0.25s;
+    }
+
+    select:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus {
+
+        border-color: #123c69;
+
+        box-shadow:
+            0 0 0 3px rgba(
+                18,
+                60,
+                105,
+                0.1
+            );
+    }
+
+    /* =========================
+       SUBMIT BUTTON
+    ========================= */
+
+    button {
+
+        margin-top: 25px;
+
+        padding: 13px 20px;
+
+        border: none;
+
+        border-radius: 8px;
+
+        background: linear-gradient(
+            135deg,
+            #123c69,
+            #1e5b94
+        );
+
+        color: white;
+
+        font-size: 15px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    button:hover {
+
+        background: #0d3157;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 6px 15px
+            rgba(18, 60, 105, 0.25);
+    }
+
+    /* =========================
+       INFO
+    ========================= */
+
+    .info {
+
+        margin-top: 25px;
+
+        padding: 15px;
+
+        background: #f7faff;
+
+        border-left: 4px solid #123c69;
+
+        border-radius: 7px;
+
+        color: #64748b;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+        .header {
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 21px;
+        }
+
+        .back-btn {
+            right: 20px;
+            top: 15px;
+
+            padding: 8px 13px;
+
+            font-size: 13px;
+        }
+
+        .container {
+
+            width: 94%;
+
+            margin: 30px auto;
+
+            padding: 25px 20px;
+        }
+
+        .container h2 {
+            font-size: 21px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="header">
+
+```
+<h1>
+    🏢 HR Dashboard
+</h1>
+
+<a
+    href="/hr/dashboard"
+    class="back-btn"
+>
+    ← Back
+</a>
+```
+
+</div>
+
+<!-- =========================
+     FORM
+========================= -->
+
+<div class="container">
+
+```
+<h2>
+    Add Interview Slot
+</h2>
+
+
+<form
+    action="/interview-slots/add"
+    method="POST"
+>
+
+
+    <!-- PLACEMENT DRIVE -->
+
+    <label>
+        Placement Drive
+    </label>
+
+    <select
+        name="driveId"
+        required
+    >
+
+        <option value="">
+            Select Drive
+        </option>
+
+        <% if (drives && drives.length > 0) { %>
+
+            <% drives.forEach(drive => { %>
+
+                <option
+                    value="<%= drive._id %>"
+                >
+                    <%= drive.company %> -
+                    <%= drive.role %>
+                </option>
+
+            <% }) %>
+
+        <% } else { %>
+
+            <option value="">
+                No placement drives available
+            </option>
+
+        <% } %>
+
+    </select>
+
+
+    <!-- DATE -->
+
+    <label>
+        Interview Date
+    </label>
+
+    <input
+        type="date"
+        name="date"
+        required
+    >
+
+
+    <!-- TIME -->
+
+    <label>
+        Interview Time
+    </label>
+
+    <input
+        type="time"
+        name="time"
+        required
+    >
+
+
+    <!-- MODE -->
+
+    <label>
+        Interview Mode
+    </label>
+
+    <select
+        name="mode"
+        required
+    >
+
+        <option value="">
+            Select Mode
+        </option>
+
+        <option value="Online">
+            Online
+        </option>
+
+        <option value="Offline">
+            Offline
+        </option>
+
+    </select>
+
+
+    <!-- SUBMIT -->
+
+    <button type="submit">
+        ➕ Add Interview Slot
+    </button>
+
+</form>
+
+
+<div class="info">
+
+    <strong>How it works:</strong>
+
+    <br>
+
+    Add multiple slots for the same placement drive.
+    Shortlisted students will see these available
+    slots and can select one for their interview.
+
+</div>
+```
+
+</div>
+
+</body>
+</html>

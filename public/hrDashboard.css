@@ -258,78 +258,6 @@ td[colspan="7"] strong {
    INTERVIEW FORM
 ========================= */
 
-form {
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-left: 15px;
-}
-
-input[type="date"],
-input[type="time"],
-select {
-    padding: 9px 12px;
-
-    border: 1px solid #cbd5e1;
-
-    border-radius: 7px;
-
-    background: white;
-
-    font-size: 13px;
-
-    color: #334155;
-
-    outline: none;
-}
-
-input[type="date"]:focus,
-input[type="time"]:focus,
-select:focus {
-    border-color: #123c69;
-
-    box-shadow:
-        0 0 0 3px rgba(18, 60, 105, 0.1);
-}
-
-
-/* =========================
-   SCHEDULE BUTTON
-========================= */
-
-button {
-    padding: 10px 17px;
-
-    border: none;
-
-    border-radius: 7px;
-
-    background: linear-gradient(
-        135deg,
-        #123c69,
-        #1e5b94
-    );
-
-    color: white;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 5px 12px rgba(18, 60, 105, 0.25);
-}
 
 
 /* =========================
@@ -376,4 +304,123 @@ p {
 
         margin: 15px 0 0;
     }
+}
+/* =========================
+   ADD INTERVIEW SLOT
+========================= */
+
+a[href="/interview-slots/add"] {
+    display: block;
+
+    width: 92%;
+    margin: 25px auto;
+
+    padding: 14px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #123c69,
+        #1e5b94
+    );
+
+    color: white;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border-radius: 9px;
+
+    box-shadow:
+        0 5px 15px rgba(18, 60, 105, 0.18);
+
+    transition: 0.3s;
+}
+
+a[href="/interview-slots/add"]:hover {
+    background: #0d3157;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(18, 60, 105, 0.25);
+}
+
+
+/* =========================
+   ATS DETAILS
+========================= */
+
+td[colspan="7"] {
+    background: #f7faff;
+
+    padding: 20px;
+
+    text-align: center;
+
+    line-height: 1.7;
+
+    color: #475569;
+}
+
+td[colspan="7"] strong {
+    color: #123c69;
+}
+
+
+/* =========================
+   ATS SCORE
+========================= */
+
+td:nth-child(6) {
+    font-weight: bold;
+
+    color: #123c69;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   INTERVIEW SCHEDULED
+========================= */
+
+td[colspan="7"] strong:first-child {
+    font-size: 16px;
+
+    color: #123c69;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+td:nth-child(5) {
+    font-weight: bold;
+}
+
+
+/* =========================
+   EXTRA MOBILE FIX
+========================= */
+
+@media (max-width: 600px) {
+
+    a[href="/interview-slots/add"] {
+        width: 94%;
+
+        margin: 20px auto;
+
+        font-size: 14px;
+    }
+
+    td[colspan="7"] {
+        padding: 15px;
+
+        font-size: 13px;
+    }
+
 }

@@ -1,171 +1,212 @@
 <!DOCTYPE html>
 
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard</title>
+        <link rel="stylesheet" href="/hrDashboard.css">
 
-
-<title>HR Dashboard</title>
-
-<link rel="stylesheet" href="/hrDashboard.css">
 </head>
 
 <body>
 
-<h1><%= company %> HR Dashboard</h1>
+<h1>HR Dashboard</h1>
 
 <a href="/logout">Logout</a>
 
 <hr>
 
-<h2>Student Applications</h2>
+<h2>Interview Slots</h2>
+
+<a href="/interview-slots/add">
+    Add Interview Slot
+</a>
+
+<hr>
+
+<h2>Applications</h2>
 
 <% if (data && data.length > 0) { %>
 
-    <table border="1" cellpadding="10" cellspacing="0">
+<table border="1" cellpadding="10" cellspacing="0">
 
-        <tr>
-            <th>USN</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Actions</th>
-            <th>ATS</th>
-        </tr>
+```
+<tr>
+    <th>USN</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Status</th>
+    <th>ATS Score</th>
+    <th>Actions</th>
+</tr>
 
-        <% data.forEach(function(student) { %>
+<% data.forEach(function(student) { %>
 
-            <tr>
+<tr>
 
-                <td>
-                    <%= student.usn %>
-                </td>
+    <td>
+        <%= student.usn %>
+    </td>
 
-                <td>
-                    <%= student.name %>
-                </td>
+    <td>
+        <%= student.name %>
+    </td>
 
-                <td>
-                    <%= student.email %>
-                </td>
+    <td>
+        <%= student.email %>
+    </td>
 
-                <td>
-                    <%= student.role %>
-                </td>
+    <td>
+        <%= student.role %>
+    </td>
 
-                <td>
-                    <%= student.status %>
-                </td>
+    <td>
+        <%= student.status %>
+    </td>
 
-                <td>
+    <td>
 
-                    <a href="/shortlist/<%= student._id %>">
-                        Shortlist
-                    </a>
+        <% if (student.atsScore !== undefined) { %>
 
-                    |
+            <%= student.atsScore %>%
 
-                    <a href="/reject/<%= student._id %>">
-                        Reject
-                    </a>
+        <% } else { %>
 
-                    |
+            Not Scanned
 
-                    <a href="/select/<%= student._id %>">
-                        Select
-                    </a>
+        <% } %>
 
-                </td>
+    </td>
 
-                <td>
+    <td>
 
-                    <a href="/ats/scan/<%= student.usn %>/<%= student.driveId %>">
-                        Scan Resume
-                    </a>
+        <a href="/shortlist/<%= student._id %>">
+            Shortlist
+        </a>
 
-                </td>
+        |
 
-            </tr>
+        <a href="/reject/<%= student._id %>">
+            Reject
+        </a>
 
-            <tr>
+        |
 
-                <td colspan="7">
+        <a href="/select/<%= student._id %>">
+            Select
+        </a>
 
-                    <strong>Schedule Interview:</strong>
+        <br><br>
 
-                    <form
-                        action="/interview/<%= student._id %>"
-                        method="POST"
-                    >
+        <a href="/ats/scan/<%= student.usn %>/<%= student.driveId %>">
+            Scan Resume
+        </a>
 
-                        <input
-                            type="date"
-                            name="date"
-                            required
-                        >
+    </td>
 
-                        <input
-                            type="time"
-                            name="time"
-                            required
-                        >
+</tr>
 
-                        <select name="mode">
 
-                            <option value="Online">
-                                Online
-                            </option>
+<!-- ATS DETAILS -->
 
-                            <option value="Offline">
-                                Offline
-                            </option>
+<tr>
 
-                        </select>
+    <td colspan="7">
 
-                        <button type="submit">
-                            Schedule Interview
-                        </button>
+        <% if (student.atsScore !== undefined) { %>
 
-                    </form>
+            <strong>ATS Result:</strong>
+            <%= student.atsResult %>
 
-                </td>
+            <br><br>
 
-            </tr>
+            <strong>Matched Skills:</strong>
 
-        <% }); %>
+            <% if (
+                student.matchedSkills &&
+                student.matchedSkills.length > 0
+            ) { %>
 
-    </table>
+                <%= student.matchedSkills.join(", ") %>
 
-<% } else { %>
+            <% } else { %>
 
-    <p>
-        No students have applied for your placement drives yet.
-    </p>
+                None
+
+            <% } %>
+
+            <br><br>
+
+            <strong>Missing Skills:</strong>
+
+            <% if (
+                student.missingSkills &&
+                student.missingSkills.length > 0
+            ) { %>
+
+                <%= student.missingSkills.join(", ") %>
+
+            <% } else { %>
+
+                None
+
+            <% } %>
+
+        <% } else { %>
+
+            Resume has not been scanned.
+
+        <% } %>
+
+    </td>
+
+</tr>
+
+
+<!-- INTERVIEW DETAILS -->
+
+<% if (student.status === "Interview Scheduled") { %>
+
+<tr>
+
+    <td colspan="7">
+
+        <strong>Interview Scheduled</strong>
+
+        <br><br>
+
+        Date:
+        <%= student.interviewDate %>
+
+        <br>
+
+        Time:
+        <%= student.interviewTime %>
+
+        <br>
+
+        Mode:
+        <%= student.interviewMode %>
+
+    </td>
+
+</tr>
 
 <% } %>
 
-<hr>
 
-<h2>ATS Resume Scanner</h2>
+<% }); %>
+```
+
+</table>
+
+<% } else { %>
 
 <p>
-    Click "Scan Resume" to check the student's resume
-    against the job requirements.
+    No students have applied for your placement drives yet.
 </p>
 
-<hr>
-
-<a href="/drives">
-    View Placement Drives
-</a>
-
-<br><br>
-
-
+<% } %>
 
 </body>
-
 </html>

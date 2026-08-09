@@ -201,7 +201,7 @@ async function main() {
     const drives = db.collection("drives");
     const applications = db.collection("applications");
     const announcements = db.collection("announcements");
-
+    const interviewSlots = db.collection("interviewSlots");
     // =========================
     // HOME
     // =========================
@@ -257,55 +257,68 @@ app.get("/", async (req, res) => {
 
     app.post("/login", async (req, res) => {
 
-        const email = req.body.email;
-        const password = req.body.password;
+    const email = req.body.email;
+    const password = req.body.password;
 
-        // ADMIN LOGIN
+    // =========================
+    // ADMIN LOGIN
+    // =========================
 
-        const admin = await users.findOne({
-            email,
-            password
-        });
-
-        if (admin) {
-
-            req.session.admin = admin.email;
-
-            return res.redirect("/admin");
-        }
-
-        // STUDENT LOGIN
-
-        const student = await students.findOne({
-            email: email,
-            usn: password.toUpperCase()
-        });
-
-        if (student) {
-
-            req.session.student = student.usn;
-
-            return res.redirect("/student/dashboard");
-        }
-
-        // HR LOGIN
-
-        const hr = await companies.findOne({
-            email: email
-        });
-
-        if (hr && password === "company123") {
-
-            req.session.hr = hr.company;
-
-            return res.redirect("/hr/dashboard");
-        }
-
-        res.render("login", {
-            error: "Invalid Credentials"
-        });
-
+    const admin = await users.findOne({
+        email,
+        password
     });
+
+    if (admin) {
+
+        req.session.admin = admin.email;
+
+        return res.redirect("/admin");
+    }
+
+    // =========================
+    // STUDENT LOGIN
+    // =========================
+
+    const student = await students.findOne({
+        email: email,
+        usn: password.toUpperCase()
+    });
+
+    if (student) {
+
+        req.session.student = student.usn;
+
+        return res.redirect("/student/dashboard");
+    }
+
+    // =========================
+    // HR LOGIN
+    // =========================
+
+    const hr = await companies.findOne({
+        email: email
+    });
+
+    if (hr && password === "company123") {
+
+        req.session.hr = hr.company;
+
+        return res.redirect("/hr/dashboard");
+    }
+
+    // =========================
+    // WRONG LOGIN
+    // =========================
+
+    const companiesList = await companies.find().toArray();
+
+    return res.render("login", {
+        error: "Invalid email or password",
+        companiesList: companiesList
+    });
+
+});
 
     // =========================
     // LOGOUT
@@ -1122,6 +1135,305 @@ app.get("/company/logo/:id", async (req, res) => {
         );
 
     });
+    // =========================
+// ADD INTERVIEW SLOT
+// =========================
+
+app.get("/interview-slots/add", async (req, res) => {
+
+    if (!req.session.hr) {
+        return res.redirect("/");
+    }
+
+    const company = req.session.hr;
+
+    const drivesList = await drives.find({
+        company: company
+    }).toArray();
+
+    res.render("addInterviewSlot", {
+        drives: drivesList
+    });
+
+});
+
+
+app.post("/interview-slots/add", async (req, res) => {
+
+    if (!req.session.hr) {
+        return res.redirect("/");
+    }
+
+    const company = req.session.hr;
+
+    await interviewSlots.insertOne({
+
+        company: company,
+
+        driveId: new ObjectId(
+            req.body.driveId
+        ),
+
+        date: req.body.date,
+
+        time: req.body.time,
+
+        mode: req.body.mode,
+
+        booked: false,
+
+        studentUSN: null,
+
+        createdAt: new Date()
+
+    });
+
+    res.redirect("/hr/dashboard");
+
+});
+// =========================
+// SELECT INTERVIEW SLOT
+// =========================
+
+app.get(
+    "/student/interview-slots/:driveId",
+    async (req, res) => {
+
+        if (!req.session.student) {
+            return res.redirect("/");
+        }
+
+        try {
+
+            const driveId =
+                new ObjectId(req.params.driveId);
+
+            const usn =
+                req.session.student;
+
+
+            // =========================
+            // CHECK SHORTLIST
+            // =========================
+
+            const application =
+                await applications.findOne({
+
+                    usn: usn,
+
+                    driveId: driveId,
+
+                    status: "Shortlisted"
+
+                });
+
+            if (!application) {
+
+                return res.send(
+                    "You are not shortlisted for this drive."
+                );
+
+            }
+
+
+            // =========================
+            // GET AVAILABLE SLOTS
+            // =========================
+
+            const slots =
+                await interviewSlots.find({
+
+                    driveId: driveId,
+
+                    booked: false
+
+                })
+                .sort({
+                    date: 1,
+                    time: 1
+                })
+                .toArray();
+
+
+            // =========================
+            // GET DRIVE
+            // =========================
+
+            const drive =
+                await drives.findOne({
+                    _id: driveId
+                });
+
+
+            res.render(
+                "interviewSlots",
+                {
+                    slots,
+                    drive,
+                    application
+                }
+            );
+
+        } catch (error) {
+
+            console.error(
+                "INTERVIEW SLOT ERROR:",
+                error
+            );
+
+            res.status(500).send(
+                "Error loading interview slots"
+            );
+
+        }
+
+    }
+);
+// =========================
+// BOOK INTERVIEW SLOT
+// =========================
+
+app.post(
+    "/student/interview-slots/book",
+    async (req, res) => {
+
+        if (!req.session.student) {
+            return res.redirect("/");
+        }
+
+        try {
+
+            const slotId =
+                new ObjectId(req.body.slotId);
+
+            const driveId =
+                new ObjectId(req.body.driveId);
+
+            const usn =
+                req.session.student;
+
+
+            // =========================
+            // CHECK SHORTLIST
+            // =========================
+
+            const application =
+                await applications.findOne({
+
+                    usn: usn,
+
+                    driveId: driveId,
+
+                    status: "Shortlisted"
+
+                });
+
+            if (!application) {
+
+                return res.send(
+                    "You are not shortlisted."
+                );
+
+            }
+
+
+            // =========================
+            // BOOK SLOT
+            // =========================
+
+            const slot =
+                await interviewSlots.findOneAndUpdate(
+
+                    {
+                        _id: slotId,
+
+                        driveId: driveId,
+
+                        booked: false
+                    },
+
+                    {
+                        $set: {
+
+                            booked: true,
+
+                            studentUSN: usn,
+
+                            bookedAt: new Date()
+
+                        }
+                    },
+
+                    {
+                        returnDocument: "after"
+                    }
+
+                );
+
+
+            if (!slot.value) {
+
+                return res.send(
+                    "Sorry, this slot has already been booked."
+                );
+
+            }
+
+
+            // =========================
+            // UPDATE APPLICATION
+            // =========================
+
+            await applications.updateOne(
+
+                {
+                    _id: application._id
+                },
+
+                {
+                    $set: {
+
+                        status:
+                            "Interview Scheduled",
+
+                        interviewSlotId:
+                            slotId,
+
+                        interviewDate:
+                            slot.value.date,
+
+                        interviewTime:
+                            slot.value.time,
+
+                        interviewMode:
+                            slot.value.mode
+
+                    }
+
+                }
+
+            );
+
+
+            res.redirect(
+                "/student/dashboard"
+            );
+
+        } catch (error) {
+
+            console.error(
+                "BOOK SLOT ERROR:",
+                error
+            );
+
+            res.status(500).send(
+                "Error booking interview slot"
+            );
+
+        }
+
+    }
+);
 
     // =========================
     // HR DASHBOARD
@@ -1512,26 +1824,105 @@ app.get(
             // RUN ATS
             // =========================
 
-            const ats =
-                calculateATS(
-                    resumeText,
-                    drive.description || ""
-                );
+            const ats = calculateATS(
+    resumeText,
+    drive.description || ""
+);
 
-            console.log(
-                "ATS Score:",
-                ats.score
-            );
+console.log("ATS Score:", ats.score);
+console.log("Matched Skills:", ats.matchedSkills);
+console.log("Missing Skills:", ats.missingSkills);
 
-            console.log(
-                "Matched Skills:",
-                ats.matchedSkills
-            );
 
-            console.log(
-                "Missing Skills:",
-                ats.missingSkills
-            );
+// =====================================
+// FIND APPLICATION
+// =====================================
+
+const application = await applications.findOne({
+    usn: student.usn,
+    driveId: drive._id
+});
+
+if (!application) {
+
+    return res.send(
+        "Student has not applied for this drive"
+    );
+
+}
+
+
+// =====================================
+// AUTOMATIC SHORTLIST
+// =====================================
+
+if (ats.score > 70) {
+
+    await applications.updateOne(
+        {
+            _id: application._id
+        },
+        {
+            $set: {
+
+                status: "Shortlisted",
+
+                atsScore: ats.score,
+
+                matchedSkills:
+                    ats.matchedSkills,
+
+                missingSkills:
+                    ats.missingSkills,
+
+                atsResult:
+                    ats.result,
+
+                atsScannedAt:
+                    new Date()
+
+            }
+        }
+    );
+
+    console.log(
+        "STUDENT SHORTLISTED:",
+        student.usn
+    );
+
+} else {
+
+    await applications.updateOne(
+        {
+            _id: application._id
+        },
+        {
+            $set: {
+
+                atsScore: ats.score,
+
+                matchedSkills:
+                    ats.matchedSkills,
+
+                missingSkills:
+                    ats.missingSkills,
+
+                atsResult:
+                    ats.result,
+
+                atsScannedAt:
+                    new Date()
+
+            }
+        }
+    );
+
+    console.log(
+        "STUDENT NOT SHORTLISTED:",
+        student.usn
+    );
+
+}
 
             // =========================
             // SHOW ATS RESULT
