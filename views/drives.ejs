@@ -1,467 +1,488 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Placement Drives</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<title>Placement Drives</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
+    <style>
+        /* =========================================
+           TOKENS
+        ========================================= */
 
-<style>
+        :root {
+            --ink: #0B1F3A;
+            --ink-2: #12294A;
 
+            --parchment: #F6F4EE;
+            --paper: #FFFFFF;
 
-*{
+            --brass: #AD8A54;
+            --brass-light: #E4D6B8;
 
-    box-sizing:border-box;
+            --slate: #5B6B7C;
 
-    font-family:Arial, Helvetica, sans-serif;
+            --hairline: #E2DDD0;
 
-}
+            --ledger-green: #1F6E45;
+            --error: #9A2E2E;
 
+            --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+            --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+        }
 
+        /* =========================================
+           GLOBAL
+        ========================================= */
 
-body{
+        * {
+            box-sizing: border-box;
+        }
 
-    margin:0;
+        body {
+            margin: 0;
+            min-height: 100vh;
 
-    min-height:100vh;
+            font-family: var(--font-body);
+            color: var(--ink);
 
-    background:#f1f5f9;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--parchment),
+                    #eeeade
+                );
 
-    padding:40px 20px;
+            padding: 40px 20px;
+        }
 
-}
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
 
+        .container {
+            width: 95%;
+            max-width: 1200px;
 
+            margin: 0 auto;
 
+            background: var(--paper);
 
+            padding: 35px;
 
-.container{
+            border-radius: 18px;
 
-    width:95%;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.15);
+        }
 
-    max-width:1200px;
+        /* =========================================
+           TITLE
+        ========================================= */
 
-    margin:auto;
+        h1 {
+            margin: 0 0 30px;
 
-    background:white;
+            text-align: center;
 
-    padding:35px;
+            color: var(--ink);
 
-    border-radius:18px;
+            font-family: var(--font-display);
 
-    box-shadow:
+            font-size: 34px;
+            font-weight: 600;
 
-    0 10px 30px rgba(0,0,0,0.15);
+            letter-spacing: 0.5px;
+        }
 
-}
+        /* =========================================
+           TOP LINKS
+        ========================================= */
 
+        .top-links {
+            display: flex;
 
+            justify-content: space-between;
+            align-items: center;
 
+            gap: 15px;
 
+            margin-bottom: 25px;
+        }
 
-h1{
+        .top-links a {
+            display: inline-flex;
 
-    text-align:center;
+            align-items: center;
+            justify-content: center;
 
-    color:#12355b;
+            min-width: 150px;
 
-    font-size:34px;
+            padding: 12px 25px;
 
-    margin-bottom:30px;
+            background: var(--ink);
 
-}
+            color: white;
 
+            border-radius: 8px;
 
+            text-decoration: none;
 
+            font-size: 14px;
+            font-weight: 700;
 
+            transition: all 0.25s ease;
 
-.top-links{
+            box-shadow:
+                0 4px 12px rgba(11, 31, 58, 0.15);
+        }
 
-    display:flex;
+        .top-links a:hover {
+            background: var(--brass);
 
-    justify-content:space-between;
+            transform: translateY(-2px);
 
-    margin-bottom:25px;
+            box-shadow:
+                0 7px 18px rgba(173, 138, 84, 0.25);
+        }
 
-}
+        /* =========================================
+           TABLE CONTAINER
+        ========================================= */
 
+        .table-container {
+            width: 100%;
 
+            overflow-x: auto;
 
+            border-radius: 12px;
 
+            border: 1px solid var(--hairline);
+        }
 
-.top-links a{
+        /* =========================================
+           TABLE
+        ========================================= */
 
-    text-decoration:none;
+        table {
+            width: 100%;
 
-    background:#12355b;
+            min-width: 800px;
 
-    color:white;
+            border-collapse: collapse;
 
-    padding:12px 25px;
+            background: var(--paper);
+        }
 
-    border-radius:8px;
+        /* =========================================
+           TABLE HEADER
+        ========================================= */
 
-    font-weight:bold;
+        th {
+            padding: 15px 14px;
 
-    transition:0.3s;
+            background: var(--ink);
 
-}
+            color: white;
 
+            text-align: center;
 
+            font-size: 13px;
 
+            font-weight: 700;
 
+            letter-spacing: 0.4px;
 
-.top-links a:hover{
+            white-space: nowrap;
+        }
 
-    background:#2563eb;
+        /* =========================================
+           TABLE BODY
+        ========================================= */
 
-}
+        td {
+            padding: 14px;
 
+            text-align: center;
 
+            color: var(--slate);
 
+            font-size: 14px;
 
+            border-bottom: 1px solid var(--hairline);
 
-.table-container{
+            vertical-align: middle;
+        }
 
-    overflow-x:auto;
+        tbody tr {
+            transition: background 0.2s ease;
+        }
 
-}
+        tbody tr:hover {
+            background: var(--parchment);
+        }
 
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
 
+        /* Company */
 
+        td:first-child {
+            color: var(--ink);
 
+            font-weight: 700;
+        }
 
-table{
+        /* Role */
 
-    width:100%;
+        td:nth-child(2) {
+            color: var(--ink);
+            font-weight: 600;
+        }
 
-    border-collapse:collapse;
+        /* Package */
 
-    margin-top:20px;
+        td:nth-child(3) {
+            color: var(--ledger-green);
 
-}
+            font-weight: 700;
+        }
 
+        /* Minimum CGPA */
 
+        td:nth-child(4) {
+            color: var(--brass);
 
+            font-weight: 700;
+        }
 
+        /* =========================================
+           NO DATA
+        ========================================= */
 
-th{
+        .no-data {
+            padding: 30px !important;
 
-    background:#12355b;
+            text-align: center;
 
-    color:white;
+            color: var(--slate);
 
-    padding:15px;
+            font-size: 16px;
 
-    text-align:center;
+            font-weight: 500;
 
-    font-size:15px;
+            background: var(--parchment);
+        }
 
-}
+        /* =========================================
+           MOBILE
+        ========================================= */
 
+        @media (max-width: 700px) {
 
+            body {
+                padding: 20px 10px;
+            }
 
+            .container {
+                width: 100%;
 
+                padding: 25px 15px;
 
-td{
+                border-radius: 14px;
+            }
 
-    padding:14px;
+            h1 {
+                font-size: 26px;
 
-    text-align:center;
+                margin-bottom: 25px;
+            }
 
-    color:#334155;
+            .top-links {
+                flex-direction: column;
 
-    border-bottom:1px solid #e2e8f0;
+                align-items: stretch;
 
-}
+                gap: 12px;
+            }
 
+            .top-links a {
+                width: 100%;
 
+                min-width: 0;
+            }
 
+            .table-container {
+                border-radius: 10px;
+            }
 
+            th {
+                padding: 13px 12px;
 
-tr:hover{
+                font-size: 12px;
+            }
 
-    background:#f8fafc;
+            td {
+                padding: 12px;
 
-}
+                font-size: 13px;
+            }
+        }
 
+        /* =========================================
+           SMALL MOBILE
+        ========================================= */
 
+        @media (max-width: 450px) {
 
+            .container {
+                padding: 20px 10px;
+            }
 
+            h1 {
+                font-size: 23px;
+            }
 
-.no-data{
+            .top-links a {
+                padding: 11px 15px;
 
-    text-align:center;
-
-    padding:25px;
-
-    color:#64748b;
-
-    font-size:16px;
-
-}
-
-
-
-
-
-@media(max-width:700px){
-
-
-    body{
-
-        padding:20px 10px;
-
-    }
-
-
-
-    .container{
-
-        padding:25px 15px;
-
-    }
-
-
-
-    h1{
-
-        font-size:26px;
-
-    }
-
-
-
-    .top-links{
-
-        flex-direction:column;
-
-        gap:15px;
-
-    }
-
-
-
-    .top-links a{
-
-        text-align:center;
-
-    }
-
-
-}
-
-
-
-</style>
-
-
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
-
-
 
 <body>
 
+    <div class="container">
 
+        <!-- PAGE TITLE -->
 
-<div class="container">
+        <h1>
+            ■ Placement Drives
+        </h1>
 
 
+        <!-- TOP BUTTONS -->
 
-<h1>
+        <div class="top-links">
 
-💼 Placement Drives
+            <a href="/drive/add">
+                ■ Add Drive
+            </a>
 
-</h1>
+            <a href="/admin">
+                ← Dashboard
+            </a>
 
+        </div>
 
 
+        <!-- TABLE -->
 
-<div class="top-links">
+        <div class="table-container">
 
+            <table>
 
-<a href="/drive/add">
+                <thead>
 
-➕ Add Drive
+                    <tr>
 
-</a>
+                        <th>
+                            Company
+                        </th>
 
+                        <th>
+                            Role
+                        </th>
 
+                        <th>
+                            Package
+                        </th>
 
-<a href="/admin">
+                        <th>
+                            Minimum CGPA
+                        </th>
 
-← Dashboard
+                        <th>
+                            Interview Date
+                        </th>
 
-</a>
+                        <th>
+                            Deadline
+                        </th>
 
+                    </tr>
 
+                </thead>
 
-</div>
 
+                <tbody>
 
+                    <% if (data && data.length > 0) { %>
 
+                        <% data.forEach(drive => { %>
 
+                            <tr>
 
+                                <td>
+                                    <%= drive.company %>
+                                </td>
 
-<div class="table-container">
+                                <td>
+                                    <%= drive.role %>
+                                </td>
 
+                                <td>
+                                    <%= drive.package %>
+                                </td>
 
+                                <td>
+                                    <%= drive.mincgpa %>
+                                </td>
 
-<table>
+                                <td>
+                                    <%= drive.interviewDate %>
+                                </td>
 
+                                <td>
+                                    <%= drive.deadline %>
+                                </td>
 
+                            </tr>
 
-<thead>
+                        <% }) %>
 
+                    <% } else { %>
 
-<tr>
+                        <tr>
 
-<th>
-Company
-</th>
+                            <td colspan="6" class="no-data">
+                                No Placement Drives Available
+                            </td>
 
+                        </tr>
 
-<th>
-Role
-</th>
+                    <% } %>
 
+                </tbody>
 
-<th>
-Package
-</th>
+            </table>
 
+        </div>
 
-<th>
-Minimum CGPA
-</th>
-
-
-<th>
-Interview Date
-</th>
-
-
-<th>
-Deadline
-</th>
-
-
-</tr>
-
-
-</thead>
-
-
-
-
-<tbody>
-
-
-
-<% if(data && data.length > 0){ %>
-
-
-
-<% data.forEach(drive=>{ %>
-
-
-
-<tr>
-
-
-
-<td>
-<%= drive.company %>
-</td>
-
-
-
-
-<td>
-<%= drive.role %>
-</td>
-
-
-
-
-<td>
-<%= drive.package %>
-</td>
-
-
-
-
-<td>
-<%= drive.mincgpa %>
-</td>
-
-
-
-
-<td>
-<%= drive.interviewDate %>
-</td>
-
-
-
-
-<td>
-<%= drive.deadline %>
-</td>
-
-
-
-
-</tr>
-
-
-
-<% }) %>
-
-
-
-<% } else { %>
-
-
-
-<tr>
-
-
-<td colspan="6" class="no-data">
-
-No Placement Drives Available
-
-</td>
-
-
-</tr>
-
-
-
-<% } %>
-
-
-
-</tbody>
-
-
-
-</table>
-
-
-
-</div>
-
-
-
-
-</div>
-
-
+    </div>
 
 </body>
 

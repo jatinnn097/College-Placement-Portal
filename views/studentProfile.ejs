@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile - Campus Placement Portal</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div class="portal">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark">
+                ◆
+            </div>
+
+            <div>
+                <div class="brand-title">
+                    CAMPUS
+                </div>
+
+                <div class="brand-subtitle">
+                    PLACEMENT PORTAL
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar-role">
+
+            <span class="role-symbol">
+                ◆
+            </span>
+
+            <span>
+                STUDENT
+            </span>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/student/dashboard"
+               class="nav-item">
+
+                <span class="nav-icon">▣</span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+            <a href="/student/profile"
+               class="nav-item active">
+
+                <span class="nav-icon">▣</span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+            <a href="/student/dashboard#drives"
+               class="nav-item">
+
+                <span class="nav-icon">▣</span>
+
+                <span>
+                    Placement Drives
+                </span>
+
+            </a>
+
+            <a href="/student/dashboard#applications"
+               class="nav-item">
+
+                <span class="nav-icon">▣</span>
+
+                <span>
+                    Applications
+                </span>
+
+            </a>
+
+            <a href="/student/dashboard#interviews"
+               class="nav-item">
+
+                <span class="nav-icon">▣</span>
+
+                <span>
+                    Interviews
+                </span>
+
+            </a>
+
+            <a href="/student/dashboard#results"
+               class="nav-item">
+
+                <span class="nav-icon">▣</span>
+
+                <span>
+                    Results
+                </span>
+
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="/student/profile"
+               class="nav-item">
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+            <a href="/logout"
+               class="nav-item logout-side">
+
+                <span class="nav-icon">
+                    ⇥
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <div class="main-area">
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <div class="mobile-menu">
+                    ☰
+                </div>
+
+                <div>
+
+                    <div class="header-title">
+                        CAMPUS PLACEMENT PORTAL
+                    </div>
+
+                    <div class="header-subtitle">
+                        Student Profile
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="user-info">
+
+                    <div class="user-avatar">
+
+                        <%= student && student.fullname
+                            ? student.fullname.charAt(0).toUpperCase()
+                            : "S" %>
+
+                    </div>
+
+                    <span>
+
+                        <%= student && student.fullname
+                            ? student.fullname
+                            : "Student" %>
+
+                    </span>
+
+                </div>
+
+                <a href="/logout"
+                   class="header-logout">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <main class="dashboard-content">
+
+            <section class="content-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            My Profile
+                        </h2>
+
+                        <p>
+                            Update your personal, academic and placement information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    action="/student/profile"
+                    method="POST"
+                    class="profile-form"
+                >
+
+
+                    <!-- PERSONAL INFORMATION -->
+
+                    <div class="form-section">
+
+                        <h3>
+                            Personal Information
+                        </h3>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="fullname"
+                                    value="<%= student.fullname || '' %>"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    value="<%= student.email || '' %>"
+                                    disabled
+                                >
+
+                                <small>
+                                    Email cannot be changed.
+                                </small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    USN
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="<%= student.usn || '' %>"
+                                    disabled
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Phone
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    value="<%= student.phone || '' %>"
+                                    placeholder="Enter phone number"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Date of Birth
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="dob"
+                                    value="<%= student.dob || '' %>"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Passing Year
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="passingYear"
+                                    value="<%= student.passingYear || '' %>"
+                                    placeholder="2028"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group full-width">
+
+                                <label>
+                                    Address
+                                </label>
+
+                                <textarea
+                                    name="address"
+                                    rows="3"
+                                    placeholder="Enter your address"
+                                ><%= student.address || '' %></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACADEMIC INFORMATION -->
+
+                    <div class="form-section">
+
+                        <h3>
+                            Academic Information
+                        </h3>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Branch
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="branch"
+                                    value="<%= student.branch || '' %>"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Semester
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="sem"
+                                    value="<%= student.sem || '' %>"
+                                    min="1"
+                                    max="8"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    10th Percentage
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="sslc"
+                                    value="<%= student.sslc || '' %>"
+                                    step="0.01"
+                                    min="0"
+                                    max="100"
+                                    placeholder="88"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    12th / PUC Percentage
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="puc"
+                                    value="<%= student.puc || '' %>"
+                                    step="0.01"
+                                    min="0"
+                                    max="100"
+                                    placeholder="88"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    CGPA
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="cgpa"
+                                    value="<%= student.cgpa || '' %>"
+                                    step="0.01"
+                                    min="0"
+                                    max="10"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Active Backlogs
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="backlogs"
+                                    value="<%= student.backlogs || 0 %>"
+                                    min="0"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SKILLS -->
+
+                    <div class="form-section">
+
+                        <h3>
+                            Skills
+                        </h3>
+
+                        <div class="form-group full-width">
+
+                            <label>
+                                Technical Skills
+                            </label>
+
+                            <input
+                                type="text"
+                                name="skills"
+                                value="<%= student.skills ? student.skills.join(', ') : '' %>"
+                                placeholder="Python, Java, SQL, React, MongoDB"
+                            >
+
+                            <small>
+                                Separate skills using commas.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CURRENT INFORMATION -->
+
+                    <div class="form-section">
+
+                        <h3>
+                            Current Profile
+                        </h3>
+
+
+                        <div class="profile-summary">
+
+                            <div class="summary-item">
+
+                                <span>
+                                    USN
+                                </span>
+
+                                <strong>
+                                    <%= student.usn || '-' %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="summary-item">
+
+                                <span>
+                                    CGPA
+                                </span>
+
+                                <strong>
+                                    <%= student.cgpa || '-' %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="summary-item">
+
+                                <span>
+                                    Branch
+                                </span>
+
+                                <strong>
+                                    <%= student.branch || '-' %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="summary-item">
+
+                                <span>
+                                    Backlogs
+                                </span>
+
+                                <strong>
+                                    <%= student.backlogs !== undefined
+                                        ? student.backlogs
+                                        : 0 %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="form-actions">
+
+                        <a
+                            href="/student/dashboard"
+                            class="outline-btn"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Save Profile
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </section>
+
+        </main>
+
+
+        <footer class="footer">
+
+            © 2026 Campus Placement Portal
+
+        </footer>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

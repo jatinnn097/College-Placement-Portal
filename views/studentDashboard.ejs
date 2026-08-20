@@ -1,695 +1,2094 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-```
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Student Dashboard</title>
+    <title>Student Dashboard</title>
 
-<link rel="stylesheet" href="/style.css">
-```
+    <link
+        rel="stylesheet"
+        href="/style.css"
+    >
 
 </head>
 
+
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
 
-<header class="top-header">
+<%
+    /* =========================================================
+       SAFE DASHBOARD DATA
+    ========================================================= */
 
-```
-<div class="logo">
-    🎓 Campus Placement Portal
-</div>
+    var dashboardDrives =
+        Array.isArray(companiesList)
+            ? companiesList
+            : [];
 
-<a href="/logout" class="logout-btn">
-    Logout
-</a>
-```
+    var dashboardApplications =
+        Array.isArray(myApplications)
+            ? myApplications
+            : [];
 
-</header>
-
-<main class="dashboard-container">
-
-```
-<!-- =========================
-     DASHBOARD TITLE
-========================= -->
-
-<h1 class="dashboard-title">
-    Student Dashboard
-</h1>
+    var dashboardAnnouncements =
+        Array.isArray(news)
+            ? news
+            : [];
 
 
-<!-- =========================
-     PROFILE
-========================= -->
+    /* =========================================================
+       STATISTICS
+    ========================================================= */
 
-<section class="profile-section">
+    var eligibleCount = 0;
+    var appliedCount = dashboardApplications.length;
+    var shortlistedCount = 0;
+    var selectedCount = 0;
 
-    <div class="photo-card">
 
-        <% if (student && student.photo) { %>
+    if (student) {
 
-            <img
-                src="/photo/<%= student.usn %>"
-                class="student-photo"
-                alt="Student Photo"
-            >
+        var studentCgpa =
+            Number(student.cgpa || 0);
 
-        <% } else { %>
+        dashboardDrives.forEach(function(drive) {
 
-            <div class="no-photo">
-                👤
-                <br>
-                No Photo
+            var minimumCgpa =
+                Number(drive.mincgpa || 0);
+
+            if (studentCgpa >= minimumCgpa) {
+                eligibleCount++;
+            }
+
+        });
+
+    }
+
+
+    dashboardApplications.forEach(function(application) {
+
+        if (application.status === "Shortlisted") {
+            shortlistedCount++;
+        }
+
+        if (application.status === "Selected") {
+            selectedCount++;
+        }
+
+    });
+
+
+    /* =========================================================
+       BEST ATS SCORE
+    ========================================================= */
+
+    var bestATS = null;
+    var atsWidth = 0;
+
+
+    dashboardApplications.forEach(function(application) {
+
+        if (
+            application.atsScore !== undefined &&
+            application.atsScore !== null &&
+            application.atsScore !== ""
+        ) {
+
+            var currentATS =
+                Number(application.atsScore) || 0;
+
+
+            if (
+                bestATS === null ||
+                currentATS >
+                Number(bestATS.atsScore || 0)
+            ) {
+
+                bestATS = application;
+
+            }
+
+        }
+
+    });
+
+
+    if (bestATS) {
+
+        atsWidth =
+            Number(bestATS.atsScore) || 0;
+
+        if (atsWidth < 0) {
+            atsWidth = 0;
+        }
+
+        if (atsWidth > 100) {
+            atsWidth = 100;
+        }
+
+    }
+
+
+    /* =========================================================
+       UPCOMING INTERVIEW
+    ========================================================= */
+
+    var upcomingInterview = null;
+
+
+    dashboardApplications.forEach(function(application) {
+
+        if (
+            !upcomingInterview &&
+            application.status === "Interview Scheduled"
+        ) {
+
+            upcomingInterview = application;
+
+        }
+
+    });
+
+%>
+
+
+
+<!-- =========================================================
+     MAIN PORTAL
+========================================================= -->
+
+<div class="portal">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark">
+                ◆
             </div>
 
-        <% } %>
+            <div>
 
-    </div>
+                <div class="brand-title">
+                    CAMPUS
+                </div>
 
+                <div class="brand-subtitle">
+                    PLACEMENT PORTAL
+                </div>
 
-    <div class="profile-card">
-
-        <h2>My Profile</h2>
-
-        <% if (student) { %>
-
-            <div class="profile-row">
-                <strong>Name</strong>
-                <span><%= student.fullname %></span>
             </div>
-
-            <div class="profile-row">
-                <strong>USN</strong>
-                <span><%= student.usn %></span>
-            </div>
-
-            <div class="profile-row">
-                <strong>Email</strong>
-                <span><%= student.email %></span>
-            </div>
-
-            <div class="profile-row">
-                <strong>Branch</strong>
-                <span><%= student.branch %></span>
-            </div>
-
-            <div class="profile-row">
-                <strong>Semester</strong>
-                <span><%= student.sem %></span>
-            </div>
-
-            <div class="profile-row">
-                <strong>CGPA</strong>
-                <span><%= student.cgpa %></span>
-            </div>
-
-        <% } else { %>
-
-            <p>
-                Student details not found.
-            </p>
-
-        <% } %>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     RESUME
-========================= -->
-
-<section class="dashboard-section">
-
-    <h2>My Resume</h2>
-
-    <form
-        action="/student/upload-resume"
-        method="POST"
-        enctype="multipart/form-data"
-        class="resume-form"
-    >
-
-        <input
-            type="file"
-            name="resume"
-            accept=".pdf"
-            required
-        >
-
-        <button type="submit">
-            Upload Resume
-        </button>
-
-    </form>
-
-
-    <% if (student && student.resume) { %>
-
-        <div class="resume-info">
-
-            <span>
-                📄
-                <strong>Current Resume:</strong>
-                <%= student.resumeName %>
-            </span>
-
-            <a
-                href="/student/resume"
-                target="_blank"
-                class="view-btn"
-            >
-                View Resume
-            </a>
 
         </div>
 
-    <% } else { %>
-
-        <p class="empty-message">
-            No resume uploaded.
-        </p>
-
-    <% } %>
-
-</section>
 
 
-<!-- =========================
-     PLACEMENT DRIVES
-========================= -->
+        <!-- ROLE -->
 
-<section class="dashboard-section">
+        <div class="sidebar-role">
 
-    <h2>
-        Available Placement Drives
-    </h2>
+            <span class="role-symbol">
+                ◆
+            </span>
 
-    <% if (
-        companiesList &&
-        companiesList.length > 0
-    ) { %>
+            <span>
+                STUDENT
+            </span>
 
-        <div class="drive-grid">
+        </div>
 
-            <% companiesList.forEach(drive => { %>
 
-                <div class="drive-card">
 
-                    <div class="company-icon">
-                        🏢
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="/student/dashboard"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- MY PROFILE -->
+
+            <a
+                href="/student/<%= student && student.usn ? student.usn : '' %>"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+
+
+            <!-- PLACEMENT DRIVES -->
+
+            <a
+                href="#drives"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Placement Drives
+                </span>
+
+            </a>
+
+
+
+            <!-- APPLICATIONS -->
+
+            <a
+                href="#applications"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Applications
+                </span>
+
+            </a>
+
+
+
+            <!-- INTERVIEWS -->
+
+            <a
+                href="#interviews"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Interviews
+                </span>
+
+            </a>
+
+
+
+            <!-- INTERVIEW CALENDAR -->
+
+            <a
+                href="/student/interview-calendar"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    📅
+                </span>
+
+                <span>
+                    Interview Calendar
+                </span>
+
+            </a>
+
+
+
+            <!-- RESULTS -->
+
+            <a
+                href="#results"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Results
+                </span>
+
+            </a>
+
+
+
+            <!-- ANNOUNCEMENTS -->
+
+            <a
+                href="#announcements"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Announcements
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="/student/<%= student && student.usn ? student.usn : '' %>"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+
+
+            <!-- LOGOUT -->
+
+            <a
+                href="/logout"
+                class="nav-item logout-side"
+            >
+
+                <span class="nav-icon">
+                    ⇥
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN AREA
+    ====================================================== -->
+
+    <div class="main-area">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="top-header">
+
+
+            <div class="header-left">
+
+                <div class="mobile-menu">
+                    ☰
+                </div>
+
+
+                <div>
+
+                    <div class="header-title">
+                        CAMPUS PLACEMENT PORTAL
                     </div>
 
-                    <h3>
-                        <%= drive.company %>
-                    </h3>
+                    <div class="header-subtitle">
+                        Student Portal
+                    </div>
 
-                    <p>
-                        <strong>Role:</strong>
-                        <%= drive.role %>
-                    </p>
+                </div>
 
-                    <p>
-                        <strong>Package:</strong>
-                        <%= drive.package %>
-                    </p>
+            </div>
 
-                    <p>
-                        <strong>Minimum CGPA:</strong>
-                        <%= drive.mincgpa %>
-                    </p>
 
-                    <% if (drive.interviewDate) { %>
 
-                        <p>
-                            <strong>Interview:</strong>
-                            <%= drive.interviewDate %>
-                        </p>
+            <div class="header-right">
 
-                    <% } %>
 
-                    <p>
-                        <strong>Deadline:</strong>
-                        <%= drive.deadline %>
-                    </p>
+                <div class="user-info">
 
-                    <% if (drive.description) { %>
 
-                        <p class="description">
-                            <%= drive.description %>
-                        </p>
-
-                    <% } %>
+                    <!-- =====================================
+                         CLICKABLE HEADER PROFILE PHOTO
+                    ====================================== -->
 
                     <a
-                        href="/apply/<%= drive._id %>"
-                        class="apply-btn"
+                        href="/student/<%= student && student.usn ? student.usn : '' %>"
+                        class="profile-photo-link"
                     >
-                        APPLY
+
+                        <% if (student && student.photo) { %>
+
+                            <img
+                                src="/photo/<%= student.usn %>"
+                                alt="Profile"
+                                class="user-avatar"
+                                style="object-fit: cover;"
+                            >
+
+                        <% } else { %>
+
+                            <div class="user-avatar">
+
+                                <%= student && student.fullname
+                                    ? student.fullname
+                                        .charAt(0)
+                                        .toUpperCase()
+                                    : "S"
+                                %>
+
+                            </div>
+
+                        <% } %>
+
+                    </a>
+
+
+
+                    <span class="user-name">
+
+                        <%= student && student.fullname
+                            ? student.fullname
+                            : "Student"
+                        %>
+
+                    </span>
+
+
+                    <span class="dropdown-arrow">
+                        ▾
+                    </span>
+
+
+                </div>
+
+
+
+                <a
+                    href="/logout"
+                    class="header-logout"
+                >
+                    Logout
+                </a>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD CONTENT
+        ================================================== -->
+
+        <main class="dashboard-content">
+
+
+            <!-- =================================================
+                 WELCOME
+            ================================================== -->
+
+            <section class="welcome-section">
+
+                <h1>
+
+                    Good morning,
+
+                    <%= student && student.fullname
+                        ? student.fullname
+                        : "Student"
+                    %>
+
+                </h1>
+
+                <p>
+                    Track your placement journey.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <section class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-number">
+                        <%= eligibleCount %>
+                    </div>
+
+                    <div class="stat-label">
+                        Eligible
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-number">
+                        <%= appliedCount %>
+                    </div>
+
+                    <div class="stat-label">
+                        Applied
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-number">
+                        <%= shortlistedCount %>
+                    </div>
+
+                    <div class="stat-label">
+                        Shortlisted
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-number">
+                        <%= selectedCount %>
+                    </div>
+
+                    <div class="stat-label">
+                        Selected
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PROFILE PREVIEW
+            ================================================== -->
+
+            <section
+                class="content-section"
+                id="profile"
+            >
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            My Profile
+                        </h2>
+
+                        <p>
+                            Your academic and personal information.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="/student/<%= student && student.usn ? student.usn : '' %>"
+                        class="primary-btn"
+                    >
+                        View Full Profile →
                     </a>
 
                 </div>
 
-            <% }) %>
-
-        </div>
-
-    <% } else { %>
-
-        <p class="empty-message">
-            No placement drives available.
-        </p>
-
-    <% } %>
-
-</section>
 
 
-<!-- =========================
-     MY APPLICATIONS
-========================= -->
-
-<section class="dashboard-section">
-
-    <h2>
-        My Applications
-    </h2>
-
-    <% if (
-        myApplications &&
-        myApplications.length > 0
-    ) { %>
-
-        <div class="application-list">
-
-            <% myApplications.forEach(application => { %>
-
-                <div class="application-card">
-
-                    <!-- APPLICATION INFORMATION -->
-
-                    <div class="application-main">
-
-                        <h3>
-                            <%= application.company %>
-                        </h3>
-
-                        <p>
-                            <strong>Role:</strong>
-                            <%= application.role %>
-                        </p>
-
-                        <% if (application.appliedDate) { %>
-
-                            <p>
-                                <strong>Applied:</strong>
-                                <%= application.appliedDate %>
-                            </p>
-
-                        <% } %>
+                <div class="profile-layout">
 
 
-                        <!-- ATS SCORE -->
+                    <!-- PROFILE PHOTO -->
 
-                        <% if (
-                            application.atsScore !== undefined &&
-                            application.atsScore !== null
-                        ) { %>
-
-                            <p>
-                                <strong>ATS Score:</strong>
-                                <%= application.atsScore %>%
-                            </p>
-
-                        <% } %>
-
-                    </div>
+                    <div class="profile-photo-card">
 
 
-                    <!-- =========================
-                         STATUS
-                    ========================= -->
-
-                    <div class="application-status">
-
-                        <% if (
-                            application.status === "Selected"
-                        ) { %>
-
-                            <span class="status selected">
-                                🟢 Selected
-                            </span>
-
-                        <% } else if (
-                            application.status === "Shortlisted"
-                        ) { %>
-
-                            <span class="status shortlisted">
-                                🟢 Shortlisted
-                            </span>
-
-                        <% } else if (
-                            application.status === "Interview Scheduled"
-                        ) { %>
-
-                            <span class="status interview">
-                                🟡 Interview Scheduled
-                            </span>
-
-                        <% } else if (
-                            application.status === "Rejected"
-                        ) { %>
-
-                            <span class="status rejected">
-                                🔴 Rejected
-                            </span>
-
-                        <% } else { %>
-
-                            <span class="status applied">
-                                🔵 Applied
-                            </span>
-
-                        <% } %>
-
-                    </div>
+                        <a
+                            href="/student/<%= student && student.usn ? student.usn : '' %>"
+                            class="profile-photo-link"
+                        >
 
 
-                    <!-- =========================
-                         SHORTLISTED
-                    ========================= -->
+                            <% if (student && student.photo) { %>
 
-                    <% if (
-                        application.status === "Shortlisted"
-                    ) { %>
+                                <img
+                                    src="/photo/<%= student.usn %>"
+                                    class="profile-photo"
+                                    alt="Student Photo"
+                                >
 
-                        <div class="shortlisted-box">
+                            <% } else { %>
 
-                            <h4>
-                                🎉 Congratulations!
-                            </h4>
-
-                            <p>
-                                You have been shortlisted
-                                for the next round.
-                            </p>
-
-
-                            <% if (
-                                application.atsScore !== undefined &&
-                                application.atsScore !== null
-                            ) { %>
-
-                                <p>
-                                    <strong>
-                                        ATS Score:
-                                    </strong>
-
-                                    <%= application.atsScore %>%
-
-                                </p>
+                                <div class="profile-no-photo">
+                                    👤
+                                </div>
 
                             <% } %>
 
 
-                            <a
-                                href="/student/interview-slots/<%= application.driveId %>"
-                                class="slot-btn"
-                            >
-                                📅 Select Interview Slot
-                            </a>
+                        </a>
+
+
+
+                        <div class="profile-name">
+
+                            <%= student && student.fullname
+                                ? student.fullname
+                                : "Student"
+                            %>
 
                         </div>
 
-                    <% } %>
 
 
-                    <!-- =========================
-                         INTERVIEW SCHEDULED
-                    ========================= -->
+                        <div class="profile-usn">
 
-                    <% if (
-                        application.status === "Interview Scheduled"
-                    ) { %>
-
-                        <div class="interview-info">
-
-                            <h4>
-                                📅 Interview Scheduled
-                            </h4>
-
-                            <p>
-                                Your interview has been
-                                successfully scheduled.
-                            </p>
-
-                            <p>
-                                <strong>
-                                    Date:
-                                </strong>
-
-                                <%= application.interviewDate %>
-                            </p>
-
-                            <p>
-                                <strong>
-                                    Time:
-                                </strong>
-
-                                <%= application.interviewTime %>
-                            </p>
-
-                            <p>
-                                <strong>
-                                    Mode:
-                                </strong>
-
-                                <%= application.interviewMode %>
-                            </p>
+                            <%= student && student.usn
+                                ? student.usn
+                                : "-"
+                            %>
 
                         </div>
 
-                    <% } %>
+
+                    </div>
 
 
-                    <!-- =========================
-                         SELECTED
-                    ========================= -->
 
-                    <% if (
-                        application.status === "Selected"
-                    ) { %>
+                    <!-- PROFILE DETAILS -->
 
-                        <div class="selected-box">
-
-                            <h4>
-                                🎉 Congratulations!
-                            </h4>
-
-                            <p>
-                                You have been selected
-                                for this placement drive.
-                            </p>
-
-                        </div>
-
-                    <% } %>
+                    <div class="profile-details">
 
 
-                    <!-- =========================
-                         REJECTED
-                    ========================= -->
+                        <div class="profile-detail">
 
-                    <% if (
-                        application.status === "Rejected"
-                    ) { %>
+                            <span>
+                                FULL NAME
+                            </span>
 
-                        <div class="rejected-box">
+                            <strong>
 
-                            <p>
-                                Thank you for applying.
-                                Unfortunately, you were not
-                                selected for this drive.
-                            </p>
+                                <%= student
+                                    ? student.fullname || "-"
+                                    : "-"
+                                %>
+
+                            </strong>
 
                         </div>
 
-                    <% } %>
+
+
+                        <div class="profile-detail">
+
+                            <span>
+                                USN
+                            </span>
+
+                            <strong>
+
+                                <%= student
+                                    ? student.usn || "-"
+                                    : "-"
+                                %>
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="profile-detail">
+
+                            <span>
+                                EMAIL
+                            </span>
+
+                            <strong>
+
+                                <%= student
+                                    ? student.email || "-"
+                                    : "-"
+                                %>
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="profile-detail">
+
+                            <span>
+                                BRANCH
+                            </span>
+
+                            <strong>
+
+                                <%= student
+                                    ? student.branch || "-"
+                                    : "-"
+                                %>
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="profile-detail">
+
+                            <span>
+                                SEMESTER
+                            </span>
+
+                            <strong>
+
+                                <%= student
+                                    ? student.sem || "-"
+                                    : "-"
+                                %>
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="profile-detail">
+
+                            <span>
+                                CGPA
+                            </span>
+
+                            <strong class="cgpa-value">
+
+                                <%= student
+                                    ? student.cgpa || "-"
+                                    : "-"
+                                %>
+
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
 
                 </div>
 
-            <% }) %>
 
-        </div>
-
-    <% } else { %>
-
-        <p class="empty-message">
-            You have not applied for any
-            placement drive.
-        </p>
-
-    <% } %>
-
-</section>
+            </section>
 
 
-<!-- =========================
-     ANNOUNCEMENTS
-========================= -->
 
-<section class="dashboard-section">
+            <!-- =================================================
+                 ATS PROFILE
+            ================================================== -->
 
-    <h2>
-        Announcements
-    </h2>
+            <section class="content-section">
 
-    <% if (
-        news &&
-        news.length > 0
-    ) { %>
 
-        <div class="announcement-list">
-
-            <% news.forEach(item => { %>
-
-                <div class="announcement-card">
-
-                    <div class="announcement-icon">
-                        📢
-                    </div>
+                <div class="section-heading">
 
                     <div>
 
+                        <h2>
+                            My ATS Profile
+                        </h2>
+
+                        <p>
+                            Resume compatibility with placement roles.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="ats-card">
+
+
+                    <div class="ats-score-area">
+
+                        <span class="ats-label">
+                            ATS SCORE
+                        </span>
+
+
+                        <div class="ats-score">
+
+                            <%= bestATS
+                                ? Number(bestATS.atsScore) || 0
+                                : 0
+                            %>%
+
+                        </div>
+
+
+                        <div class="ats-result">
+
+                            <%= bestATS
+                                ? (
+                                    bestATS.atsResult ||
+                                    "Analysis Complete"
+                                  )
+                                : "Upload resume and apply for a drive"
+                            %>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="ats-progress">
+
+                        <div class="progress-track">
+
+                            <div
+                                class="progress-fill"
+                                data-width="<%= atsWidth %>"
+                            ></div>
+
+                        </div>
+
+
+                        <div class="ats-note">
+
+                            <% if (bestATS) { %>
+
+                                Best ATS score across your applications.
+
+                            <% } else { %>
+
+                                Your ATS score will appear after your resume is scanned.
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RESUME
+            ================================================== -->
+
+            <section class="content-section">
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            My Resume
+                        </h2>
+
+                        <p>
+                            Upload your latest PDF resume.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="resume-card">
+
+
+                    <form
+                        action="/student/upload-resume"
+                        method="POST"
+                        enctype="multipart/form-data"
+                        class="resume-form"
+                    >
+
+
+                        <input
+                            type="file"
+                            name="resume"
+                            accept=".pdf,application/pdf"
+                            required
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Upload Resume
+                        </button>
+
+
+                    </form>
+
+
+
+                    <% if (student && student.resume) { %>
+
+
+                        <div class="resume-current">
+
+
+                            <span>
+
+                                Current Resume:
+
+                                <strong>
+
+                                    <%= student.resumeName ||
+                                        "resume.pdf"
+                                    %>
+
+                                </strong>
+
+                            </span>
+
+
+                            <a
+                                href="/student/resume"
+                                target="_blank"
+                                class="outline-btn"
+                            >
+                                View Resume
+                            </a>
+
+
+                        </div>
+
+
+                    <% } else { %>
+
+
+                        <p class="empty-text">
+                            No resume uploaded.
+                        </p>
+
+
+                    <% } %>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PLACEMENT DRIVES
+            ================================================== -->
+
+            <section
+                class="content-section"
+                id="drives"
+            >
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Recommended Placement Drives
+                        </h2>
+
+                        <p>
+                            Placement opportunities matching your eligibility.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <% if (dashboardDrives.length > 0) { %>
+
+
+                    <div class="drive-list">
+
+
+                        <% dashboardDrives.forEach(function(drive) { %>
+
+
+                            <div class="drive-card">
+
+
+                                <div class="drive-main">
+
+
+                                    <div class="company-logo">
+
+                                        <%= drive.company
+                                            ? drive.company
+                                                .charAt(0)
+                                                .toUpperCase()
+                                            : "C"
+                                        %>
+
+                                    </div>
+
+
+                                    <div class="drive-info">
+
+                                        <h3>
+                                            <%= drive.company || "Company" %>
+                                        </h3>
+
+                                        <p class="drive-role">
+                                            <%= drive.role || "-" %>
+                                        </p>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="drive-details">
+
+
+                                    <div class="drive-detail">
+
+                                        <span>
+                                            PACKAGE
+                                        </span>
+
+                                        <strong>
+                                            <%= drive.package || "-" %>
+                                        </strong>
+
+                                    </div>
+
+
+
+                                    <div class="drive-detail">
+
+                                        <span>
+                                            MIN CGPA
+                                        </span>
+
+                                        <strong>
+                                            <%= drive.mincgpa || "-" %>
+                                        </strong>
+
+                                    </div>
+
+
+
+                                    <div class="drive-detail">
+
+                                        <span>
+                                            DEADLINE
+                                        </span>
+
+                                        <strong>
+                                            <%= drive.deadline || "-" %>
+                                        </strong>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="drive-action">
+
+
+                                    <% if (
+                                        student &&
+                                        Number(student.cgpa || 0) >=
+                                        Number(drive.mincgpa || 0)
+                                    ) { %>
+
+
+                                        <a
+                                            href="/apply/<%= drive._id %>"
+                                            class="apply-btn"
+                                        >
+                                            APPLY →
+                                        </a>
+
+
+                                    <% } else { %>
+
+
+                                        <span class="not-eligible">
+                                            Not Eligible
+                                        </span>
+
+
+                                    <% } %>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        <% }); %>
+
+
+                    </div>
+
+
+                <% } else { %>
+
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ◫
+                        </div>
+
                         <h3>
-                            <%= item.title %>
+                            No Placement Drives
                         </h3>
 
                         <p>
-                            <%= item.message %>
+                            No placement drives are currently available.
                         </p>
 
-                        <small>
-                            <%= item.date %>
-                        </small>
+                    </div>
+
+
+                <% } %>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 APPLICATIONS
+            ================================================== -->
+
+            <section
+                class="content-section"
+                id="applications"
+            >
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            My Applications
+                        </h2>
+
+                        <p>
+                            Track the status of your placement applications.
+                        </p>
 
                     </div>
 
                 </div>
 
-            <% }) %>
-
-        </div>
-
-    <% } else { %>
-
-        <p class="empty-message">
-            No announcements available.
-        </p>
-
-    <% } %>
-
-</section>
 
 
-<!-- =========================
-     SEMESTER RESULTS
-========================= -->
+                <% if (dashboardApplications.length > 0) { %>
 
-<section class="dashboard-section">
 
-    <h2>
-        My Semester Results
-    </h2>
+                    <div class="application-list">
 
-    <% if (
-        student &&
-        student.results &&
-        student.results.length > 0
-    ) { %>
 
-        <div class="results-grid">
+                        <% dashboardApplications.forEach(function(application) { %>
 
-            <% student.results.forEach(result => { %>
 
-                <div class="result-card">
+                            <div class="application-card">
 
-                    <div class="result-icon">
-                        🎓
+
+                                <div class="application-main">
+
+
+                                    <div class="application-company-icon">
+
+                                        <%= application.company
+                                            ? application.company
+                                                .charAt(0)
+                                                .toUpperCase()
+                                            : "C"
+                                        %>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h3>
+                                            <%= application.company ||
+                                                "Company"
+                                            %>
+                                        </h3>
+
+                                        <p>
+                                            <%= application.role || "-" %>
+                                        </p>
+
+
+                                        <% if (application.appliedDate) { %>
+
+                                            <small>
+                                                Applied:
+                                                <%= application.appliedDate %>
+                                            </small>
+
+                                        <% } %>
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="application-status-area">
+
+
+                                    <% if (
+                                        application.status === "Selected"
+                                    ) { %>
+
+                                        <span class="status selected">
+                                            ✓ Selected
+                                        </span>
+
+
+                                    <% } else if (
+                                        application.status === "Shortlisted"
+                                    ) { %>
+
+                                        <span class="status shortlisted">
+                                            ✓ Shortlisted
+                                        </span>
+
+
+                                    <% } else if (
+                                        application.status === "Interview Scheduled"
+                                    ) { %>
+
+                                        <span class="status interview">
+                                            ◷ Interview Scheduled
+                                        </span>
+
+
+                                    <% } else if (
+                                        application.status === "Rejected"
+                                    ) { %>
+
+                                        <span class="status rejected">
+                                            ✕ Rejected
+                                        </span>
+
+
+                                    <% } else { %>
+
+                                        <span class="status applied">
+                                            • Applied
+                                        </span>
+
+                                    <% } %>
+
+
+                                </div>
+
+
+
+                                <!-- ATS -->
+
+                                <% if (
+                                    application.atsScore !== undefined &&
+                                    application.atsScore !== null &&
+                                    application.atsScore !== ""
+                                ) { %>
+
+
+                                    <div class="application-ats">
+
+                                        <span>
+                                            ATS
+                                        </span>
+
+                                        <strong>
+                                            <%= application.atsScore %>%
+                                        </strong>
+
+                                    </div>
+
+
+                                <% } %>
+
+
+
+                                <!-- SHORTLISTED -->
+
+                                <% if (
+                                    application.status === "Shortlisted"
+                                ) { %>
+
+
+                                    <div class="shortlisted-box">
+
+                                        <h4>
+                                            Congratulations!
+                                        </h4>
+
+                                        <p>
+                                            You have been shortlisted for the next round.
+                                        </p>
+
+
+                                        <% if (
+                                            application.atsScore !== undefined &&
+                                            application.atsScore !== null &&
+                                            application.atsScore !== ""
+                                        ) { %>
+
+                                            <p>
+
+                                                ATS Score:
+
+                                                <strong>
+                                                    <%= application.atsScore %>%
+                                                </strong>
+
+                                            </p>
+
+                                        <% } %>
+
+
+                                        <a
+                                            href="/student/interview-slots/<%= application.driveId %>"
+                                            class="slot-btn"
+                                        >
+                                            Select Interview Slot →
+                                        </a>
+
+
+                                    </div>
+
+
+                                <% } %>
+
+
+
+                                <!-- INTERVIEW -->
+
+                                <% if (
+                                    application.status === "Interview Scheduled"
+                                ) { %>
+
+
+                                    <div class="interview-info">
+
+                                        <div class="interview-info-title">
+                                            Upcoming Interview
+                                        </div>
+
+
+                                        <div class="interview-grid">
+
+
+                                            <div>
+
+                                                <span>
+                                                    DATE
+                                                </span>
+
+                                                <strong>
+                                                    <%= application.interviewDate ||
+                                                        "-"
+                                                    %>
+                                                </strong>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <span>
+                                                    TIME
+                                                </span>
+
+                                                <strong>
+                                                    <%= application.interviewTime ||
+                                                        "-"
+                                                    %>
+                                                </strong>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <span>
+                                                    MODE
+                                                </span>
+
+                                                <strong>
+                                                    <%= application.interviewMode ||
+                                                        "Online"
+                                                    %>
+                                                </strong>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                <% } %>
+
+
+
+                                <!-- SELECTED -->
+
+                                <% if (
+                                    application.status === "Selected"
+                                ) { %>
+
+
+                                    <div class="selected-box">
+
+                                        <h4>
+                                            Congratulations!
+                                        </h4>
+
+                                        <p>
+                                            You have been selected for this placement drive.
+                                        </p>
+
+                                    </div>
+
+
+                                <% } %>
+
+
+
+                                <!-- REJECTED -->
+
+                                <% if (
+                                    application.status === "Rejected"
+                                ) { %>
+
+
+                                    <div class="rejected-box">
+
+                                        Thank you for applying.
+                                        Unfortunately, you were not selected for this drive.
+
+                                    </div>
+
+
+                                <% } %>
+
+
+                            </div>
+
+
+                        <% }); %>
+
+
                     </div>
 
-                    <h3>
-                        Semester
-                        <%= result.sem %>
-                    </h3>
 
-                    <p>
-                        <strong>
-                            Percentage:
-                        </strong>
+                <% } else { %>
 
-                        <%= result.percentage %>%
-                    </p>
 
-                    <p>
-                        <strong>
-                            CGPA:
-                        </strong>
+                    <div class="empty-state">
 
-                        <%= result.cgpa %>
-                    </p>
+                        <div class="empty-icon">
+                            ◫
+                        </div>
 
-                    <a
-                        href="/student/result/<%= result.sem %>"
-                        class="result-btn"
-                    >
-                        VIEW RESULT
-                    </a>
+                        <h3>
+                            No Applications Yet
+                        </h3>
+
+                        <p>
+                            You have not applied for any placement drive.
+                        </p>
+
+                    </div>
+
+
+                <% } %>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 UPCOMING INTERVIEW
+            ================================================== -->
+
+            <section
+                class="content-section"
+                id="interviews"
+            >
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Upcoming Interview
+                        </h2>
+
+                        <p>
+                            Your next scheduled placement interview.
+                        </p>
+
+                    </div>
 
                 </div>
 
-            <% }) %>
 
-        </div>
 
-    <% } else { %>
+                <% if (upcomingInterview) { %>
 
-        <p class="empty-message">
-            No semester results published yet.
-        </p>
 
-    <% } %>
+                    <div class="upcoming-interview">
 
-</section>
-```
 
-</main>
+                        <div class="upcoming-company">
 
-<!-- =========================
-     FOOTER
-========================= -->
 
-<footer>
+                            <div class="upcoming-company-logo">
 
-```
-<p>
-    © 2026 Campus Placement Portal
-</p>
-```
+                                <%= upcomingInterview.company
+                                    ? upcomingInterview.company
+                                        .charAt(0)
+                                        .toUpperCase()
+                                    : "C"
+                                %>
 
-</footer>
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    <%= upcomingInterview.company ||
+                                        "Company"
+                                    %>
+                                </h3>
+
+                                <p>
+                                    <%= upcomingInterview.role || "-" %>
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="upcoming-details">
+
+
+                            <div>
+
+                                <span>
+                                    DATE
+                                </span>
+
+                                <strong>
+                                    <%= upcomingInterview.interviewDate ||
+                                        "-"
+                                    %>
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    TIME
+                                </span>
+
+                                <strong>
+                                    <%= upcomingInterview.interviewTime ||
+                                        "-"
+                                    %>
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    MODE
+                                </span>
+
+                                <strong>
+                                    <%= upcomingInterview.interviewMode ||
+                                        "Online"
+                                    %>
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                <% } else { %>
+
+
+                    <div class="no-upcoming">
+
+
+                        <div class="no-upcoming-icon">
+                            ◷
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                No Upcoming Interview
+                            </h3>
+
+                            <p>
+                                Your interview will appear here after you book an interview slot.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                <% } %>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ANNOUNCEMENTS
+            ================================================== -->
+
+            <section
+                class="content-section"
+                id="announcements"
+            >
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Announcements
+                        </h2>
+
+                        <p>
+                            Important placement updates.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <% if (dashboardAnnouncements.length > 0) { %>
+
+
+                    <div class="announcement-list">
+
+
+                        <% dashboardAnnouncements.forEach(function(item) { %>
+
+
+                            <div class="announcement-card">
+
+
+                                <div class="announcement-icon">
+                                    !
+                                </div>
+
+
+                                <div>
+
+                                    <h3>
+                                        <%= item.title ||
+                                            "Announcement"
+                                        %>
+                                    </h3>
+
+                                    <p>
+                                        <%= item.message || "" %>
+                                    </p>
+
+                                    <small>
+                                        <%= item.date || "" %>
+                                    </small>
+
+                                </div>
+
+
+                            </div>
+
+
+                        <% }); %>
+
+
+                    </div>
+
+
+                <% } else { %>
+
+
+                    <div class="empty-state small">
+
+                        <p>
+                            No announcements available.
+                        </p>
+
+                    </div>
+
+
+                <% } %>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RESULTS
+            ================================================== -->
+
+            <section
+                class="content-section"
+                id="results"
+            >
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            My Semester Results
+                        </h2>
+
+                        <p>
+                            View your published academic results.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <% if (
+                    student &&
+                    Array.isArray(student.results) &&
+                    student.results.length > 0
+                ) { %>
+
+
+                    <div class="results-grid">
+
+
+                        <% student.results.forEach(function(result) { %>
+
+
+                            <div class="result-card">
+
+
+                                <div class="result-sem">
+
+                                    SEM
+                                    <%= result.sem || "-" %>
+
+                                </div>
+
+
+                                <div class="result-values">
+
+
+                                    <div>
+
+                                        <span>
+                                            PERCENTAGE
+                                        </span>
+
+                                        <strong>
+                                            <%= result.percentage || 0 %>%
+                                        </strong>
+
+                                    </div>
+
+
+
+                                    <div>
+
+                                        <span>
+                                            CGPA
+                                        </span>
+
+                                        <strong>
+                                            <%= result.cgpa || "-" %>
+                                        </strong>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <a
+                                    href="/student/result/<%= result.sem %>"
+                                    class="result-btn"
+                                >
+                                    VIEW RESULT
+                                </a>
+
+
+                            </div>
+
+
+                        <% }); %>
+
+
+                    </div>
+
+
+                <% } else { %>
+
+
+                    <div class="empty-state small">
+
+                        <p>
+                            No semester results published yet.
+                        </p>
+
+                    </div>
+
+
+                <% } %>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer class="footer">
+
+            © 2026 Campus Placement Portal
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     ATS PROGRESS BAR
+========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        var progressBars =
+            document.querySelectorAll(
+                ".progress-fill"
+            );
+
+
+        progressBars.forEach(
+            function(bar) {
+
+                var width =
+                    Number(
+                        bar.getAttribute(
+                            "data-width"
+                        )
+                    ) || 0;
+
+
+                if (width < 0) {
+                    width = 0;
+                }
+
+
+                if (width > 100) {
+                    width = 100;
+                }
+
+
+                bar.style.width =
+                    width + "%";
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+
+
+<!-- =========================================================
+     PROFILE PHOTO CURSOR
+========================================================= -->
+
+<style>
+
+.profile-photo-link {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.profile-photo-link:hover {
+    opacity: 0.9;
+}
+
+.profile-photo-link .user-avatar {
+    cursor: pointer;
+}
+
+.profile-photo-link .profile-photo {
+    cursor: pointer;
+}
+
+.profile-photo-card .profile-photo-link {
+    display: block;
+    text-decoration: none;
+}
+
+.profile-photo-card .profile-photo-link:hover {
+    opacity: 0.92;
+}
+
+</style>
+
 
 </body>
 

@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Admin Dashboard</title>
 
+    <link rel="stylesheet" href="/theme.css">
     <link rel="stylesheet" href="/admin.css">
 
 </head>
@@ -17,651 +21,968 @@
 <body>
 
 
-<!-- ========================= -->
-<!-- HEADER -->
-<!-- ========================= -->
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="top-header">
 
 
-<header class="admin-header">
+    <div class="brand">
+
+        <div class="brand-mark">
+            ◆
+        </div>
 
 
-    <div>
+        <div>
 
-        <h1>
-            🎓 Campus Placement Portal
-        </h1>
+            <h1>
+                Campus Placement Portal
+            </h1>
 
+            <span>
+                ADMINISTRATION
+            </span>
 
-        <p>
-            Admin Dashboard
-        </p>
+        </div>
 
     </div>
 
 
+    <div class="header-right">
 
-    <a href="/logout" class="logout-btn">
 
-        Logout
+        <div class="admin-user">
 
-    </a>
+            <span class="user-avatar">
+                A
+            </span>
+
+            <span>
+                Administrator
+            </span>
+
+        </div>
+
+
+        <a
+            href="/logout"
+            class="logout-btn"
+        >
+            Logout
+        </a>
+
+
+    </div>
 
 
 </header>
 
 
 
+<div class="dashboard-layout">
 
 
-<main class="admin-container">
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
+    <aside class="sidebar">
 
 
+        <div class="sidebar-title">
+            ◆ ADMIN
+        </div>
 
 
-<!-- ========================= -->
-<!-- ADMIN MENU -->
-<!-- ========================= -->
+        <nav class="sidebar-nav">
 
 
-<section class="menu-section">
+            <a
+                href="/admin"
+                class="nav-item active"
+            >
 
+                <span>
+                    ▣
+                </span>
 
-<h2>
-    Admin Menu
-</h2>
+                Dashboard
 
+            </a>
 
 
-<div class="menu-grid">
+            <a
+                href="/companies"
+                class="nav-item"
+            >
 
+                <span>
+                    ▣
+                </span>
 
+                Companies
 
-<a href="/company/add" class="menu-card">
+            </a>
 
-    <span>🏢</span>
 
-    <strong>
-        Add Company
-    </strong>
+            <a
+                href="/drives"
+                class="nav-item"
+            >
 
-    <small>
-        Add a new placement company
-    </small>
+                <span>
+                    ▣
+                </span>
 
-</a>
+                Placement Drives
 
+            </a>
 
 
+            <a
+                href="/applications"
+                class="nav-item"
+            >
 
-<a href="/companies" class="menu-card">
+                <span>
+                    ▣
+                </span>
 
-    <span>📋</span>
+                Applications
 
-    <strong>
-        Company List
-    </strong>
+            </a>
 
-    <small>
-        View all companies
-    </small>
 
-</a>
+            <a
+                href="/announcement/add"
+                class="nav-item"
+            >
 
+                <span>
+                    ▣
+                </span>
 
+                Announcements
 
+            </a>
 
 
-<a href="/drive/add" class="menu-card">
+            <div class="nav-divider"></div>
 
-    <span>➕</span>
 
-    <strong>
-        Add Placement Drive
-    </strong>
+            <a
+                href="/add"
+                class="nav-item"
+            >
 
-    <small>
-        Create placement drive
-    </small>
+                <span>
+                    ＋
+                </span>
 
-</a>
+                Add Student
 
+            </a>
 
 
+            <a
+                href="/logout"
+                class="nav-item logout-side"
+            >
 
+                <span>
+                    ⇥
+                </span>
 
-<a href="/drives" class="menu-card">
+                Logout
 
-    <span>💼</span>
+            </a>
 
-    <strong>
-        Placement Drives
-    </strong>
 
-    <small>
-        View drives
-    </small>
+        </nav>
 
-</a>
 
+    </aside>
 
 
 
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
 
-<a href="/applications" class="menu-card">
+    <main class="main-content">
 
-    <span>📄</span>
 
-    <strong>
-        Applications
-    </strong>
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
 
-    <small>
-        View applications
-    </small>
+        <section class="welcome-section">
 
-</a>
 
+            <div>
 
+                <p class="eyebrow">
+                    ADMINISTRATION
+                </p>
 
 
+                <h2>
+                    Good morning, Administrator
+                </h2>
 
-<a href="/announcement/add" class="menu-card">
 
-    <span>📢</span>
+                <p class="welcome-text">
+                    Manage students, companies and placement activities.
+                </p>
 
-    <strong>
-        Announcement
-    </strong>
 
-    <small>
-        Post announcement
-    </small>
+            </div>
 
-</a>
 
+            <a
+                href="/add"
+                class="primary-btn"
+            >
+
+                + Add Student
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats-section">
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    TOTAL STUDENTS
+                </span>
+
+
+                <strong>
+                    <%= totalStudents %>
+                </strong>
+
+
+                <small>
+                    Registered students
+                </small>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    COMPANIES
+                </span>
+
+
+                <strong>
+                    <%= totalCompanies %>
+                </strong>
+
+
+                <small>
+                    Partner companies
+                </small>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    PLACEMENT DRIVES
+                </span>
+
+
+                <strong>
+                    <%= totalDrives %>
+                </strong>
+
+
+                <small>
+                    Active drives
+                </small>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    APPLICATIONS
+                </span>
+
+
+                <strong>
+                    <%= totalApplications %>
+                </strong>
+
+
+                <small>
+                    Total applications
+                </small>
+
+            </div>
+
+
+
+            <div class="stat-card highlight">
+
+                <span class="stat-label">
+                    SELECTED
+                </span>
+
+
+                <strong>
+                    <%= selectedStudents %>
+                </strong>
+
+
+                <small>
+                    Students selected
+                </small>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <section class="content-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <p class="eyebrow">
+                        QUICK ACCESS
+                    </p>
+
+
+                    <h2>
+                        Administration
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="action-grid">
+
+
+                <a
+                    href="/company/add"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        +
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Add Company
+                        </h3>
+
+
+                        <p>
+                            Register a new placement company
+                        </p>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="/companies"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        ▣
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Company List
+                        </h3>
+
+
+                        <p>
+                            View registered companies
+                        </p>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="/drive/add"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        +
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Add Placement Drive
+                        </h3>
+
+
+                        <p>
+                            Create a new placement opportunity
+                        </p>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="/drives"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        ▣
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Placement Drives
+                        </h3>
+
+
+                        <p>
+                            Monitor ongoing placement drives
+                        </p>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="/applications"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        ▤
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Applications
+                        </h3>
+
+
+                        <p>
+                            Review student applications
+                        </p>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="/announcement/add"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        !
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Announcement
+                        </h3>
+
+
+                        <p>
+                            Publish an announcement
+                        </p>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STUDENT MANAGEMENT
+        ================================================== -->
+
+        <section class="content-section">
+
+
+            <div class="section-heading student-heading">
+
+
+                <div>
+
+                    <p class="eyebrow">
+                        STUDENT MANAGEMENT
+                    </p>
+
+
+                    <h2>
+                        Registered Students
+                    </h2>
+
+
+                    <p>
+                        Manage student records and academic information.
+                    </p>
+
+                </div>
+
+
+
+                <!-- SEARCH -->
+
+                <form
+                    action="/search"
+                    method="GET"
+                    class="search-form"
+                >
+
+
+                    <input
+                        type="text"
+                        name="usn"
+                        placeholder="Search by USN"
+                        required
+                    >
+
+
+                    <button type="submit">
+                        Search
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STUDENT TABLE
+            ================================================== -->
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+
+                        <tr>
+
+                            <th>
+                                STUDENT
+                            </th>
+
+                            <th>
+                                USN
+                            </th>
+
+                            <th>
+                                BRANCH
+                            </th>
+
+                            <th>
+                                SEM
+                            </th>
+
+                            <th>
+                                CGPA
+                            </th>
+
+                            <th>
+                                ACTIONS
+                            </th>
+
+                        </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                    <% if (
+                        Array.isArray(data) &&
+                        data.length > 0
+                    ) { %>
+
+
+                        <% data.forEach(function(student) { %>
+
+
+                            <tr>
+
+
+                                <!-- =================================
+                                     STUDENT
+                                ================================== -->
+
+                                <td>
+
+
+                                    <div class="student-cell">
+
+
+                                        <% if (
+                                            student.photo
+                                        ) { %>
+
+
+                                            <img
+                                                src="/photo/<%= student.usn %>"
+                                                class="student-photo"
+                                                alt="Student"
+                                            >
+
+
+                                        <% } else { %>
+
+
+                                            <div class="student-photo placeholder">
+
+                                                <%= student.fullname
+                                                    ? student.fullname
+                                                        .charAt(0)
+                                                        .toUpperCase()
+                                                    : "S"
+                                                %>
+
+                                            </div>
+
+
+                                        <% } %>
+
+
+
+                                        <div>
+
+
+                                            <strong>
+
+                                                <%= student.fullname ||
+                                                    "Student"
+                                                %>
+
+                                            </strong>
+
+
+                                            <span>
+
+                                                <%= student.email ||
+                                                    "-"
+                                                %>
+
+                                            </span>
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </td>
+
+
+
+                                <!-- =================================
+                                     USN
+                                ================================== -->
+
+                                <td>
+
+
+                                    <span class="usn">
+
+                                        <%= student.usn || "-" %>
+
+                                    </span>
+
+
+                                </td>
+
+
+
+                                <!-- =================================
+                                     BRANCH
+                                ================================== -->
+
+                                <td>
+
+                                    <%= student.branch || "-" %>
+
+                                </td>
+
+
+
+                                <!-- =================================
+                                     SEMESTER
+                                ================================== -->
+
+                                <td>
+
+                                    <%= student.sem || "-" %>
+
+                                </td>
+
+
+
+                                <!-- =================================
+                                     CGPA
+                                ================================== -->
+
+                                <td>
+
+
+                                    <span class="cgpa">
+
+                                        <%= student.cgpa || "-" %>
+
+                                    </span>
+
+
+                                </td>
+
+
+
+                                <!-- =================================
+                                     ACTIONS
+                                ================================== -->
+
+                                <td>
+
+
+                                    <div class="action-buttons">
+
+
+                                        <!-- VIEW -->
+
+                                        <a
+                                            href="/student/<%= student.usn %>"
+                                            class="view-btn"
+                                        >
+
+                                            View
+
+                                        </a>
+
+
+
+                                        <!-- QR CODE -->
+
+                                        <a
+                                            href="/student/<%= student.usn %>"
+                                            class="qr-btn"
+                                            target="_blank"
+                                            title="View Student QR Code"
+                                        >
+
+                                            QR
+
+                                        </a>
+
+
+
+                                        <!-- EDIT -->
+
+                                        <a
+                                            href="/edit/<%= student.usn %>"
+                                            class="edit-btn"
+                                        >
+
+                                            Edit
+
+                                        </a>
+
+
+
+                                        <!-- RESULT -->
+
+                                        <a
+                                            href="/result/<%= student.usn %>"
+                                            class="result-btn"
+                                        >
+
+                                            Result
+
+                                        </a>
+
+
+
+                                        <!-- DELETE -->
+
+                                        <a
+                                            href="/delete/<%= student.usn %>"
+                                            class="delete-btn"
+                                            onclick="return confirm('Delete this student?')"
+                                        >
+
+                                            Delete
+
+                                        </a>
+
+
+                                    </div>
+
+
+                                </td>
+
+
+                            </tr>
+
+
+                        <% }) %>
+
+
+                    <% } else { %>
+
+
+                        <tr>
+
+
+                            <td
+                                colspan="6"
+                                class="empty-table"
+                            >
+
+                                No students registered yet.
+
+                            </td>
+
+
+                        </tr>
+
+
+                    <% } %>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
 
 
 </div>
 
 
-</section>
 
-
-
-
-
-
-<!-- ========================= -->
-<!-- STATISTICS -->
-<!-- ========================= -->
-
-
-<section class="statistics-section">
-
-
-<h2>
-    Placement Statistics
-</h2>
-
-
-
-<div class="statistics-grid">
-
-
-<div class="stat-card">
-
-<span>👨‍🎓</span>
-
-<h3>
-<%= totalStudents %>
-</h3>
-
-<p>
-Total Students
-</p>
-
-</div>
-
-
-
-
-
-<div class="stat-card">
-
-<span>🏢</span>
-
-<h3>
-<%= totalCompanies %>
-</h3>
-
-<p>
-Total Companies
-</p>
-
-</div>
-
-
-
-
-
-<div class="stat-card">
-
-<span>💼</span>
-
-<h3>
-<%= totalDrives %>
-</h3>
-
-<p>
-Total Drives
-</p>
-
-</div>
-
-
-
-
-
-<div class="stat-card">
-
-<span>📄</span>
-
-<h3>
-<%= totalApplications %>
-</h3>
-
-<p>
-Applications
-</p>
-
-</div>
-
-
-
-
-
-<div class="stat-card selected">
-
-<span>✅</span>
-
-<h3>
-<%= selectedStudents %>
-</h3>
-
-<p>
-Selected Students
-</p>
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- ========================= -->
-<!-- STUDENT MANAGEMENT -->
-<!-- ========================= -->
-
-
-<section class="student-section">
-
-
-
-<div class="section-header">
-
-
-<div>
-
-<h2>
-Student Management
-</h2>
-
-
-<p>
-Manage registered students
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="student-buttons">
-
-
-<a href="/add" class="primary-btn">
-
-+ Add Student
-
-</a>
-
-
-
-
-<form action="/search" method="GET" class="search-form">
-
-
-<input
-
-type="text"
-
-name="usn"
-
-placeholder="Enter Student USN"
-
-required
-
->
-
-
-
-<button 
-type="submit"
-class="secondary-btn"
->
-
-🔍 Search
-
-</button>
-
-
-
-</form>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-<!-- STUDENT TABLE -->
-
-
-<div class="table-container">
-
-
-<table class="student-table">
-
-
-<thead>
-
-
-<tr>
-
-<th>
-Photo
-</th>
-
-
-<th>
-USN
-</th>
-
-
-<th>
-Name
-</th>
-
-
-<th>
-Email
-</th>
-
-
-<th>
-Branch
-</th>
-
-
-<th>
-Semester
-</th>
-
-
-<th>
-CGPA
-</th>
-
-
-<th>
-Actions
-</th>
-
-
-</tr>
-
-
-</thead>
-
-
-
-
-
-<tbody>
-
-
-<% if(data && data.length > 0){ %>
-
-
-<% data.forEach(student=>{ %>
-
-
-
-<tr>
-
-
-<td>
-
-
-<% if(student.photo){ %>
-
-
-<img
-
-src="/photo/<%= student.usn %>"
-
-class="student-photo"
-
-alt="Photo"
-
->
-
-
-<% }else{ %>
-
-
-<div class="no-photo">
-👤
-</div>
-
-
-<% } %>
-
-
-</td>
-
-
-
-
-<td>
-
-<strong>
-<%= student.usn %>
-</strong>
-
-</td>
-
-
-
-<td>
-<%= student.fullname %>
-</td>
-
-
-
-<td>
-<%= student.email %>
-</td>
-
-
-
-<td>
-<%= student.branch %>
-</td>
-
-
-
-<td>
-<%= student.sem %>
-</td>
-
-
-
-
-<td>
-
-<span class="cgpa">
-
-<%= student.cgpa %>
-
-</span>
-
-</td>
-
-
-
-
-<td>
-
-
-<div class="action-buttons">
-
-
-<a href="/edit/<%= student.usn %>" class="edit-btn">
-
-Edit
-
-</a>
-
-
-
-<a 
-
-href="/delete/<%= student.usn %>"
-
-class="delete-btn"
-
-onclick="return confirm('Delete this student?')"
-
->
-
-Delete
-
-</a>
-
-
-
-
-<a href="/result/<%= student.usn %>" class="result-btn">
-
-Result
-
-</a>
-
-
-
-<a href="/student/<%= student.usn %>" class="view-btn">
-
-View
-
-</a>
-
-
-
-</div>
-
-
-</td>
-
-
-
-</tr>
-
-
-
-
-<% }) %>
-
-
-
-<% }else{ %>
-
-
-
-<tr>
-
-<td colspan="8" class="no-students">
-
-👨‍🎓 No students found
-
-</td>
-
-</tr>
-
-
-
-<% } %>
-
-
-
-</tbody>
-
-
-
-</table>
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-</main>
-
-
-
-
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
 <footer>
 
-<p>
-© 2026 Campus Placement Portal
-</p>
-
+    © 2026 Campus Placement Portal
 
 </footer>
 

@@ -1,614 +1,477 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>Admin Registration</title>
+    <title>Admin Registration</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-/* =========================================
-GLOBAL
-========================================= */
+    <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        /* =========================================
+           TOKENS
+        ========================================= */
 
+        :root {
+            --ink: #0B1F3A;
+            --ink-2: #12294A;
 
-body{
+            --parchment: #F6F4EE;
+            --paper: #FFFFFF;
 
-    font-family:
-    "Segoe UI",
-    Arial,
-    Helvetica,
-    sans-serif;
+            --brass: #AD8A54;
+            --brass-light: #E4D6B8;
 
-    min-height:100vh;
+            --slate: #5B6B7C;
+            --hairline: #E2DDD0;
 
-    display:flex;
+            --ledger-green: #1F6E45;
+            --error: #9A2E2E;
 
-    justify-content:center;
+            --font-display: "Fraunces", Georgia, serif;
+            --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+        }
 
-    align-items:center;
 
+        /* =========================================
+           GLOBAL
+        ========================================= */
 
-    background:
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    linear-gradient(
-        90deg,
-        rgba(5,22,48,0.95),
-        rgba(5,22,48,0.70)
-    ),
+        body {
+            min-height: 100vh;
 
-    url("/images/placement-bg.jpg");
+            font-family: var(--font-body);
 
+            display: flex;
 
-    background-size:cover;
+            justify-content: center;
+            align-items: center;
 
-    background-position:center;
+            padding: 30px;
 
-    padding:30px;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5, 22, 48, 0.95),
+                    rgba(5, 22, 48, 0.78)
+                ),
+                url("/images/placement-bg.jpg");
 
-}
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
 
+        /* =========================================
+           REGISTER CARD
+        ========================================= */
 
-/* =========================================
-CARD
-========================================= */
+        .register-container {
+            width: 100%;
+            max-width: 460px;
 
+            background: var(--paper);
 
-.register-container{
+            border-radius: 20px;
 
+            padding: 42px;
 
-    width:100%;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.35);
+        }
 
-    max-width:450px;
 
+        /* =========================================
+           HEADER
+        ========================================= */
 
-    background:white;
+        .register-header {
+            margin-bottom: 30px;
+        }
 
+        .register-header h1 {
+            font-family: var(--font-display);
 
-    border-radius:20px;
+            color: var(--ink);
 
+            font-size: 31px;
 
-    padding:42px;
+            font-weight: 600;
 
+            margin-bottom: 8px;
+        }
 
-    box-shadow:
+        .register-header p {
+            color: var(--slate);
 
-    0 25px 70px rgba(0,0,0,0.35);
+            font-size: 14px;
 
+            line-height: 1.6;
+        }
 
 
-}
+        /* =========================================
+           FORM
+        ========================================= */
 
+        .input-box {
+            margin-bottom: 20px;
+        }
 
+        .input-box label {
+            display: block;
 
+            color: var(--ink);
 
+            font-size: 13px;
 
-/* =========================================
-HEADER
-========================================= */
+            font-weight: 700;
 
+            margin-bottom: 8px;
+        }
 
-.register-header{
+        .input-box input {
+            width: 100%;
 
+            height: 50px;
 
-    margin-bottom:30px;
+            border-radius: 9px;
 
+            border: 1px solid var(--hairline);
 
-}
+            background: var(--parchment);
 
+            padding: 0 15px;
 
+            color: var(--ink);
 
-.register-header h1{
+            font-family: var(--font-body);
 
+            font-size: 14px;
 
-    color:#102a43;
+            outline: none;
 
+            transition: 0.25s;
+        }
 
-    font-size:30px;
+        .input-box input::placeholder {
+            color: #8A96A3;
+        }
 
+        .input-box input:focus {
+            background: var(--paper);
 
-    font-weight:700;
+            border-color: var(--brass);
 
+            box-shadow:
+                0 0 0 3px rgba(173, 138, 84, 0.15);
+        }
 
-    margin-bottom:8px;
 
+        /* =========================================
+           ERROR MESSAGE
+        ========================================= */
 
-}
+        .error {
+            background: #fff1f0;
 
+            color: var(--error);
 
+            padding: 12px 14px;
 
-.register-header p{
+            border-radius: 8px;
 
+            margin-bottom: 20px;
 
-    color:#7b8794;
+            font-size: 13px;
 
+            line-height: 1.5;
 
-    font-size:14px;
+            border: 1px solid #ffcdd2;
+        }
 
 
-}
+        /* =========================================
+           REGISTER BUTTON
+        ========================================= */
 
+        button {
+            width: 100%;
 
+            height: 50px;
 
+            border: none;
 
+            border-radius: 9px;
 
-/* =========================================
-INPUT
-========================================= */
+            cursor: pointer;
 
+            color: white;
 
-.input-box{
+            font-family: var(--font-body);
 
+            font-size: 15px;
 
-    margin-bottom:20px;
+            font-weight: 700;
 
+            background: var(--ink);
 
-}
+            transition: 0.3s;
+        }
 
+        button:hover {
+            background: var(--brass);
 
+            transform: translateY(-2px);
 
-.input-box label{
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.20);
+        }
 
+        button:active {
+            transform: translateY(0);
+        }
 
-    display:block;
 
+        /* =========================================
+           LOGIN LINK
+        ========================================= */
 
-    color:#334e68;
+        .login-link {
+            text-align: center;
 
+            margin-top: 25px;
 
-    font-size:13px;
+            padding-top: 20px;
 
+            border-top: 1px solid var(--hairline);
 
-    font-weight:600;
+            color: var(--slate);
 
+            font-size: 14px;
+        }
 
-    margin-bottom:8px;
+        .login-link a {
+            color: var(--brass);
 
+            text-decoration: none;
 
-}
+            font-weight: 700;
 
+            margin-left: 4px;
 
+            transition: 0.2s;
+        }
 
+        .login-link a:hover {
+            color: var(--ink);
 
-.input-box input{
+            text-decoration: underline;
+        }
 
 
-    width:100%;
+        /* =========================================
+           MOBILE
+        ========================================= */
 
+        @media (max-width: 600px) {
 
-    height:50px;
+            body {
+                padding: 20px 12px;
 
+                align-items: flex-start;
+            }
 
-    border-radius:9px;
+            .register-container {
+                margin-top: 25px;
 
+                padding: 30px 22px;
 
-    border:1px solid #d9e2ec;
+                border-radius: 16px;
+            }
 
+            .register-header h1 {
+                font-size: 27px;
+            }
 
-    background:#f8fafc;
+            .register-header p {
+                font-size: 13px;
+            }
 
+        }
 
-    padding:0 15px;
 
+        @media (max-width: 380px) {
 
-    font-size:14px;
+            .register-container {
+                padding: 25px 18px;
+            }
 
+            .register-header h1 {
+                font-size: 24px;
+            }
 
-    outline:none;
+            .input-box input {
+                height: 48px;
+            }
 
+            button {
+                height: 48px;
+            }
 
-    transition:.3s;
+        }
 
-
-}
-
-
-
-
-.input-box input:focus{
-
-
-    background:white;
-
-
-    border-color:#1677c8;
-
-
-    box-shadow:
-
-    0 0 0 3px rgba(22,119,200,.12);
-
-
-}
-
-
-
-
-
-/* =========================================
-ERROR MESSAGE
-========================================= */
-
-
-.error{
-
-
-    background:#fff1f0;
-
-
-    color:#c62828;
-
-
-    padding:12px;
-
-
-    border-radius:8px;
-
-
-    margin-bottom:20px;
-
-
-    font-size:13px;
-
-
-    border:1px solid #ffcdd2;
-
-
-}
-
-
-
-
-
-/* =========================================
-BUTTON
-========================================= */
-
-
-button{
-
-
-    width:100%;
-
-
-    height:50px;
-
-
-    border:none;
-
-
-    border-radius:9px;
-
-
-    cursor:pointer;
-
-
-    color:white;
-
-
-    font-size:15px;
-
-
-    font-weight:600;
-
-
-
-    background:
-
-    linear-gradient(
-
-        135deg,
-
-        #1677c8,
-
-        #07549a
-
-    );
-
-
-    transition:.3s;
-
-
-}
-
-
-
-
-
-button:hover{
-
-
-    transform:translateY(-2px);
-
-
-    box-shadow:
-
-    0 10px 25px rgba(22,119,200,.35);
-
-
-}
-
-
-
-
-
-/* =========================================
-LOGIN LINK
-========================================= */
-
-
-.login-link{
-
-
-    text-align:center;
-
-
-    margin-top:25px;
-
-
-    padding-top:20px;
-
-
-    border-top:1px solid #edf2f7;
-
-
-    color:#7b8794;
-
-
-    font-size:14px;
-
-
-}
-
-
-
-.login-link a{
-
-
-    color:#1677c8;
-
-
-    text-decoration:none;
-
-
-    font-weight:600;
-
-
-}
-
-
-
-.login-link a:hover{
-
-
-    text-decoration:underline;
-
-
-}
-
-
-
-
-
-/* =========================================
-MOBILE
-========================================= */
-
-
-@media(max-width:600px){
-
-
-    .register-container{
-
-
-        padding:30px 22px;
-
-
-    }
-
-
-    .register-header h1{
-
-
-        font-size:26px;
-
-
-    }
-
-
-}
-
-
-
-</style>
-
+    </style>
 
 </head>
 
 
-
-
 <body>
 
+    <div class="register-container">
 
 
+        <!-- =========================================
+             HEADER
+        ========================================= -->
 
-<div class="register-container">
+        <div class="register-header">
 
+            <h1>
+                Create Admin Account
+            </h1>
 
+            <p>
+                Register to manage Campus Placement Portal
+            </p>
 
-<div class="register-header">
+        </div>
 
 
-<h1>
-Create Admin Account
-</h1>
+        <!-- =========================================
+             REGISTRATION FORM
+        ========================================= -->
 
+        <form
+            action="/register"
+            method="POST"
+        >
 
-<p>
-Register to manage Campus Placement Portal
-</p>
+            <% if (typeof error !== "undefined" && error) { %>
 
+                <div class="error">
+                    <%= error %>
+                </div>
 
-</div>
+            <% } %>
 
 
+            <!-- FULL NAME -->
 
+            <div class="input-box">
 
+                <label for="name">
+                    Full Name
+                </label>
 
-<form action="/register" method="POST">
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                    required
+                >
 
+            </div>
 
-<% if(error){ %>
 
+            <!-- EMAIL -->
 
-<div class="error">
+            <div class="input-box">
 
-<%= error %>
+                <label for="email">
+                    Email Address
+                </label>
 
-</div>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
 
+            </div>
 
-<% } %>
 
+            <!-- PASSWORD -->
 
+            <div class="input-box">
 
+                <label for="password">
+                    Password
+                </label>
 
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
 
-<div class="input-box">
+            </div>
 
 
-<label>
-Full Name
-</label>
+            <!-- REGISTER -->
 
+            <button type="submit">
+                Register
+            </button>
 
-<input
+        </form>
 
-type="text"
 
-name="name"
+        <!-- =========================================
+             LOGIN
+        ========================================= -->
 
-placeholder="Enter your full name"
+        <div class="login-link">
 
-required
+            Already registered?
 
->
+            <a href="/">
+                Login Here
+            </a>
 
+        </div>
 
-</div>
 
-
-
-
-
-
-<div class="input-box">
-
-
-<label>
-Email Address
-</label>
-
-
-<input
-
-type="email"
-
-name="email"
-
-placeholder="Enter your email"
-
-required
-
->
-
-
-</div>
-
-
-
-
-
-
-<div class="input-box">
-
-
-<label>
-Password
-</label>
-
-
-<input
-
-type="password"
-
-name="password"
-
-placeholder="Create password"
-
-required
-
->
-
-
-</div>
-
-
-
-
-
-
-<button type="submit">
-
-Register
-
-</button>
-
-
-
-</form>
-
-
-
-
-
-<div class="login-link">
-
-
-Already registered?
-
-
-<a href="/">
-
-Login Here
-
-</a>
-
-
-</div>
-
-
-
-
-</div>
-
-
-
+    </div>
 
 </body>
-
 
 </html>

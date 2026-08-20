@@ -1,0 +1,336 @@
+/* =========================================
+   TOKENS
+========================================= */
+
+:root {
+    --ink: #0B1F3A;
+    --ink-2: #12294A;
+    --parchment: #F6F4EE;
+    --paper: #FFFFFF;
+    --brass: #AD8A54;
+    --brass-light: #E4D6B8;
+    --slate: #5B6B7C;
+    --hairline: #E2DDD0;
+    --ledger-green: #1F6E45;
+    --error: #9A2E2E;
+
+    --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+/* =========================================
+   GOOGLE FONTS
+========================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap");
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 40px 5%;
+
+    font-family: var(--font-body);
+    color: var(--ink);
+
+    background: var(--parchment);
+
+    line-height: 1.6;
+}
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 28px;
+    margin: 0 0 14px;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 25px 0 12px;
+}
+
+h3 {
+    font-size: 17px;
+    margin: 10px 0;
+}
+
+/* =========================================
+   LINKS
+========================================= */
+
+a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--brass);
+    transition: 0.2s ease;
+}
+
+a:hover {
+    color: var(--brass);
+}
+
+/* =========================================
+   HORIZONTAL LINE
+========================================= */
+
+hr {
+    border: none;
+    border-top: 1px solid var(--hairline);
+    margin: 20px 0;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    background: var(--paper);
+
+    box-shadow:
+        0 10px 30px rgba(3, 10, 25, 0.08);
+
+    margin-top: 16px;
+}
+
+/* =========================================
+   TABLE BORDERS
+========================================= */
+
+table,
+th,
+td {
+    border: 1px solid var(--hairline);
+}
+
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+th {
+    background: var(--ink);
+    color: var(--brass-light);
+
+    text-transform: uppercase;
+
+    font-size: 11.5px;
+    letter-spacing: 1px;
+
+    padding: 12px 14px;
+
+    text-align: left;
+}
+
+/* =========================================
+   TABLE DATA
+========================================= */
+
+td {
+    padding: 12px 14px;
+
+    color: var(--slate);
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+/* =========================================
+   ALTERNATING ROWS
+========================================= */
+
+tr:nth-child(even) td {
+    background: #FBFAF6;
+}
+
+/* =========================================
+   ROW HOVER
+========================================= */
+
+tbody tr:hover td {
+    background: #F3EFE5;
+}
+
+/* =========================================
+   BUTTON / ACTION LINKS
+========================================= */
+
+button,
+.btn {
+    display: inline-block;
+
+    padding: 9px 16px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: var(--ink);
+    color: white;
+
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+    background: var(--brass);
+    color: white;
+
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+    display: inline-block;
+
+    margin-bottom: 20px;
+
+    padding: 9px 16px;
+
+    background: var(--ink);
+    color: white;
+
+    border: none;
+    border-radius: 7px;
+
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background: var(--brass);
+    color: white;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status.success {
+    background: #E8F5EE;
+    color: var(--ledger-green);
+}
+
+.status.pending {
+    background: #FFF4D6;
+    color: var(--brass);
+}
+
+.status.rejected {
+    background: #FBEAEA;
+    color: var(--error);
+}
+
+/* =========================================
+   EMPTY MESSAGE
+========================================= */
+
+.empty-message {
+    text-align: center;
+
+    padding: 30px;
+
+    color: var(--slate);
+}
+
+/* =========================================
+   RESPONSIVE TABLE
+========================================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 25px 3%;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    table {
+        min-width: 700px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 20px 12px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+}

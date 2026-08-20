@@ -1,251 +1,373 @@
-/* =========================
+/* =========================================
+   TOKENS
+========================================= */
+
+:root {
+    --ink: #0B1F3A;
+    --ink-2: #12294A;
+    --parchment: #F6F4EE;
+    --paper: #FFFFFF;
+    --brass: #AD8A54;
+    --brass-light: #E4D6B8;
+    --slate: #5B6B7C;
+    --hairline: #E2DDD0;
+    --hairline-dark: rgba(255, 255, 255, 0.14);
+    --ledger-green: #1F6E45;
+    --error: #9A2E2E;
+
+    --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap");
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background: #f4f7fb;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* =========================================
    COMPANY LIST PAGE
-========================= */
+========================================= */
 
+.company-page-container {
+    width: 95%;
+    max-width: 1200px;
 
-.company-page-container{
+    margin: 0 auto;
 
-    width:95%;
+    background: var(--paper);
 
-    max-width:1200px;
+    padding: 35px;
 
-    margin:auto;
+    border-radius: 18px;
 
-    background:white;
-
-    padding:35px;
-
-    border-radius:18px;
-
-    box-shadow:
-    0 20px 50px rgba(0,0,0,0.25);
-
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
+.company-page-container h1 {
+    text-align: center;
 
+    color: var(--ink);
 
-.company-page-container h1{
+    margin-bottom: 30px;
 
-    text-align:center;
+    font-family: var(--font-display);
 
-    color:#12355b;
-
-    margin-bottom:30px;
-
+    font-size: 32px;
 }
 
+/* =========================================
+   TOP LINKS
+========================================= */
 
+.top-links {
+    display: flex;
 
-/* Top Links */
+    align-items: center;
 
-.top-links{
+    justify-content: space-between;
 
-    display:flex;
+    gap: 15px;
 
-    justify-content:space-between;
-
-    margin-bottom:25px;
-
+    margin-bottom: 25px;
 }
 
+.top-links a {
+    display: inline-block;
 
+    text-decoration: none;
 
-.top-links a{
+    background: var(--ink);
 
-    text-decoration:none;
+    color: white;
 
-    background:#12355b;
+    padding: 12px 22px;
 
-    color:white;
+    border-radius: 8px;
 
-    padding:12px 22px;
+    font-weight: bold;
 
-    border-radius:8px;
-
-    font-weight:bold;
-
-    transition:0.3s;
-
+    transition: 0.3s;
 }
 
+.top-links a:hover {
+    background: var(--brass);
 
-
-.top-links a:hover{
-
-    background:#2563eb;
-
+    transform: translateY(-2px);
 }
 
+/* =========================================
+   TABLE
+========================================= */
 
+.table-container {
+    width: 100%;
 
-/* Table */
+    overflow-x: auto;
 
+    border: 1px solid var(--hairline);
 
-.table-container{
-
-    overflow-x:auto;
-
+    border-radius: 12px;
 }
 
+table {
+    width: 100%;
 
+    min-width: 850px;
 
-table{
+    border-collapse: collapse;
 
-    width:100%;
-
-    border-collapse:collapse;
-
-    background:white;
-
+    background: white;
 }
 
-
-
-th{
-
-    background:#12355b;
-
-    color:white;
-
-    padding:15px;
-
-    text-align:center;
-
+thead {
+    background: var(--ink);
 }
 
+th {
+    background: var(--ink);
 
+    color: white;
 
-td{
+    padding: 15px;
 
-    padding:13px;
+    text-align: center;
 
-    text-align:center;
+    font-size: 14px;
 
-    border-bottom:1px solid #ddd;
-
+    white-space: nowrap;
 }
 
+td {
+    padding: 13px;
 
+    text-align: center;
 
-tr:hover{
+    border-bottom: 1px solid var(--hairline);
 
-    background:#f8fafc;
+    font-size: 14px;
 
+    color: var(--ink);
 }
 
-
-
-/* Action Buttons */
-
-
-.action-buttons a{
-
-    text-decoration:none;
-
-    padding:7px 12px;
-
-    border-radius:6px;
-
-    font-size:14px;
-
-    font-weight:bold;
-
+tbody tr {
+    transition: 0.2s;
 }
 
-
-
-.edit-btn{
-
-    background:#22c55e;
-
-    color:white;
-
+tbody tr:hover {
+    background: var(--parchment);
 }
 
+/* =========================================
+   COMPANY NAME
+========================================= */
 
-
-.delete-btn{
-
-    background:#ef4444;
-
-    color:white;
-
+td:first-child {
+    font-weight: bold;
 }
 
+/* =========================================
+   PACKAGE
+========================================= */
 
+td:nth-child(3) {
+    color: var(--ledger-green);
 
-.edit-btn:hover{
-
-    background:#16a34a;
-
+    font-weight: bold;
 }
 
+/* =========================================
+   CGPA
+========================================= */
 
-
-.delete-btn:hover{
-
-    background:#dc2626;
-
+td:nth-child(4) {
+    font-weight: bold;
 }
 
+/* =========================================
+   ACTION BUTTONS
+========================================= */
 
+.action-buttons {
+    display: flex;
 
-/* HR Credentials */
+    justify-content: center;
 
+    align-items: center;
 
-.hr-box{
+    gap: 8px;
 
-    margin-top:35px;
-
-    background:#f1f5f9;
-
-    padding:20px;
-
-    border-radius:12px;
-
-    border-left:5px solid #2563eb;
-
+    flex-wrap: wrap;
 }
 
+.action-buttons a {
+    display: inline-block;
 
+    text-decoration: none;
 
-.hr-box h2{
+    padding: 7px 12px;
 
-    color:#12355b;
+    border-radius: 6px;
 
-    margin-bottom:15px;
+    font-size: 13px;
 
+    font-weight: bold;
+
+    transition: 0.2s;
 }
 
+/* =========================================
+   EDIT
+========================================= */
 
-.hr-box p{
+.edit-btn {
+    background: var(--ledger-green);
 
-    font-size:16px;
-
+    color: white;
 }
 
+.edit-btn:hover {
+    background: #185a38;
 
-
-/* Mobile */
-
-
-@media(max-width:700px){
-
-
-.company-page-container{
-
-    padding:20px;
-
+    transform: translateY(-1px);
 }
 
+/* =========================================
+   DELETE
+========================================= */
 
-.top-links{
+.delete-btn {
+    background: var(--error);
 
-    flex-direction:column;
-
-    gap:15px;
-
+    color: white;
 }
 
+.delete-btn:hover {
+    background: #7f2424;
 
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   HR CREDENTIALS
+========================================= */
+
+.hr-box {
+    margin-top: 35px;
+
+    background: var(--parchment);
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    border-left: 5px solid var(--brass);
+}
+
+.hr-box h2 {
+    color: var(--ink);
+
+    margin-bottom: 15px;
+
+    font-size: 20px;
+}
+
+.hr-box p {
+    font-size: 16px;
+
+    color: var(--slate);
+
+    margin-bottom: 8px;
+}
+
+.hr-box strong {
+    color: var(--ink);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
+    .company-page-container {
+        width: 100%;
+
+        padding: 20px;
+
+        border-radius: 12px;
+    }
+
+    .company-page-container h1 {
+        font-size: 26px;
+    }
+
+    .top-links {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
+    }
+
+    .top-links a {
+        text-align: center;
+
+        width: 100%;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .hr-box {
+        padding: 16px;
+    }
+
+    .hr-box p {
+        font-size: 14px;
+    }
+}
+
+/* =========================================
+   VERY SMALL SCREEN
+========================================= */
+
+@media (max-width: 450px) {
+
+    .company-page-container {
+        padding: 15px;
+    }
+
+    .company-page-container h1 {
+        font-size: 23px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons a {
+        width: 100%;
+
+        text-align: center;
+    }
 }

@@ -1,212 +1,1063 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>HR Dashboard</title>
-        <link rel="stylesheet" href="/hrDashboard.css">
+
+    <link rel="stylesheet" href="/hrDashboard.css">
 
 </head>
 
 <body>
 
-<h1>HR Dashboard</h1>
+<div class="portal">
 
-<a href="/logout">Logout</a>
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
 
-<hr>
+    <aside class="sidebar">
 
-<h2>Interview Slots</h2>
+        <div class="sidebar-brand">
 
-<a href="/interview-slots/add">
-    Add Interview Slot
-</a>
+            <div class="brand-mark">
+                ◆
+            </div>
 
-<hr>
+            <div>
+                <div class="brand-title">
+                    CAMPUS
+                </div>
 
-<h2>Applications</h2>
+                <div class="brand-subtitle">
+                    PLACEMENT PORTAL
+                </div>
+            </div>
 
-<% if (data && data.length > 0) { %>
+        </div>
 
-<table border="1" cellpadding="10" cellspacing="0">
 
-```
-<tr>
-    <th>USN</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Role</th>
-    <th>Status</th>
-    <th>ATS Score</th>
-    <th>Actions</th>
-</tr>
+        <div class="sidebar-role">
 
-<% data.forEach(function(student) { %>
+            <span>◆</span>
+            <span>HR</span>
 
-<tr>
+        </div>
 
-    <td>
-        <%= student.usn %>
-    </td>
 
-    <td>
-        <%= student.name %>
-    </td>
+        <nav class="sidebar-nav">
 
-    <td>
-        <%= student.email %>
-    </td>
+            <a href="/hrDashboard"
+               class="nav-item active">
 
-    <td>
-        <%= student.role %>
-    </td>
+                <span class="nav-icon">
+                    ▣
+                </span>
 
-    <td>
-        <%= student.status %>
-    </td>
+                <span>
+                    Dashboard
+                </span>
 
-    <td>
+            </a>
 
-        <% if (student.atsScore !== undefined) { %>
 
-            <%= student.atsScore %>%
+            <a href="#applications"
+               class="nav-item">
 
-        <% } else { %>
+                <span class="nav-icon">
+                    ▤
+                </span>
 
-            Not Scanned
+                <span>
+                    Applications
+                </span>
 
-        <% } %>
+            </a>
 
-    </td>
 
-    <td>
+            <a href="#interview-slots"
+               class="nav-item">
 
-        <a href="/shortlist/<%= student._id %>">
-            Shortlist
-        </a>
+                <span class="nav-icon">
+                    ▣
+                </span>
 
-        |
+                <span>
+                    Interview Slots
+                </span>
 
-        <a href="/reject/<%= student._id %>">
-            Reject
-        </a>
+            </a>
 
-        |
+        </nav>
 
-        <a href="/select/<%= student._id %>">
-            Select
-        </a>
 
-        <br><br>
+        <div class="sidebar-bottom">
 
-        <a href="/ats/scan/<%= student.usn %>/<%= student.driveId %>">
-            Scan Resume
-        </a>
+            <a href="#profile"
+               class="nav-item">
 
-    </td>
+                <span class="nav-icon">
+                    ⚙
+                </span>
 
-</tr>
+                <span>
+                    Profile
+                </span>
 
+            </a>
 
-<!-- ATS DETAILS -->
 
-<tr>
+            <a href="/logout"
+               class="nav-item logout-side">
 
-    <td colspan="7">
+                <span class="nav-icon">
+                    ⇥
+                </span>
 
-        <% if (student.atsScore !== undefined) { %>
+                <span>
+                    Logout
+                </span>
 
-            <strong>ATS Result:</strong>
-            <%= student.atsResult %>
+            </a>
 
-            <br><br>
+        </div>
 
-            <strong>Matched Skills:</strong>
+    </aside>
 
-            <% if (
-                student.matchedSkills &&
-                student.matchedSkills.length > 0
-            ) { %>
 
-                <%= student.matchedSkills.join(", ") %>
+    <!-- =========================
+         MAIN AREA
+    ========================== -->
 
-            <% } else { %>
+    <div class="main-area">
 
-                None
 
-            <% } %>
+        <!-- =========================
+             TOP HEADER
+        ========================== -->
 
-            <br><br>
+        <header class="top-header">
 
-            <strong>Missing Skills:</strong>
+            <div class="header-left">
 
-            <% if (
-                student.missingSkills &&
-                student.missingSkills.length > 0
-            ) { %>
+                <div class="mobile-menu">
+                    ☰
+                </div>
 
-                <%= student.missingSkills.join(", ") %>
 
-            <% } else { %>
+                <div>
 
-                None
+                    <div class="header-title">
+                        CAMPUS PLACEMENT PORTAL
+                    </div>
 
-            <% } %>
+                    <div class="header-subtitle">
+                        Human Resources
+                    </div>
 
-        <% } else { %>
+                </div>
 
-            Resume has not been scanned.
+            </div>
 
-        <% } %>
 
-    </td>
+            <div class="header-right">
 
-</tr>
+                <div class="user-info">
 
+                    <div class="user-avatar">
+                        HR
+                    </div>
 
-<!-- INTERVIEW DETAILS -->
+                    <span>
+                        HR
+                    </span>
 
-<% if (student.status === "Interview Scheduled") { %>
+                    <span class="dropdown-arrow">
+                        ▾
+                    </span>
 
-<tr>
+                </div>
 
-    <td colspan="7">
 
-        <strong>Interview Scheduled</strong>
+                <a href="/logout"
+                   class="header-logout">
 
-        <br><br>
+                    Logout
 
-        Date:
-        <%= student.interviewDate %>
+                </a>
 
-        <br>
+            </div>
 
-        Time:
-        <%= student.interviewTime %>
+        </header>
 
-        <br>
 
-        Mode:
-        <%= student.interviewMode %>
+        <!-- =========================
+             DASHBOARD CONTENT
+        ========================== -->
 
-    </td>
+        <main class="dashboard-content">
 
-</tr>
 
-<% } %>
+            <!-- =========================
+                 PAGE INTRO
+            ========================== -->
 
+            <section class="page-intro">
 
-<% }); %>
-```
+                <div>
 
-</table>
+                    <h1>
+                        Dashboard
+                    </h1>
 
-<% } else { %>
+                    <p>
+                        Manage placement applications and interviews.
+                    </p>
 
-<p>
-    No students have applied for your placement drives yet.
-</p>
+                </div>
 
-<% } %>
+            </section>
+
+
+            <!-- =========================
+                 STATISTICS
+            ========================== -->
+
+            <section class="stats-grid">
+
+
+                <!-- APPLICATIONS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◫
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span class="stat-number">
+                            <%= data ? data.length : 0 %>
+                        </span>
+
+                        <span class="stat-label">
+                            Applications
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SHORTLISTED -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                    <div class="stat-content">
+
+                        <%
+                            let shortlistedCount = 0;
+
+                            if (data) {
+
+                                data.forEach(function(student) {
+
+                                    if (
+                                        student.status === "Shortlisted"
+                                    ) {
+                                        shortlistedCount++;
+                                    }
+
+                                });
+
+                            }
+                        %>
+
+
+                        <span class="stat-number">
+                            <%= shortlistedCount %>
+                        </span>
+
+                        <span class="stat-label">
+                            Shortlisted
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SELECTED -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ★
+                    </div>
+
+                    <div class="stat-content">
+
+                        <%
+                            let selectedCount = 0;
+
+                            if (data) {
+
+                                data.forEach(function(student) {
+
+                                    if (
+                                        student.status === "Selected"
+                                    ) {
+                                        selectedCount++;
+                                    }
+
+                                });
+
+                            }
+                        %>
+
+
+                        <span class="stat-number">
+                            <%= selectedCount %>
+                        </span>
+
+                        <span class="stat-label">
+                            Selected
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =========================
+                 APPLICATIONS
+            ========================== -->
+
+            <section
+                class="content-section"
+                id="applications"
+            >
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Applications
+                        </h2>
+
+                        <p>
+                            Review and manage student applications.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <% if (data && data.length > 0) { %>
+
+
+                    <div class="table-wrapper">
+
+
+                        <table class="applications-table">
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        STUDENT
+                                    </th>
+
+                                    <th>
+                                        USN
+                                    </th>
+
+                                    <th>
+                                        ROLE
+                                    </th>
+
+                                    <th>
+                                        STATUS
+                                    </th>
+
+                                    <th>
+                                        ATS SCORE
+                                    </th>
+
+                                    <th>
+                                        ACTIONS
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+
+                                <% data.forEach(function(student) { %>
+
+
+                                    <!-- =========================
+                                         APPLICATION ROW
+                                    ========================== -->
+
+                                    <tr>
+
+
+                                        <!-- STUDENT -->
+
+                                        <td>
+
+                                            <div class="student-cell">
+
+
+                                                <div class="student-avatar">
+
+                                                    <%= (
+                                                        student.name ||
+                                                        "S"
+                                                    ).charAt(0).toUpperCase() %>
+
+                                                </div>
+
+
+                                                <div>
+
+                                                    <strong>
+                                                        <%= student.name ||
+                                                            "Unknown Student" %>
+                                                    </strong>
+
+
+                                                    <small>
+                                                        <%= student.email || "" %>
+                                                    </small>
+
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+
+
+                                        <!-- USN -->
+
+                                        <td>
+
+                                            <span class="usn">
+
+                                                <%= student.usn %>
+
+                                            </span>
+
+                                        </td>
+
+
+                                        <!-- ROLE -->
+
+                                        <td>
+
+                                            <span class="role-text">
+
+                                                <%= student.role ||
+                                                    "Not specified" %>
+
+                                            </span>
+
+                                        </td>
+
+
+                                        <!-- STATUS -->
+
+                                        <td>
+
+
+                                            <% if (
+                                                student.status ===
+                                                "Selected"
+                                            ) { %>
+
+
+                                                <span class="status selected">
+                                                    Selected
+                                                </span>
+
+
+                                            <% } else if (
+                                                student.status ===
+                                                "Shortlisted"
+                                            ) { %>
+
+
+                                                <span class="status shortlisted">
+                                                    Shortlisted
+                                                </span>
+
+
+                                            <% } else if (
+                                                student.status ===
+                                                "Interview Scheduled"
+                                            ) { %>
+
+
+                                                <span class="status interview">
+                                                    Interview Scheduled
+                                                </span>
+
+
+                                            <% } else if (
+                                                student.status ===
+                                                "Rejected"
+                                            ) { %>
+
+
+                                                <span class="status rejected">
+                                                    Rejected
+                                                </span>
+
+
+                                            <% } else { %>
+
+
+                                                <span class="status applied">
+                                                    Applied
+                                                </span>
+
+
+                                            <% } %>
+
+
+                                        </td>
+
+
+                                        <!-- ATS SCORE -->
+
+                                        <td>
+
+
+                                            <% if (
+                                                student.atsScore !==
+                                                undefined &&
+                                                student.atsScore !==
+                                                null
+                                            ) { %>
+
+
+                                                <div class="ats-score">
+
+
+                                                    <span class="score-number">
+
+                                                        <%= student.atsScore %>%
+
+                                                    </span>
+
+
+                                                    <div class="score-bar">
+
+
+                                                        <div
+                                                            class="score-fill"
+                                                            data-score="<%= Math.min(Number(student.atsScore) || 0, 100) %>"
+                                                        ></div>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            <% } else { %>
+
+
+                                                <span class="not-scanned">
+                                                    Not Scanned
+                                                </span>
+
+
+                                            <% } %>
+
+
+                                        </td>
+
+
+                                        <!-- ACTIONS -->
+
+                                        <td>
+
+
+                                            <div class="action-buttons">
+
+
+                                                <!-- SHORTLIST -->
+
+                                                <% if (
+                                                    student.status !==
+                                                    "Shortlisted" &&
+                                                    student.status !==
+                                                    "Selected" &&
+                                                    student.status !==
+                                                    "Rejected"
+                                                ) { %>
+
+
+                                                    <a
+                                                        href="/shortlist/<%= student._id %>"
+                                                        class="action-btn shortlist"
+                                                    >
+                                                        Shortlist
+                                                    </a>
+
+
+                                                <% } %>
+
+
+                                                <!-- REJECT -->
+
+                                                <% if (
+                                                    student.status !==
+                                                    "Rejected" &&
+                                                    student.status !==
+                                                    "Selected"
+                                                ) { %>
+
+
+                                                    <a
+                                                        href="/reject/<%= student._id %>"
+                                                        class="action-btn reject"
+                                                    >
+                                                        Reject
+                                                    </a>
+
+
+                                                <% } %>
+
+
+                                                <!-- SELECT -->
+
+                                                <% if (
+                                                    student.status !==
+                                                    "Selected"
+                                                ) { %>
+
+
+                                                    <a
+                                                        href="/select/<%= student._id %>"
+                                                        class="action-btn select"
+                                                    >
+                                                        Select
+                                                    </a>
+
+
+                                                <% } %>
+
+
+                                                <!-- ATS SCAN -->
+
+                                                <a
+                                                    href="/ats/scan/<%= student.usn %>/<%= student.driveId %>"
+                                                    class="action-btn scan"
+                                                >
+                                                    Scan Resume
+                                                </a>
+
+
+                                            </div>
+
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                    <!-- =========================
+                                         ATS DETAILS
+                                    ========================== -->
+
+                                    <tr class="details-row">
+
+
+                                        <td colspan="6">
+
+
+                                            <div class="details-container">
+
+
+                                                <% if (
+                                                    student.atsScore !==
+                                                    undefined &&
+                                                    student.atsScore !==
+                                                    null
+                                                ) { %>
+
+
+                                                    <!-- ATS RESULT -->
+
+                                                    <div class="ats-result">
+
+                                                        <span class="detail-label">
+                                                            ATS RESULT
+                                                        </span>
+
+
+                                                        <span class="match-result">
+
+                                                            <%= student.atsResult ||
+                                                                "Analysis Complete" %>
+
+                                                        </span>
+
+                                                    </div>
+
+
+                                                    <!-- MATCHED SKILLS -->
+
+                                                    <div class="skills-block">
+
+
+                                                        <span class="detail-label">
+                                                            MATCHED SKILLS
+                                                        </span>
+
+
+                                                        <div class="skill-list">
+
+
+                                                            <% if (
+                                                                student.matchedSkills &&
+                                                                student.matchedSkills.length >
+                                                                0
+                                                            ) { %>
+
+
+                                                                <% student.matchedSkills.forEach(
+                                                                    function(skill)
+                                                                { %>
+
+
+                                                                    <span class="skill matched">
+
+                                                                        ✓ <%= skill %>
+
+                                                                    </span>
+
+
+                                                                <% }); %>
+
+
+                                                            <% } else { %>
+
+
+                                                                <span class="none-text">
+                                                                    None
+                                                                </span>
+
+
+                                                            <% } %>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                    <!-- MISSING SKILLS -->
+
+                                                    <div class="skills-block">
+
+
+                                                        <span class="detail-label">
+                                                            MISSING SKILLS
+                                                        </span>
+
+
+                                                        <div class="skill-list">
+
+
+                                                            <% if (
+                                                                student.missingSkills &&
+                                                                student.missingSkills.length >
+                                                                0
+                                                            ) { %>
+
+
+                                                                <% student.missingSkills.forEach(
+                                                                    function(skill)
+                                                                { %>
+
+
+                                                                    <span class="skill missing">
+
+                                                                        <%= skill %>
+
+                                                                    </span>
+
+
+                                                                <% }); %>
+
+
+                                                            <% } else { %>
+
+
+                                                                <span class="none-text">
+                                                                    None
+                                                                </span>
+
+
+                                                            <% } %>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                <% } else { %>
+
+
+                                                    <div class="resume-not-scanned">
+
+                                                        Resume has not been scanned yet.
+
+                                                    </div>
+
+
+                                                <% } %>
+
+
+                                                <!-- =========================
+                                                     INTERVIEW DETAILS
+                                                ========================== -->
+
+
+                                                <% if (
+                                                    student.status ===
+                                                    "Interview Scheduled"
+                                                ) { %>
+
+
+                                                    <div class="interview-details">
+
+
+                                                        <div class="interview-title">
+
+                                                            Interview Scheduled
+
+                                                        </div>
+
+
+                                                        <div class="interview-grid">
+
+
+                                                            <div>
+
+                                                                <span>
+                                                                    DATE
+                                                                </span>
+
+                                                                <strong>
+                                                                    <%= student.interviewDate %>
+                                                                </strong>
+
+                                                            </div>
+
+
+                                                            <div>
+
+                                                                <span>
+                                                                    TIME
+                                                                </span>
+
+                                                                <strong>
+                                                                    <%= student.interviewTime %>
+                                                                </strong>
+
+                                                            </div>
+
+
+                                                            <div>
+
+                                                                <span>
+                                                                    MODE
+                                                                </span>
+
+                                                                <strong>
+                                                                    <%= student.interviewMode %>
+                                                                </strong>
+
+                                                            </div>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                <% } %>
+
+
+                                            </div>
+
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                <% }); %>
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                <% } else { %>
+
+
+                    <!-- EMPTY STATE -->
+
+
+                    <div class="empty-state">
+
+
+                        <div class="empty-icon">
+                            ◫
+                        </div>
+
+
+                        <h3>
+                            No Applications Yet
+                        </h3>
+
+
+                        <p>
+                            No students have applied for your
+                            placement drives yet.
+                        </p>
+
+
+                    </div>
+
+
+                <% } %>
+
+
+            </section>
+
+
+            <!-- =========================
+                 INTERVIEW SLOTS
+            ========================== -->
+
+            <section
+                class="content-section interview-section"
+                id="interview-slots"
+            >
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <h2>
+                            Interview Slots
+                        </h2>
+
+                        <p>
+                            Create and manage interview availability.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="/interview-slots/add"
+                        class="primary-btn"
+                    >
+
+                        + Add Interview Slot
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer class="footer">
+
+            © 2026 Campus Placement Portal
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ATS SCORE BAR SCRIPT
+========================== -->
+
+<script>
+
+document
+    .querySelectorAll(".score-fill")
+    .forEach(function(bar) {
+
+        const score =
+            Number(bar.dataset.score) || 0;
+
+        bar.style.width =
+            Math.min(score, 100) + "%";
+
+    });
+
+</script>
+
 
 </body>
+
 </html>

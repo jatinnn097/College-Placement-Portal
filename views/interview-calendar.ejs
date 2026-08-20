@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Interview Calendar | Campus Placement Portal</title>
+
+    <link
+        rel="stylesheet"
+        href="/interview-calendar.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="top-header">
+
+    <div class="header-brand">
+
+        <div class="brand-icon">
+            ◆
+        </div>
+
+        <div class="brand-text">
+
+            <div class="brand-title">
+                CAMPUS PLACEMENT PORTAL
+            </div>
+
+            <div class="brand-subtitle">
+                STUDENT PORTAL
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="student-info">
+
+            <div class="student-avatar">
+
+                <%= student && student.fullname
+                    ? student.fullname.charAt(0).toUpperCase()
+                    : "S"
+                %>
+
+            </div>
+
+            <span>
+
+                <%= student && student.fullname
+                    ? student.fullname
+                    : "Student"
+                %>
+
+            </span>
+
+        </div>
+
+
+        <a
+            href="/logout"
+            class="logout-btn"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="page-container">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <section class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                PLACEMENT
+            </span>
+
+            <h1>
+                Interview Calendar
+            </h1>
+
+            <p>
+                View and manage your upcoming placement interviews.
+            </p>
+
+        </div>
+
+
+        <a
+            href="/student/dashboard"
+            class="dashboard-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CALENDAR
+    ====================================================== -->
+
+    <section class="calendar-section">
+
+
+        <!-- CALENDAR HEADER -->
+
+        <div class="calendar-top">
+
+            <div>
+
+                <span class="calendar-label">
+                    INTERVIEW SCHEDULE
+                </span>
+
+                <h2 id="calendarMonth">
+                    Loading...
+                </h2>
+
+            </div>
+
+
+            <div class="calendar-controls">
+
+                <button
+                    type="button"
+                    id="prevMonth"
+                    class="calendar-control"
+                >
+                    ←
+                </button>
+
+                <button
+                    type="button"
+                    id="todayButton"
+                    class="today-button"
+                >
+                    Today
+                </button>
+
+                <button
+                    type="button"
+                    id="nextMonth"
+                    class="calendar-control"
+                >
+                    →
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CALENDAR LEGEND -->
+
+        <div class="calendar-legend">
+
+            <div class="legend-item">
+
+                <span class="legend-dot interview-dot"></span>
+
+                <span>
+                    Interview Scheduled
+                </span>
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span class="legend-dot today-dot"></span>
+
+                <span>
+                    Today
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WEEK DAYS -->
+
+        <div class="calendar-weekdays">
+
+            <div class="weekday">
+                SUN
+            </div>
+
+            <div class="weekday">
+                MON
+            </div>
+
+            <div class="weekday">
+                TUE
+            </div>
+
+            <div class="weekday">
+                WED
+            </div>
+
+            <div class="weekday">
+                THU
+            </div>
+
+            <div class="weekday">
+                FRI
+            </div>
+
+            <div class="weekday">
+                SAT
+            </div>
+
+        </div>
+
+
+
+        <!-- CALENDAR DAYS -->
+
+        <div
+            id="calendarDays"
+            class="calendar-days"
+        >
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         UPCOMING INTERVIEWS
+    ====================================================== -->
+
+    <section class="upcoming-section">
+
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">
+                    SCHEDULED
+                </span>
+
+                <h2>
+                    Upcoming Interviews
+                </h2>
+
+                <p>
+                    Your scheduled placement interviews.
+                </p>
+
+            </div>
+
+
+            <div class="interview-count">
+
+                <strong id="interviewCount">
+                    0
+                </strong>
+
+                <span>
+                    Interviews
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- INTERVIEW LIST -->
+
+        <div
+            id="interviewList"
+            class="interview-list"
+        >
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EMPTY STATE
+    ====================================================== -->
+
+    <section
+        id="emptyState"
+        class="empty-state"
+        style="display: none;"
+    >
+
+        <div class="empty-icon">
+            📅
+        </div>
+
+        <h3>
+            No Interviews Scheduled
+        </h3>
+
+        <p>
+            Your scheduled placement interviews will appear here.
+        </p>
+
+        <a
+            href="/student/dashboard#applications"
+            class="view-applications-btn"
+        >
+            View Applications →
+        </a>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INFORMATION CARDS
+    ====================================================== -->
+
+    <section class="info-grid">
+
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                ◷
+            </div>
+
+            <div>
+
+                <h3>
+                    Be On Time
+                </h3>
+
+                <p>
+                    Join your interview a few minutes before
+                    the scheduled time.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <h3>
+                    Check Interview Mode
+                </h3>
+
+                <p>
+                    Check whether your interview is online
+                    or offline before attending.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                ◆
+            </div>
+
+            <div>
+
+                <h3>
+                    Stay Prepared
+                </h3>
+
+                <p>
+                    Keep your resume and required documents
+                    ready before the interview.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    © 2026 Campus Placement Portal
+
+</footer>
+
+
+
+<!-- =========================================================
+     INTERVIEW DATA FROM EJS
+
+     IMPORTANT:
+     Keeping EJS JSON outside JavaScript prevents VS Code
+     "Expression expected" errors.
+========================================================= -->
+
+<script
+    id="interview-data"
+    type="application/json"
+><%- JSON.stringify(interviews || []) %></script>
+
+
+
+<!-- =========================================================
+     CALENDAR JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =====================================================
+       ELEMENTS
+    ====================================================== */
+
+    const calendarMonth =
+        document.getElementById("calendarMonth");
+
+    const calendarDays =
+        document.getElementById("calendarDays");
+
+    const prevMonth =
+        document.getElementById("prevMonth");
+
+    const nextMonth =
+        document.getElementById("nextMonth");
+
+    const todayButton =
+        document.getElementById("todayButton");
+
+    const interviewList =
+        document.getElementById("interviewList");
+
+    const interviewCount =
+        document.getElementById("interviewCount");
+
+    const emptyState =
+        document.getElementById("emptyState");
+
+
+
+    /* =====================================================
+       INTERVIEW DATA
+    ====================================================== */
+
+    let interviews = [];
+
+    try {
+
+        const interviewDataElement =
+            document.getElementById("interview-data");
+
+        const jsonData =
+            interviewDataElement
+                ? interviewDataElement.textContent.trim()
+                : "[]";
+
+        interviews =
+            jsonData
+                ? JSON.parse(jsonData)
+                : [];
+
+    } catch (error) {
+
+        console.error(
+            "Error loading interview data:",
+            error
+        );
+
+        interviews = [];
+
+    }
+
+
+    if (!Array.isArray(interviews)) {
+        interviews = [];
+    }
+
+
+
+    /* =====================================================
+       DATE
+    ====================================================== */
+
+    let currentDate = new Date();
+
+
+
+    /* =====================================================
+       DATE HELPERS
+    ====================================================== */
+
+    function getInterviewDate(interview) {
+
+        if (
+            !interview ||
+            !interview.interviewDate
+        ) {
+
+            return null;
+
+        }
+
+
+        const date =
+            new Date(
+                interview.interviewDate
+            );
+
+
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return null;
+
+        }
+
+
+        return date;
+
+    }
+
+
+
+    function formatDate(date) {
+
+        if (!date) {
+
+            return "-";
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-US",
+            {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    }
+
+
+
+    function getDateKey(date) {
+
+        if (!date) {
+
+            return "";
+
+        }
+
+
+        return (
+            date.getFullYear() +
+            "-" +
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0") +
+            "-" +
+            String(
+                date.getDate()
+            ).padStart(2, "0")
+        );
+
+    }
+
+
+
+    function getTodayKey() {
+
+        return getDateKey(
+            new Date()
+        );
+
+    }
+
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ====================================================== */
+
+    function escapeHtml(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return "";
+
+        }
+
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+
+    /* =====================================================
+       RENDER CALENDAR
+    ====================================================== */
+
+    function renderCalendar() {
+
+
+        calendarDays.innerHTML = "";
+
+
+        const year =
+            currentDate.getFullYear();
+
+        const month =
+            currentDate.getMonth();
+
+
+        const monthName =
+            currentDate.toLocaleString(
+                "en-US",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        calendarMonth.textContent =
+            monthName;
+
+
+
+        /* =================================================
+           FIRST DAY
+        ================================================== */
+
+        const firstDay =
+            new Date(
+                year,
+                month,
+                1
+            ).getDay();
+
+
+
+        /* =================================================
+           NUMBER OF DAYS
+        ================================================== */
+
+        const daysInMonth =
+            new Date(
+                year,
+                month + 1,
+                0
+            ).getDate();
+
+
+
+        /* =================================================
+           PREVIOUS MONTH
+        ================================================== */
+
+        const previousMonthDays =
+            new Date(
+                year,
+                month,
+                0
+            ).getDate();
+
+
+
+        /* =================================================
+           TOTAL CELLS
+        ================================================== */
+
+        const totalCells =
+            Math.ceil(
+                (
+                    firstDay +
+                    daysInMonth
+                ) / 7
+            ) * 7;
+
+
+
+        /* =================================================
+           CREATE CALENDAR CELLS
+        ================================================== */
+
+        for (
+            let cell = 0;
+            cell < totalCells;
+            cell++
+        ) {
+
+
+            const dayCell =
+                document.createElement(
+                    "div"
+                );
+
+
+            dayCell.classList.add(
+                "calendar-day"
+            );
+
+
+            let dayNumber;
+
+            let cellDate;
+
+
+
+            /* =================================================
+               PREVIOUS MONTH
+            ================================================== */
+
+            if (
+                cell < firstDay
+            ) {
+
+                dayNumber =
+                    previousMonthDays -
+                    firstDay +
+                    cell +
+                    1;
+
+
+                cellDate =
+                    new Date(
+                        year,
+                        month - 1,
+                        dayNumber
+                    );
+
+
+                dayCell.classList.add(
+                    "other-month"
+                );
+
+            }
+
+
+
+            /* =================================================
+               CURRENT MONTH
+            ================================================== */
+
+            else if (
+                cell <
+                firstDay +
+                daysInMonth
+            ) {
+
+                dayNumber =
+                    cell -
+                    firstDay +
+                    1;
+
+
+                cellDate =
+                    new Date(
+                        year,
+                        month,
+                        dayNumber
+                    );
+
+            }
+
+
+
+            /* =================================================
+               NEXT MONTH
+            ================================================== */
+
+            else {
+
+                dayNumber =
+                    cell -
+                    firstDay -
+                    daysInMonth +
+                    1;
+
+
+                cellDate =
+                    new Date(
+                        year,
+                        month + 1,
+                        dayNumber
+                    );
+
+
+                dayCell.classList.add(
+                    "other-month"
+                );
+
+            }
+
+
+
+            /* =================================================
+               DAY NUMBER
+            ================================================== */
+
+            const numberElement =
+                document.createElement(
+                    "div"
+                );
+
+
+            numberElement.classList.add(
+                "day-number"
+            );
+
+
+            numberElement.textContent =
+                dayNumber;
+
+
+            dayCell.appendChild(
+                numberElement
+            );
+
+
+
+            /* =================================================
+               TODAY
+            ================================================== */
+
+            if (
+                getDateKey(cellDate) ===
+                getTodayKey()
+            ) {
+
+                dayCell.classList.add(
+                    "today"
+                );
+
+            }
+
+
+
+            /* =================================================
+               INTERVIEWS FOR THIS DATE
+            ================================================== */
+
+            const dayInterviews =
+                interviews.filter(
+                    function (interview) {
+
+                        const interviewDate =
+                            getInterviewDate(
+                                interview
+                            );
+
+
+                        return (
+                            interviewDate &&
+                            getDateKey(
+                                interviewDate
+                            ) ===
+                            getDateKey(
+                                cellDate
+                            )
+                        );
+
+                    }
+                );
+
+
+
+            /* =================================================
+               ADD INTERVIEWS
+            ================================================== */
+
+            dayInterviews.forEach(
+                function (interview) {
+
+
+                    dayCell.classList.add(
+                        "has-interview"
+                    );
+
+
+                    const interviewItem =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    interviewItem.classList.add(
+                        "calendar-interview"
+                    );
+
+
+                    const company =
+                        interview.company ||
+                        "Company";
+
+
+                    const time =
+                        interview.interviewTime ||
+                        "Time not specified";
+
+
+                    interviewItem.innerHTML =
+                        "<strong>" +
+                        escapeHtml(company) +
+                        "</strong>" +
+                        "<span>" +
+                        escapeHtml(time) +
+                        "</span>";
+
+
+                    dayCell.appendChild(
+                        interviewItem
+                    );
+
+
+                    interviewItem.addEventListener(
+                        "click",
+                        function (event) {
+
+                            event.stopPropagation();
+
+                            showInterviewDetails(
+                                interview
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            calendarDays.appendChild(
+                dayCell
+            );
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       INTERVIEW LIST
+    ====================================================== */
+
+    function renderInterviewList() {
+
+
+        interviewList.innerHTML = "";
+
+
+        const validInterviews =
+            interviews
+                .map(
+                    function (interview) {
+
+                        return {
+
+                            data: interview,
+
+                            date:
+                                getInterviewDate(
+                                    interview
+                                )
+
+                        };
+
+                    }
+                )
+                .filter(
+                    function (item) {
+
+                        return (
+                            item.date !== null
+                        );
+
+                    }
+                )
+                .sort(
+                    function (a, b) {
+
+                        return (
+                            a.date.getTime() -
+                            b.date.getTime()
+                        );
+
+                    }
+                );
+
+
+
+        interviewCount.textContent =
+            validInterviews.length;
+
+
+
+        if (
+            validInterviews.length === 0
+        ) {
+
+            emptyState.style.display =
+                "flex";
+
+            return;
+
+        }
+
+
+
+        emptyState.style.display =
+            "none";
+
+
+
+        validInterviews.forEach(
+            function (item) {
+
+
+                const interview =
+                    item.data;
+
+
+                const date =
+                    item.date;
+
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.classList.add(
+                    "interview-card"
+                );
+
+
+
+                const day =
+                    date.getDate();
+
+
+                const month =
+                    date
+                        .toLocaleString(
+                            "en-US",
+                            {
+                                month: "short"
+                            }
+                        )
+                        .toUpperCase();
+
+
+
+                const company =
+                    interview.company ||
+                    "Company";
+
+
+                const role =
+                    interview.role ||
+                    "Placement Interview";
+
+
+                const time =
+                    interview.interviewTime ||
+                    "Not specified";
+
+
+                const mode =
+                    interview.interviewMode ||
+                    "Online";
+
+
+
+                card.innerHTML = `
+
+                    <div class="interview-date">
+
+                        <div class="interview-day">
+                            ${day}
+                        </div>
+
+                        <div class="interview-month">
+                            ${month}
+                        </div>
+
+                    </div>
+
+
+                    <div class="interview-company">
+
+                        <div class="company-logo">
+                            ${escapeHtml(
+                                company
+                                    .charAt(0)
+                                    .toUpperCase()
+                            )}
+                        </div>
+
+                        <div class="company-text">
+
+                            <h3>
+                                ${escapeHtml(company)}
+                            </h3>
+
+                            <p>
+                                ${escapeHtml(role)}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="interview-details">
+
+                        <div class="detail-item">
+
+                            <span>
+                                DATE
+                            </span>
+
+                            <strong>
+                                ${formatDate(date)}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                TIME
+                            </span>
+
+                            <strong>
+                                ${escapeHtml(time)}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                MODE
+                            </span>
+
+                            <strong>
+                                ${escapeHtml(mode)}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="scheduled-badge">
+                        ✓ Scheduled
+                    </div>
+
+                `;
+
+
+                interviewList.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       INTERVIEW POPUP
+    ====================================================== */
+
+    function showInterviewDetails(interview) {
+
+
+        const existing =
+            document.querySelector(
+                ".interview-popup"
+            );
+
+
+        if (existing) {
+
+            existing.remove();
+
+        }
+
+
+
+        const date =
+            getInterviewDate(
+                interview
+            );
+
+
+        const company =
+            interview.company ||
+            "Company";
+
+
+        const role =
+            interview.role ||
+            "Placement Interview";
+
+
+        const time =
+            interview.interviewTime ||
+            "Not specified";
+
+
+        const mode =
+            interview.interviewMode ||
+            "Online";
+
+
+
+        const popup =
+            document.createElement(
+                "div"
+            );
+
+
+        popup.classList.add(
+            "interview-popup"
+        );
+
+
+        popup.innerHTML = `
+
+            <div class="popup-content">
+
+                <button
+                    type="button"
+                    class="popup-close"
+                >
+                    ×
+                </button>
+
+
+                <div class="popup-icon">
+                    📅
+                </div>
+
+
+                <span class="popup-label">
+                    INTERVIEW SCHEDULED
+                </span>
+
+
+                <h2>
+                    ${escapeHtml(company)}
+                </h2>
+
+
+                <p class="popup-role">
+                    ${escapeHtml(role)}
+                </p>
+
+
+                <div class="popup-details">
+
+                    <div>
+
+                        <span>
+                            DATE
+                        </span>
+
+                        <strong>
+                            ${formatDate(date)}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            TIME
+                        </span>
+
+                        <strong>
+                            ${escapeHtml(time)}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            MODE
+                        </span>
+
+                        <strong>
+                            ${escapeHtml(mode)}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="popup-status">
+                    ✓ Interview Scheduled
+                </div>
+
+            </div>
+
+        `;
+
+
+
+        document.body.appendChild(
+            popup
+        );
+
+
+
+        popup
+            .querySelector(
+                ".popup-close"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    popup.remove();
+
+                }
+            );
+
+
+
+        popup.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === popup
+                ) {
+
+                    popup.remove();
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       PREVIOUS MONTH
+    ====================================================== */
+
+    prevMonth.addEventListener(
+        "click",
+        function () {
+
+            currentDate.setMonth(
+                currentDate.getMonth() - 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+
+    /* =====================================================
+       NEXT MONTH
+    ====================================================== */
+
+    nextMonth.addEventListener(
+        "click",
+        function () {
+
+            currentDate.setMonth(
+                currentDate.getMonth() + 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+
+    /* =====================================================
+       TODAY
+    ====================================================== */
+
+    todayButton.addEventListener(
+        "click",
+        function () {
+
+            currentDate =
+                new Date();
+
+            renderCalendar();
+
+        }
+    );
+
+
+
+    /* =====================================================
+       INITIAL RENDER
+    ====================================================== */
+
+    renderCalendar();
+
+    renderInterviewList();
+
+
+});
+
+</script>
+
+
+</body>
+
+</html>

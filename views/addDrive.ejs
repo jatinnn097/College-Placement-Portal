@@ -17,6 +17,7 @@
         href="/add.css"
     >
 
+    <link rel="stylesheet" href="/theme.css">
 </head>
 
 <body>
@@ -27,112 +28,98 @@
 
     <form action="/drive/add" method="POST">
 
-        <!-- COMPANY -->
+         <!-- COMPANY -->
 
-        <label>
-            Company Name
-        </label>
+         <label>
+             Company Name
+         </label>
 
-        <input
-            type="text"
-            name="company"
-            placeholder="Enter company name"
-            required
-        >
+         <input
+             type="text"
+             name="company"
+             placeholder="Enter company name"
+             required
+         >
 
-        <br><br>
-
-
-        <!-- JOB ROLE -->
-
-        <label>
-            Job Role
-        </label>
-
-        <input
-            type="text"
-            name="role"
-            placeholder="Example: Software Developer"
-            required
-        >
-
-        <br><br>
+         <br><br>
 
 
-        <!-- MINIMUM CGPA -->
+         <!-- JOB ROLE -->
 
-        <label>
-            Minimum CGPA
-        </label>
+         <label>
+             Job Role
+         </label>
 
-        <input
-            type="number"
-            step="0.01"
-            name="mincgpa"
-            placeholder="Example: 7.5"
-            min="0"
-            max="10"
-            required
-        >
+         <input
+             type="text"
+             name="role"
+             placeholder="Example: Software Developer"
+             required
+         >
 
-        <br><br>
+         <br><br>
 
 
-        <!-- PACKAGE -->
+         <!-- MINIMUM CGPA -->
 
-        <label>
-            Package
-        </label>
+         <label>
+             Minimum CGPA
+         </label>
 
-        <input
-            type="text"
-            name="package"
-            placeholder="Example: 8 LPA"
-            required
-        >
+         <input
+             type="number"
+             step="0.01"
+             name="mincgpa"
+             placeholder="Example: 7.5"
+             min="0"
+             max="10"
+             required
+         >
 
-        <br><br>
+         <br><br>
 
+       <!-- PACKAGE -->
 
-        <!-- INTERVIEW DATE -->
+       <label>
+           Package
+       </label>
 
-        <label>
-            Interview Date
-        </label>
+       <input
+           type="text"
+           name="package"
+           placeholder="Example: 8 LPA"
+           required
+       >
 
-        <input
-            type="date"
-            name="interviewDate"
-            required
-        >
-
-        <br><br>
-
-
-        <!-- APPLICATION DEADLINE -->
-
-        <label>
-            Application Deadline
-        </label>
-
-        <input
-            type="date"
-            name="deadline"
-            required
-        >
-
-        <br><br>
+       <br><br>
 
 
-        <!-- JOB DESCRIPTION -->
+       
 
-        <label>
-            Job Description / Required Skills
-        </label>
+       <!-- APPLICATION DEADLINE -->
 
-        <textarea
-            name="description"
-            placeholder="Enter job description and required skills...
+       <label>
+           Application Deadline
+       </label>
+
+       <input
+           type="date"
+           name="deadline"
+           required
+       >
+
+       <br><br>
+
+
+       <!-- JOB DESCRIPTION -->
+
+       <label>
+           Job Description / Required Skills
+       </label>
+
+       <textarea
+           name="description"
+           placeholder="Enter job description and required skills...
 
 Example:
 
@@ -150,31 +137,30 @@ Git"
             required
         ></textarea>
 
-        <br><br>
+       <br><br>
 
 
-        <!-- SUBMIT -->
+       <!-- SUBMIT -->
 
-        <button type="submit">
-            Add Placement Drive
-        </button>
+       <button type="submit">
+           Add Placement Drive
+       </button>
 
-    </form>
+   </form>
 
+   <!-- LINKS -->
 
-    <!-- LINKS -->
+   <div class="company-links">
 
-    <div class="company-links">
+          <a href="/drives">
+              View Placement Drives
+          </a>
 
-        <a href="/drives">
-            View Placement Drives
-        </a>
+          <a href="/admin">
+              Back To Dashboard
+          </a>
 
-        <a href="/admin">
-            Back To Dashboard
-        </a>
-
-    </div>
+   </div>
 
 </div>
 

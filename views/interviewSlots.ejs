@@ -1,579 +1,606 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<meta charset="UTF-8">
+    <title>Select Interview Slot</title>
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<title>Select Interview Slot</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-<style>
+    <style>
+        /* =========================================
+           TOKENS
+        ========================================= */
 
-    /* =========================
-       GLOBAL
-    ========================= */
+        :root {
+            --ink: #0B1F3A;
+            --ink-2: #12294A;
 
-    * {
-        box-sizing: border-box;
-    }
+            --parchment: #F6F4EE;
+            --paper: #FFFFFF;
 
-    body {
-        margin: 0;
+            --brass: #AD8A54;
+            --brass-light: #E4D6B8;
 
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
+            --slate: #5B6B7C;
 
-        color: #1f2937;
+            --hairline: #E2DDD0;
 
-        background:
-            linear-gradient(
-                rgba(8, 28, 50, 0.88),
-                rgba(8, 28, 50, 0.88)
-            ),
-            url("/images/students-placement.jpg");
+            --ledger-green: #1F6E45;
+            --error: #9A2E2E;
 
-        background-size: cover;
+            --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+            --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+        }
 
-        background-position: center;
+        /* =========================================
+           GLOBAL
+        ========================================= */
 
-        background-attachment: fixed;
-
-        min-height: 100vh;
-
-        padding: 40px 20px;
-    }
-
-
-    /* =========================
-       MAIN CONTAINER
-    ========================= */
-
-    .container {
-        width: 90%;
-
-        max-width: 900px;
-
-        margin: 30px auto;
-
-        background: rgba(255, 255, 255, 0.97);
-
-        padding: 35px;
-
-        border-radius: 14px;
-
-        box-shadow:
-            0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-
-
-    /* =========================
-       PAGE TITLE
-    ========================= */
-
-    .page-title {
-        text-align: center;
-
-        color: #12395b;
-
-        font-size: 30px;
-
-        text-transform: uppercase;
-
-        letter-spacing: 1px;
-
-        margin-top: 0;
-
-        margin-bottom: 30px;
-    }
-
-
-    /* =========================
-       DRIVE INFORMATION
-    ========================= */
-
-    .drive {
-        background: #f8fafc;
-
-        border: 1px solid #e5e7eb;
-
-        border-left: 5px solid #1769aa;
-
-        border-radius: 10px;
-
-        padding: 22px;
-
-        margin-bottom: 25px;
-
-        text-align: center;
-    }
-
-    .drive h2 {
-        margin-top: 0;
-
-        color: #1769aa;
-
-        font-size: 24px;
-
-        margin-bottom: 10px;
-    }
-
-    .drive p {
-        color: #374151;
-
-        margin: 8px 0;
-
-        font-size: 15px;
-    }
-
-    .drive strong {
-        color: #047857;
-
-        font-size: 18px;
-    }
-
-
-    /* =========================
-       SECTION TITLE
-    ========================= */
-
-    .section-title {
-        color: #12395b;
-
-        font-size: 22px;
-
-        border-left: 5px solid #1769aa;
-
-        padding-left: 12px;
-
-        margin: 25px 0 18px;
-    }
-
-
-    /* =========================
-       INTERVIEW SLOT
-    ========================= */
-
-    .slot {
-        background: white;
-
-        border: 1px solid #e3e8ee;
-
-        border-left: 5px solid #1769aa;
-
-        padding: 22px;
-
-        margin: 15px 0;
-
-        border-radius: 12px;
-
-        box-shadow:
-            0 5px 15px rgba(0, 0, 0, 0.08);
-
-        transition: 0.3s;
-    }
-
-    .slot:hover {
-        transform: translateY(-4px);
-
-        box-shadow:
-            0 10px 25px rgba(0, 0, 0, 0.15);
-    }
-
-
-    /* =========================
-       SLOT DATE
-    ========================= */
-
-    .slot h3 {
-        color: #1769aa;
-
-        font-size: 20px;
-
-        margin-top: 0;
-
-        margin-bottom: 12px;
-    }
-
-
-    /* =========================
-       SLOT DETAILS
-    ========================= */
-
-    .slot-details {
-        display: grid;
-
-        grid-template-columns:
-            repeat(3, 1fr);
-
-        gap: 12px;
-
-        margin: 15px 0;
-    }
-
-    .slot-detail {
-        background: #f8fafc;
-
-        padding: 12px;
-
-        border-radius: 7px;
-
-        border: 1px solid #e5e7eb;
-
-        text-align: center;
-    }
-
-    .slot-detail-label {
-        display: block;
-
-        color: #12395b;
-
-        font-size: 12px;
-
-        font-weight: bold;
-
-        margin-bottom: 5px;
-    }
-
-    .slot-detail-value {
-        color: #374151;
-
-        font-size: 14px;
-
-        font-weight: bold;
-    }
-
-
-    /* =========================
-       SELECT BUTTON
-    ========================= */
-
-    .select-btn {
-        width: 100%;
-
-        border: none;
-
-        background: #1769aa;
-
-        color: white;
-
-        padding: 12px 22px;
-
-        border-radius: 6px;
-
-        cursor: pointer;
-
-        font-weight: bold;
-
-        font-size: 15px;
-
-        margin-top: 10px;
-
-        transition: 0.3s;
-    }
-
-    .select-btn:hover {
-        background: #0d4f82;
-
-        transform: translateY(-2px);
-    }
-
-
-    /* =========================
-       NO SLOT MESSAGE
-    ========================= */
-
-    .no-slot {
-        background: #f8fafc;
-
-        border: 1px solid #e5e7eb;
-
-        border-radius: 10px;
-
-        padding: 30px;
-
-        text-align: center;
-
-        margin-top: 20px;
-    }
-
-    .no-slot-icon {
-        font-size: 40px;
-
-        margin-bottom: 10px;
-    }
-
-    .no-slot h3 {
-        color: #12395b;
-
-        margin: 5px 0 10px;
-    }
-
-    .no-slot p {
-        color: #667085;
-
-        margin: 0;
-    }
-
-
-    /* =========================
-       BACK BUTTON
-    ========================= */
-
-    .back-btn {
-        display: inline-block;
-
-        margin-top: 25px;
-
-        background: #6b7280;
-
-        color: white;
-
-        text-decoration: none;
-
-        padding: 10px 20px;
-
-        border-radius: 6px;
-
-        font-weight: bold;
-
-        transition: 0.3s;
-    }
-
-    .back-btn:hover {
-        background: #4b5563;
-
-        transform: translateY(-2px);
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 600px) {
+        * {
+            box-sizing: border-box;
+        }
 
         body {
-            padding: 20px 10px;
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: var(--font-body);
+            color: var(--ink);
+
+            background:
+                linear-gradient(
+                    rgba(8, 28, 50, 0.90),
+                    rgba(8, 28, 50, 0.90)
+                ),
+                url("/images/students-placement.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            padding: 40px 20px;
         }
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
 
         .container {
-            width: 94%;
+            width: 90%;
+            max-width: 900px;
 
-            padding: 22px;
+            margin: 30px auto;
+
+            background: rgba(255, 255, 255, 0.98);
+
+            padding: 35px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.25);
         }
 
+        /* =========================================
+           PAGE TITLE
+        ========================================= */
+
         .page-title {
-            font-size: 24px;
+            margin: 0 0 30px;
+
+            text-align: center;
+
+            color: var(--ink);
+
+            font-family: var(--font-display);
+
+            font-size: 30px;
+            font-weight: 600;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================================
+           DRIVE INFORMATION
+        ========================================= */
+
+        .drive {
+            background: var(--parchment);
+
+            border: 1px solid var(--hairline);
+            border-left: 5px solid var(--ink);
+
+            border-radius: 10px;
+
+            padding: 22px;
+
+            margin-bottom: 28px;
+
+            text-align: center;
         }
 
         .drive h2 {
-            font-size: 21px;
+            margin: 0 0 12px;
+
+            color: var(--ink);
+
+            font-family: var(--font-display);
+
+            font-size: 24px;
         }
+
+        .drive p {
+            margin: 8px 0;
+
+            color: var(--slate);
+
+            font-size: 15px;
+        }
+
+        .drive strong {
+            color: var(--ledger-green);
+
+            font-size: 17px;
+        }
+
+        /* =========================================
+           SECTION TITLE
+        ========================================= */
+
+        .section-title {
+            margin: 25px 0 18px;
+
+            padding-left: 12px;
+
+            border-left: 5px solid var(--ink);
+
+            color: var(--ink);
+
+            font-family: var(--font-display);
+
+            font-size: 22px;
+        }
+
+        /* =========================================
+           INTERVIEW SLOT
+        ========================================= */
 
         .slot {
-            padding: 18px;
+            background: var(--paper);
+
+            border: 1px solid var(--hairline);
+            border-left: 5px solid var(--ink);
+
+            padding: 22px;
+
+            margin: 15px 0;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.08);
+
+            transition: all 0.25s ease;
         }
 
-        .slot-details {
-            grid-template-columns: 1fr;
+        .slot:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.14);
         }
+
+        /* =========================================
+           SLOT TITLE
+        ========================================= */
+
+        .slot h3 {
+            margin: 0 0 15px;
+
+            color: var(--ink);
+
+            font-family: var(--font-display);
+
+            font-size: 20px;
+        }
+
+        /* =========================================
+           SLOT DETAILS
+        ========================================= */
+
+        .slot-details {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin: 15px 0 18px;
+        }
+
+        .slot-detail {
+            background: var(--parchment);
+
+            padding: 14px;
+
+            border: 1px solid var(--hairline);
+
+            border-radius: 8px;
+
+            text-align: center;
+        }
+
+        .slot-detail-label {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--ink);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.8px;
+        }
+
+        .slot-detail-value {
+            color: var(--slate);
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        /* =========================================
+           SELECT BUTTON
+        ========================================= */
 
         .select-btn {
             width: 100%;
+
+            padding: 13px 22px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: var(--ink);
+
+            color: white;
+
+            font-family: var(--font-body);
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: all 0.25s ease;
         }
 
-    }
+        .select-btn:hover {
+            background: var(--brass);
 
-</style>
-```
+            transform: translateY(-2px);
 
+            box-shadow:
+                0 6px 15px rgba(173, 138, 84, 0.25);
+        }
+
+        .select-btn:active {
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           NO SLOT MESSAGE
+        ========================================= */
+
+        .no-slot {
+            background: var(--parchment);
+
+            border: 1px solid var(--hairline);
+
+            border-radius: 10px;
+
+            padding: 30px;
+
+            margin-top: 20px;
+
+            text-align: center;
+        }
+
+        .no-slot-icon {
+            margin-bottom: 10px;
+
+            color: var(--brass);
+
+            font-size: 36px;
+        }
+
+        .no-slot h3 {
+            margin: 5px 0 10px;
+
+            color: var(--ink);
+
+            font-family: var(--font-display);
+        }
+
+        .no-slot p {
+            margin: 0;
+
+            color: var(--slate);
+
+            font-size: 14px;
+        }
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
+
+        .back-btn {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 10px 20px;
+
+            background: var(--slate);
+
+            color: white;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: all 0.25s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--ink);
+
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .container {
+                width: 94%;
+
+                padding: 22px 18px;
+
+                margin: 20px auto;
+            }
+
+            .page-title {
+                font-size: 24px;
+
+                margin-bottom: 24px;
+            }
+
+            .drive {
+                padding: 18px;
+            }
+
+            .drive h2 {
+                font-size: 21px;
+            }
+
+            .slot {
+                padding: 18px;
+            }
+
+            .slot-details {
+                grid-template-columns: 1fr;
+
+                gap: 8px;
+            }
+
+            .slot-detail {
+                display: flex;
+
+                justify-content: space-between;
+                align-items: center;
+
+                text-align: left;
+            }
+
+            .slot-detail-label {
+                margin: 0;
+            }
+
+            .select-btn {
+                width: 100%;
+            }
+
+            .back-btn {
+                width: 100%;
+
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-```
-<!-- =========================
-     PAGE TITLE
-========================= -->
+        <!-- PAGE TITLE -->
 
-<h1 class="page-title">
-    Select Interview Slot
-</h1>
+        <h1 class="page-title">
+            Select Interview Slot
+        </h1>
 
 
-<!-- =========================
-     DRIVE INFORMATION
-========================= -->
+        <!-- DRIVE INFORMATION -->
 
-<div class="drive">
+        <div class="drive">
 
-    <h2>
-        <%= drive.company %>
-    </h2>
+            <h2>
+                <%= drive.company %>
+            </h2>
 
-    <p>
-        <strong>Role:</strong>
-        <%= drive.role %>
-    </p>
+            <p>
+                <strong>Role:</strong>
+                <%= drive.role %>
+            </p>
 
-    <p>
-        ATS Score:
-        <strong>
-            <%= application.atsScore %>%
-        </strong>
-    </p>
+            <p>
+                ATS Score:
+                <strong>
+                    <%= application.atsScore %>%
+                </strong>
+            </p>
 
-</div>
-
-
-<!-- =========================
-     AVAILABLE SLOTS
-========================= -->
-
-<h2 class="section-title">
-    Available Interview Slots
-</h2>
-
-
-<% if (slots.length === 0) { %>
-
-
-    <div class="no-slot">
-
-        <div class="no-slot-icon">
-            📅
         </div>
 
-        <h3>
-            No Interview Slots Available
-        </h3>
 
-        <p>
-            Please check again later for available interview slots.
-        </p>
+        <!-- AVAILABLE SLOTS -->
 
-    </div>
+        <h2 class="section-title">
+            Available Interview Slots
+        </h2>
 
 
-<% } else { %>
+        <% if (slots && slots.length > 0) { %>
+
+            <% slots.forEach(slot => { %>
+
+                <div class="slot">
+
+                    <h3>
+                        ■ Interview Slot
+                    </h3>
 
 
-    <% slots.forEach(slot => { %>
+                    <div class="slot-details">
+
+                        <div class="slot-detail">
+
+                            <span class="slot-detail-label">
+                                DATE
+                            </span>
+
+                            <span class="slot-detail-value">
+                                <%= slot.date %>
+                            </span>
+
+                        </div>
 
 
-        <div class="slot">
+                        <div class="slot-detail">
+
+                            <span class="slot-detail-label">
+                                TIME
+                            </span>
+
+                            <span class="slot-detail-value">
+                                <%= slot.time %>
+                            </span>
+
+                        </div>
 
 
-            <h3>
-                📅 Interview Slot
-            </h3>
+                        <div class="slot-detail">
+
+                            <span class="slot-detail-label">
+                                MODE
+                            </span>
+
+                            <span class="slot-detail-value">
+                                <%= slot.mode %>
+                            </span>
+
+                        </div>
+
+                    </div>
 
 
-            <div class="slot-details">
+                    <form
+                        action="/student/interview-slots/book"
+                        method="POST"
+                    >
 
+                        <input
+                            type="hidden"
+                            name="slotId"
+                            value="<%= slot._id %>"
+                        >
 
-                <div class="slot-detail">
+                        <input
+                            type="hidden"
+                            name="driveId"
+                            value="<%= drive._id %>"
+                        >
 
-                    <span class="slot-detail-label">
-                        DATE
-                    </span>
+                        <button
+                            type="submit"
+                            class="select-btn"
+                        >
+                            SELECT THIS SLOT
+                        </button>
 
-                    <span class="slot-detail-value">
-                        <%= slot.date %>
-                    </span>
+                    </form>
 
                 </div>
 
+            <% }) %>
 
-                <div class="slot-detail">
+        <% } else { %>
 
-                    <span class="slot-detail-label">
-                        TIME
-                    </span>
+            <div class="no-slot">
 
-                    <span class="slot-detail-value">
-                        <%= slot.time %>
-                    </span>
-
+                <div class="no-slot-icon">
+                    ■
                 </div>
 
+                <h3>
+                    No Interview Slots Available
+                </h3>
 
-                <div class="slot-detail">
-
-                    <span class="slot-detail-label">
-                        MODE
-                    </span>
-
-                    <span class="slot-detail-value">
-                        <%= slot.mode %>
-                    </span>
-
-                </div>
-
+                <p>
+                    Please check again later for available interview slots.
+                </p>
 
             </div>
 
-
-            <form
-                action="/student/interview-slots/book"
-                method="POST"
-            >
-
-                <input
-                    type="hidden"
-                    name="slotId"
-                    value="<%= slot._id %>"
-                >
+        <% } %>
 
 
-                <input
-                    type="hidden"
-                    name="driveId"
-                    value="<%= drive._id %>"
-                >
+        <!-- BACK BUTTON -->
 
+        <a
+            href="/student/dashboard"
+            class="back-btn"
+        >
+            ← Back to Dashboard
+        </a>
 
-                <button
-                    type="submit"
-                    class="select-btn"
-                >
-                    SELECT THIS SLOT
-                </button>
-
-            </form>
-
-
-        </div>
-
-
-    <% }) %>
-
-
-<% } %>
-
-
-<!-- =========================
-     BACK BUTTON
-========================= -->
-
-<a
-    href="/student/dashboard"
-    class="back-btn"
->
-    ← Back to Dashboard
-</a>
-```
-
-</div>
+    </div>
 
 </body>
 

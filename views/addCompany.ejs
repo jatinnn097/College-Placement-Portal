@@ -18,6 +18,7 @@
         href="/add.css"
     >
 
+    <link rel="stylesheet" href="/theme.css">
 </head>
 
 <body>
@@ -31,141 +32,139 @@
         method="POST"
     >
 
-        <!-- COMPANY NAME -->
+         <!-- COMPANY NAME -->
 
-        <label>
-            Company Name
-        </label>
+         <label>
+             Company Name
+         </label>
 
-        <input
-            type="text"
-            name="company"
-            placeholder="Enter company name"
-            required
-        >
+         <input
+             type="text"
+             name="company"
+             placeholder="Enter company name"
+             required
+         >
 
-        <br><br>
-
-
-        <!-- HR EMAIL -->
-
-        <label>
-            HR Email
-        </label>
-
-        <input
-            type="email"
-            name="email"
-            placeholder="Enter HR email"
-            required
-        >
-
-        <br><br>
+         <br><br>
 
 
-        <!-- JOB ROLE -->
+         <!-- HR EMAIL -->
 
-        <label>
-            Job Role
-        </label>
+         <label>
+             HR Email
+         </label>
 
-        <input
-            type="text"
-            name="role"
-            placeholder="Example: Software Developer"
-            required
-        >
+         <input
+             type="email"
+             name="email"
+             placeholder="Enter HR email"
+             required
+         >
 
-        <br><br>
-
-
-        <!-- PACKAGE -->
-
-        <label>
-            Package (LPA)
-        </label>
-
-        <input
-            type="text"
-            name="package"
-            placeholder="Example: 8 LPA"
-            required
-        >
-
-        <br><br>
+         <br><br>
 
 
-        <!-- MINIMUM CGPA -->
+         <!-- JOB ROLE -->
 
-        <label>
-            Minimum CGPA
-        </label>
+         <label>
+             Job Role
+         </label>
 
-        <input
-            type="number"
-            step="0.01"
-            name="mincgpa"
-            placeholder="Example: 7.5"
-            min="0"
-            max="10"
-            required
-        >
+         <input
+             type="text"
+             name="role"
+             placeholder="Example: Software Developer"
+             required
+         >
+         <br><br>
 
-        <br><br>
+   <!-- PACKAGE -->
 
+   <label>
+       Package (LPA)
+   </label>
 
-        <!-- DEADLINE -->
+   <input
+       type="text"
+       name="package"
+       placeholder="Example: 8 LPA"
+       required
+   >
 
-        <label>
-            Application Deadline
-        </label>
-
-        <input
-            type="date"
-            name="deadline"
-            required
-        >
-
-        <br><br>
+   <br><br>
 
 
-        <!-- DESCRIPTION -->
+   <!-- MINIMUM CGPA -->
 
-        <label>
-            Company / Job Description
-        </label>
+   <label>
+       Minimum CGPA
+   </label>
 
-        <textarea
-            name="description"
-            placeholder="Enter company description, job role and required skills..."
-            required
-        ></textarea>
+   <input
+       type="number"
+       step="0.01"
+       name="mincgpa"
+       placeholder="Example: 7.5"
+       min="0"
+       max="10"
+       required
+   >
 
-        <br><br>
-
-
-        <!-- BUTTON -->
-
-        <button type="submit">
-            Add Company
-        </button>
-
-    </form>
+   <br><br>
 
 
-    <!-- LINKS -->
+   <!-- DEADLINE -->
 
-    <div class="company-links">
+   <label>
+       Application Deadline
+   </label>
 
-        <a href="/companies">
-            View Companies
-        </a>
+   <input
+       type="date"
+       name="deadline"
+       required
+   >
 
-        <a href="/admin">
-            Back To Dashboard
-        </a>
+   <br><br>
 
-    </div>
+
+   <!-- DESCRIPTION -->
+
+   <label>
+       Company / Job Description
+   </label>
+
+   <textarea
+       name="description"
+       placeholder="Enter company description, job role and required skills..."
+       required
+   ></textarea>
+
+   <br><br>
+
+
+   <!-- BUTTON -->
+
+   <button type="submit">
+       Add Company
+   </button>
+
+</form>
+
+
+<!-- LINKS -->
+
+<div class="company-links">
+
+   <a href="/companies">
+       View Companies
+   </a>
+   <a href="/admin">
+
+              Back To Dashboard
+          </a>
+
+   </div>
 
 </div>
 

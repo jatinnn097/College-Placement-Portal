@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -9,378 +9,385 @@
 
     <title>Create Announcement</title>
 
-
     <style>
 
-
-    *{
-
-        margin:0;
-
-        padding:0;
-
-        box-sizing:border-box;
-
-        font-family:Arial, Helvetica, sans-serif;
-
-    }
-
-
-
-    body{
-
-        min-height:100vh;
-
-        background:
-
-        linear-gradient(
-            rgba(10,30,55,0.88),
-            rgba(10,30,55,0.88)
-        ),
-        url("https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1600&q=80");
-
-
-        background-size:cover;
-
-        background-position:center;
-
-        display:flex;
-
-        justify-content:center;
-
-        align-items:center;
-
-        padding:40px 20px;
-
-    }
-
-
-
-
-    .announcement-container{
-
-
-        width:100%;
-
-        max-width:650px;
-
-        background:white;
-
-        padding:40px;
-
-        border-radius:18px;
-
-        box-shadow:
-
-        0 20px 50px rgba(0,0,0,0.35);
-
-
-    }
-
-
-
-
-
-    h1{
-
-
-        text-align:center;
-
-        color:#12355b;
-
-        margin-bottom:30px;
-
-        font-size:32px;
-
-
-    }
-
-
-
-
-    label{
-
-
-        display:block;
-
-        font-weight:bold;
-
-        color:#333;
-
-        margin-bottom:8px;
-
-
-    }
-
-
-
-
-
-    input,
-    textarea{
-
-
-        width:100%;
-
-        padding:14px 15px;
-
-        border-radius:8px;
-
-        border:1px solid #ccd3dc;
-
-        background:#f8fafc;
-
-        font-size:15px;
-
-        outline:none;
-
-        transition:0.3s;
-
-
-    }
-
-
-
-
-
-    input:focus,
-    textarea:focus{
-
-
-        border-color:#2563eb;
-
-        background:white;
-
-        box-shadow:
-
-        0 0 0 3px rgba(37,99,235,0.12);
-
-
-    }
-
-
-
-
-
-    textarea{
-
-
-        resize:vertical;
-
-        min-height:150px;
-
-
-    }
-
-
-
-
-    button{
-
-
-        width:100%;
-
-        padding:14px;
-
-        margin-top:15px;
-
-        border:none;
-
-        border-radius:8px;
-
-        background:#12355b;
-
-        color:white;
-
-        font-size:16px;
-
-        font-weight:bold;
-
-        cursor:pointer;
-
-        transition:0.3s;
-
-
-    }
-
-
-
-
-
-    button:hover{
-
-
-        background:#2563eb;
-
-        transform:translateY(-2px);
-
-
-    }
-
-
-
-
-
-    .back-link{
-
-
-        display:block;
-
-        text-align:center;
-
-        margin-top:25px;
-
-
-    }
-
-
-
-
-    .back-link a{
-
-
-        text-decoration:none;
-
-        color:#2563eb;
-
-        font-weight:bold;
-
-
-    }
-
-
-
-
-
-    .back-link a:hover{
-
-
-        text-decoration:underline;
-
-
-    }
-
-
-
-
-
-    @media(max-width:600px){
-
-
-        .announcement-container{
-
-            padding:25px 20px;
-
+        /* =========================================
+           TOKENS
+        ========================================= */
+
+        :root {
+            --ink: #0B1F3A;
+            --ink-2: #12294A;
+            --parchment: #F6F4EE;
+            --paper: #FFFFFF;
+            --brass: #AD8A54;
+            --brass-light: #E4D6B8;
+            --slate: #5B6B7C;
+            --hairline: #E2DDD0;
+            --hairline-dark: rgba(255, 255, 255, 0.14);
+            --ledger-green: #1F6E45;
+            --error: #9A2E2E;
+
+            --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+            --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+        }
+
+        /* Google Fonts */
+
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap');
+
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-body);
         }
 
 
+        /* =========================================
+           BODY
+        ========================================= */
 
-        h1{
+        body {
+            min-height: 100vh;
 
-            font-size:26px;
+            background:
+                linear-gradient(
+                    rgba(10, 30, 55, 0.90),
+                    rgba(10, 30, 55, 0.90)
+                ),
+                url("https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1600&q=80");
 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px 20px;
         }
 
 
-    }
+        /* =========================================
+           ANNOUNCEMENT CONTAINER
+        ========================================= */
+
+        .announcement-container {
+            width: 100%;
+            max-width: 650px;
+
+            background: var(--paper);
+
+            padding: 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+        }
 
 
+        /* =========================================
+           TITLE
+        ========================================= */
+
+        h1 {
+            text-align: center;
+
+            color: var(--ink);
+
+            margin-bottom: 30px;
+
+            font-family: var(--font-display);
+
+            font-size: 32px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        form {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        /* =========================================
+           LABEL
+        ========================================= */
+
+        label {
+            display: block;
+
+            font-weight: 600;
+
+            color: var(--ink);
+
+            margin-bottom: 5px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           INPUT & TEXTAREA
+        ========================================= */
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border-radius: 8px;
+
+            border: 1px solid var(--hairline);
+
+            background: var(--parchment);
+
+            color: var(--ink);
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--slate);
+        }
+
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--brass);
+
+            background: var(--paper);
+
+            box-shadow:
+                0 0 0 3px rgba(173, 138, 84, 0.15);
+        }
+
+
+        /* =========================================
+           TEXTAREA
+        ========================================= */
+
+        textarea {
+            resize: vertical;
+
+            min-height: 160px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           SUBMIT BUTTON
+        ========================================= */
+
+        button {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 15px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: var(--ink);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        button:hover {
+            background: var(--brass);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 15px rgba(0, 0, 0, 0.18);
+        }
+
+
+        button:active {
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           BACK LINK
+        ========================================= */
+
+        .back-link {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 25px;
+        }
+
+
+        .back-link a {
+            text-decoration: none;
+
+            color: var(--brass);
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+
+        .back-link a:hover {
+            color: var(--ink);
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .announcement-container {
+                padding: 28px 20px;
+
+                border-radius: 14px;
+            }
+
+            h1 {
+                font-size: 26px;
+
+                margin-bottom: 25px;
+            }
+
+            input,
+            textarea {
+                font-size: 14px;
+
+                padding: 12px;
+            }
+
+            textarea {
+                min-height: 140px;
+            }
+
+            button {
+                font-size: 15px;
+
+                padding: 13px;
+            }
+        }
 
     </style>
-
 
 </head>
 
 
-
 <body>
 
+    <div class="announcement-container">
+
+        <!-- =========================================
+             TITLE
+        ========================================= -->
+
+        <h1>
+            ■ Create Announcement
+        </h1>
 
 
-<div class="announcement-container">
+        <!-- =========================================
+             FORM
+        ========================================= -->
+
+        <form
+            action="/announcement/add"
+            method="POST"
+        >
+
+            <label for="title">
+                Announcement Title
+            </label>
+
+            <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter announcement title"
+                required
+            >
 
 
+            <label for="message">
+                Message
+            </label>
 
-<h1>
-    📢 Create Announcement
-</h1>
-
-
-
-
-<form action="/announcement/add"
-      method="POST">
-
-
-
-<label>
-    Announcement Title
-</label>
+            <textarea
+                id="message"
+                name="message"
+                placeholder="Write announcement message..."
+                required
+            ></textarea>
 
 
-<input 
-    type="text"
-    name="title"
-    placeholder="Enter announcement title"
-    required
->
+            <button type="submit">
+                ■ Publish Announcement
+            </button>
+
+        </form>
 
 
+        <!-- =========================================
+             BACK TO DASHBOARD
+        ========================================= -->
 
+        <div class="back-link">
 
-<br><br>
+            <a href="/admin">
+                ← Back To Dashboard
+            </a>
 
+        </div>
 
-
-
-<label>
-    Message
-</label>
-
-
-
-<textarea
-
-name="message"
-
-placeholder="Write announcement message..."
-
-required></textarea>
-
-
-
-
-<button type="submit">
-
-    Publish Announcement
-
-</button>
-
-
-
-</form>
-
-
-
-
-
-<div class="back-link">
-
-
-<a href="/admin">
-
-    ← Back To Dashboard
-
-</a>
-
-
-</div>
-
-
-
-</div>
-
-
+    </div>
 
 </body>
 

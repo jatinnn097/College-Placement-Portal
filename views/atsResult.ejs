@@ -1,834 +1,642 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>ATS Resume Scanner</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* =========================================
+           TOKENS
+        ========================================= */
 
-<title>ATS Resume Scanner</title>
+        :root {
+            --ink: #0B1F3A;
+            --ink-2: #12294A;
+            --parchment: #F6F4EE;
+            --paper: #FFFFFF;
+            --brass: #AD8A54;
+            --brass-light: #E4D6B8;
+            --slate: #5B6B7C;
+            --hairline: #E2DDD0;
+            --hairline-dark: rgba(255, 255, 255, 0.14);
+            --ledger-green: #1F6E45;
+            --error: #9A2E2E;
 
+            --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+            --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+        }
 
-<style>
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap');
 
+        /* =========================================
+           GLOBAL
+        ========================================= */
 
-*{
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    box-sizing:border-box;
+        body {
+            min-height: 100vh;
 
-    font-family:"Segoe UI", Arial, sans-serif;
+            font-family: var(--font-body);
+            color: var(--ink);
 
-}
+            background:
+                linear-gradient(
+                    rgba(10, 30, 55, 0.92),
+                    rgba(10, 30, 55, 0.92)
+                ),
+                url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80");
 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
 
+            padding: 40px 20px;
+        }
 
-body{
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
 
-    margin:0;
+        .container {
+            width: 100%;
+            max-width: 1000px;
 
-    min-height:100vh;
+            margin: 0 auto;
 
-    background:
+            background: var(--paper);
 
-    linear-gradient(
-        rgba(10,30,55,0.9),
-        rgba(10,30,55,0.9)
-    ),
-    url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80");
+            padding: 40px;
 
+            border-radius: 20px;
 
-    background-size:cover;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+        }
 
-    background-position:center;
+        /* =========================================
+           HEADINGS
+        ========================================= */
 
-    background-attachment:fixed;
+        h1,
+        h2 {
+            font-family: var(--font-display);
+            color: var(--ink);
+        }
 
-    padding:40px 20px;
+        h1 {
+            text-align: center;
 
-}
+            font-size: 36px;
 
+            margin-bottom: 30px;
+        }
 
+        h2 {
+            font-size: 22px;
 
+            margin-bottom: 15px;
+        }
 
-.container{
+        hr {
+            border: none;
 
+            height: 1px;
 
-    max-width:1000px;
+            background: var(--hairline);
 
-    margin:auto;
+            margin: 30px 0;
+        }
 
-    background:white;
+        /* =========================================
+           STUDENT INFORMATION
+        ========================================= */
 
-    padding:40px;
+        .student-info {
+            background: var(--parchment);
 
-    border-radius:20px;
+            padding: 25px;
 
-    box-shadow:
+            border-radius: 15px;
 
-    0 20px 50px rgba(0,0,0,0.35);
+            border-left: 6px solid var(--brass);
 
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.05);
+        }
 
-}
+        .student-info h2 {
+            margin-top: 0;
 
+            margin-bottom: 18px;
+        }
 
+        .student-info p {
+            font-size: 16px;
 
+            color: var(--slate);
 
+            margin: 10px 0;
+        }
 
-h1{
+        .student-info strong {
+            color: var(--ink);
+        }
 
-    text-align:center;
+        /* =========================================
+           ATS SCORE
+        ========================================= */
 
-    color:#12355b;
+        .score-box {
+            text-align: center;
 
-    font-size:36px;
+            margin: 35px 0;
 
-    margin-bottom:30px;
+            padding: 35px;
 
-}
+            border-radius: 20px;
 
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #ffffff
+                );
 
+            border: 1px solid #e2e8f0;
 
-h2{
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.08);
+        }
 
-    color:#12355b;
+        .score-label {
+            color: var(--slate);
 
-    font-size:22px;
+            font-size: 15px;
 
-    margin-bottom:15px;
+            margin-bottom: 5px;
+        }
 
-}
+        .score {
+            font-size: 55px;
 
+            font-weight: 800;
 
+            color: var(--brass);
 
-hr{
+            line-height: 1.2;
+        }
 
-    border:none;
+        .result {
+            margin-top: 15px;
 
-    height:1px;
+            font-size: 28px;
 
-    background:#e2e8f0;
+            font-weight: bold;
 
-    margin:30px 0;
+            color: var(--ledger-green);
+        }
 
-}
+        /* =========================================
+           SECTIONS
+        ========================================= */
 
+        .section {
+            margin-top: 30px;
 
+            padding: 25px;
 
+            border-radius: 15px;
 
-/* Student Information */
+            border: 1px solid var(--hairline);
 
+            background: var(--paper);
 
-.student-info{
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.06);
+        }
 
+        .section h2 {
+            margin-top: 0;
 
-    background:#f8fafc;
+            padding-bottom: 12px;
 
-    padding:25px;
+            border-bottom: 2px solid var(--hairline);
+        }
 
-    border-radius:15px;
+        .section p {
+            color: var(--slate);
 
-    border-left:6px solid #2563eb;
+            font-size: 16px;
 
+            margin-top: 10px;
+        }
 
-}
+        /* =========================================
+           SKILLS
+        ========================================= */
 
+        .skills {
+            display: flex;
 
+            flex-wrap: wrap;
 
-.student-info h2{
+            gap: 12px;
 
-    margin-top:0;
+            margin-top: 20px;
+        }
 
-}
+        .skill {
+            display: inline-flex;
 
+            align-items: center;
 
+            padding: 10px 18px;
 
-.student-info p{
+            border-radius: 25px;
 
-    font-size:16px;
+            font-weight: bold;
 
-    color:#475569;
+            font-size: 14px;
+        }
 
-    margin:10px 0;
+        /* Resume Skills */
 
-}
+        .resume-skill {
+            background: var(--brass-light);
 
+            color: var(--brass);
+        }
 
+        /* Required Skills */
 
+        .required-skill {
+            background: #fef3c7;
 
+            color: #8a6518;
+        }
 
-/* ATS Score */
+        /* Matched Skills */
 
+        .matched {
+            background: #dcfce7;
 
-.score-box{
+            color: #166534;
+        }
 
+        /* Missing Skills */
 
-    text-align:center;
+        .missing {
+            background: #fee2e2;
 
-    margin:35px 0;
+            color: #991b1b;
+        }
 
-    padding:35px;
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
 
-    border-radius:20px;
+        .back {
+            display: inline-block;
 
-    background:
+            margin-top: 30px;
 
-    linear-gradient(
-        135deg,
-        #eff6ff,
-        #ffffff
-    );
+            padding: 14px 28px;
 
+            background: var(--ink);
 
-    box-shadow:
+            color: white;
 
-    0 8px 25px rgba(0,0,0,0.08);
+            text-decoration: none;
 
+            border-radius: 10px;
 
-}
+            font-weight: bold;
 
+            transition: 0.3s;
 
+            border: none;
+        }
 
-.score{
+        .back:hover {
+            background: var(--brass);
 
+            color: white;
 
-    font-size:55px;
+            transform: translateY(-2px);
 
-    font-weight:800;
+            box-shadow:
+                0 6px 15px rgba(0, 0, 0, 0.18);
+        }
 
-    color:#2563eb;
+        /* =========================================
+           SCORE COLOR STATES
+        ========================================= */
 
+        .score.high {
+            color: var(--ledger-green);
+        }
 
-}
+        .score.medium {
+            color: var(--brass);
+        }
 
+        .score.low {
+            color: var(--error);
+        }
 
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
 
+        @media (max-width: 700px) {
 
-.result{
+            body {
+                padding: 20px 10px;
+            }
 
+            .container {
+                padding: 25px 20px;
 
-    margin-top:15px;
+                border-radius: 15px;
+            }
 
-    font-size:28px;
+            h1 {
+                font-size: 28px;
 
-    font-weight:bold;
+                margin-bottom: 25px;
+            }
 
-    color:#16a34a;
+            h2 {
+                font-size: 20px;
+            }
 
+            .student-info {
+                padding: 20px;
+            }
 
-}
+            .score-box {
+                padding: 25px 15px;
 
+                margin: 25px 0;
+            }
 
+            .score {
+                font-size: 40px;
+            }
 
+            .result {
+                font-size: 22px;
+            }
 
+            .section {
+                padding: 20px;
+            }
 
+            .skills {
+                gap: 8px;
+            }
 
-/* Sections */
+            .skill {
+                padding: 8px 13px;
 
+                font-size: 13px;
+            }
 
-.section{
+            .back {
+                width: 100%;
 
-
-    margin-top:30px;
-
-    padding:25px;
-
-    border-radius:15px;
-
-    border:1px solid #e2e8f0;
-
-    box-shadow:
-
-    0 5px 20px rgba(0,0,0,0.08);
-
-
-}
-
-
-
-
-
-
-
-/* Skills */
-
-
-.skills{
-
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:12px;
-
-    margin-top:20px;
-
-
-}
-
-
-
-.skill{
-
-
-    padding:10px 18px;
-
-    border-radius:25px;
-
-    font-weight:bold;
-
-    font-size:14px;
-
-
-}
-
-
-
-
-
-.resume-skill{
-
-
-    background:#dbeafe;
-
-    color:#1d4ed8;
-
-
-}
-
-
-
-
-
-.matched{
-
-
-    background:#dcfce7;
-
-    color:#166534;
-
-
-}
-
-
-
-
-
-.missing{
-
-
-    background:#fee2e2;
-
-    color:#991b1b;
-
-
-}
-
-
-
-
-
-/* Required Skills */
-
-
-.required-skill{
-
-
-    background:#fef3c7;
-
-    color:#92400e;
-
-
-}
-
-
-
-
-
-.section p{
-
-
-    color:#64748b;
-
-    font-size:16px;
-
-
-}
-
-
-
-
-
-/* Button */
-
-
-.back{
-
-
-    display:inline-block;
-
-    margin-top:30px;
-
-    padding:14px 28px;
-
-    background:#12355b;
-
-    color:white;
-
-    text-decoration:none;
-
-    border-radius:10px;
-
-    font-weight:bold;
-
-    transition:0.3s;
-
-
-}
-
-
-
-.back:hover{
-
-
-    background:#2563eb;
-
-    transform:translateY(-2px);
-
-
-}
-
-
-
-
-
-@media(max-width:700px){
-
-
-body{
-
-    padding:20px 10px;
-
-}
-
-
-.container{
-
-    padding:25px 20px;
-
-}
-
-
-
-h1{
-
-    font-size:28px;
-
-}
-
-
-
-.score{
-
-    font-size:40px;
-
-}
-
-
-
-.result{
-
-    font-size:22px;
-
-}
-
-
-
-.skills{
-
-    gap:8px;
-
-}
-
-
-}
-
-
-
-
-</style>
-
-
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
-
 
 <body>
 
+    <div class="container">
 
+        <!-- =========================================
+             PAGE TITLE
+        ========================================= -->
 
-<div class="container">
+        <h1>
+            ■ ATS Resume Scanner
+        </h1>
 
+        <hr>
 
 
-<h1>
-    📄 ATS Resume Scanner
-</h1>
+        <!-- =========================================
+             STUDENT INFORMATION
+        ========================================= -->
 
+        <div class="student-info">
 
+            <h2>
+                Student: <%= student.fullname %>
+            </h2>
 
-<hr>
+            <p>
+                <strong>USN:</strong>
+                <%= student.usn %>
+            </p>
 
+            <p>
+                <strong>Company:</strong>
+                <%= drive.company %>
+            </p>
 
+            <p>
+                <strong>Role:</strong>
+                <%= drive.role %>
+            </p>
 
+        </div>
 
-<!-- STUDENT INFORMATION -->
 
+        <!-- =========================================
+             ATS SCORE
+        ========================================= -->
 
-<div class="student-info">
+        <div class="score-box">
 
+            <div class="score-label">
+                ATS Compatibility Score
+            </div>
 
-<h2>
+            <div class="score">
+                <%= ats.score %>%
+            </div>
 
-Student:
-<%= student.fullname %>
+            <div class="result">
+                <%= ats.result %>
+            </div>
 
-</h2>
+        </div>
 
 
+        <!-- =========================================
+             RESUME SKILLS
+        ========================================= -->
 
-<p>
+        <div class="section">
 
-<strong>
-USN:
-</strong>
+            <h2>
+                Skills Found in Resume
+            </h2>
 
-<%= student.usn %>
+            <% if (ats.resumeSkills && ats.resumeSkills.length > 0) { %>
 
-</p>
+                <div class="skills">
 
+                    <% ats.resumeSkills.forEach(function(skill) { %>
 
+                        <span class="skill resume-skill">
+                            ✓ <%= skill %>
+                        </span>
 
+                    <% }); %>
 
-<p>
+                </div>
 
-<strong>
-Company:
-</strong>
+            <% } else { %>
 
-<%= drive.company %>
+                <p>
+                    No technical skills detected in resume.
+                </p>
 
-</p>
+            <% } %>
 
+        </div>
 
 
+        <!-- =========================================
+             REQUIRED SKILLS
+        ========================================= -->
 
-<p>
+        <div class="section">
 
-<strong>
-Role:
-</strong>
+            <h2>
+                Skills Required by Company
+            </h2>
 
-<%= drive.role %>
+            <% if (ats.requiredSkills && ats.requiredSkills.length > 0) { %>
 
-</p>
+                <div class="skills">
 
+                    <% ats.requiredSkills.forEach(function(skill) { %>
 
+                        <span class="skill required-skill">
+                            <%= skill %>
+                        </span>
 
-</div>
+                    <% }); %>
 
+                </div>
 
+            <% } else { %>
 
+                <p>
+                    No skills found in job description.
+                </p>
 
+            <% } %>
 
+        </div>
 
-<!-- SCORE -->
 
+        <!-- =========================================
+             MATCHED SKILLS
+        ========================================= -->
 
-<div class="score-box">
+        <div class="section">
 
+            <h2>
+                Matched Skills
+            </h2>
 
-<div class="score">
+            <% if (ats.matchedSkills && ats.matchedSkills.length > 0) { %>
 
-ATS Score:
-<%= ats.score %>%
+                <div class="skills">
 
-</div>
+                    <% ats.matchedSkills.forEach(function(skill) { %>
 
+                        <span class="skill matched">
+                            ✓ <%= skill %>
+                        </span>
 
+                    <% }); %>
 
-<div class="result">
+                </div>
 
-<%= ats.result %>
+            <% } else { %>
 
-</div>
+                <p>
+                    No matching skills found.
+                </p>
 
+            <% } %>
 
-</div>
+        </div>
 
 
+        <!-- =========================================
+             MISSING SKILLS
+        ========================================= -->
 
+        <div class="section">
 
+            <h2>
+                Unmatched / Missing Skills
+            </h2>
 
+            <% if (ats.missingSkills && ats.missingSkills.length > 0) { %>
 
-<!-- RESUME SKILLS -->
+                <div class="skills">
 
+                    <% ats.missingSkills.forEach(function(skill) { %>
 
-<div class="section">
+                        <span class="skill missing">
+                            ✗ <%= skill %>
+                        </span>
 
+                    <% }); %>
 
-<h2>
-Skills Found in Resume
-</h2>
+                </div>
 
+            <% } else { %>
 
+                <p>
+                    No missing skills.
+                </p>
 
-<% if(ats.resumeSkills && ats.resumeSkills.length > 0){ %>
+            <% } %>
 
+        </div>
 
-<div class="skills">
 
+        <hr>
 
-<% ats.resumeSkills.forEach(function(skill){ %>
 
+        <!-- =========================================
+             BACK
+        ========================================= -->
 
-<span class="skill resume-skill">
+        <a href="/hr/dashboard" class="back">
+            ← Back to HR Dashboard
+        </a>
 
-✓ <%= skill %>
-
-</span>
-
-
-
-<% }); %>
-
-
-</div>
-
-
-
-<% }else{ %>
-
-
-<p>
-No technical skills detected in resume.
-</p>
-
-
-
-<% } %>
-
-
-</div>
-
-
-
-
-
-
-
-<!-- REQUIRED SKILLS -->
-
-
-<div class="section">
-
-
-<h2>
-Skills Required by Company
-</h2>
-
-
-
-<% if(ats.requiredSkills && ats.requiredSkills.length > 0){ %>
-
-
-
-<div class="skills">
-
-
-
-<% ats.requiredSkills.forEach(function(skill){ %>
-
-
-<span class="skill required-skill">
-
-<%= skill %>
-
-</span>
-
-
-
-<% }); %>
-
-
-
-</div>
-
-
-
-
-<% }else{ %>
-
-
-<p>
-No skills found in job description.
-</p>
-
-
-
-<% } %>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- MATCHED SKILLS -->
-
-
-<div class="section">
-
-
-<h2>
-Matched Skills
-</h2>
-
-
-
-<% if(ats.matchedSkills && ats.matchedSkills.length > 0){ %>
-
-
-
-<div class="skills">
-
-
-
-<% ats.matchedSkills.forEach(function(skill){ %>
-
-
-<span class="skill matched">
-
-✓ <%= skill %>
-
-</span>
-
-
-
-<% }); %>
-
-
-
-</div>
-
-
-
-<% }else{ %>
-
-
-<p>
-No matching skills found.
-</p>
-
-
-
-<% } %>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- MISSING SKILLS -->
-
-
-<div class="section">
-
-
-<h2>
-Unmatched / Missing Skills
-</h2>
-
-
-
-<% if(ats.missingSkills && ats.missingSkills.length > 0){ %>
-
-
-
-<div class="skills">
-
-
-
-<% ats.missingSkills.forEach(function(skill){ %>
-
-
-<span class="skill missing">
-
-✗ <%= skill %>
-
-</span>
-
-
-
-<% }); %>
-
-
-
-</div>
-
-
-
-<% }else{ %>
-
-
-<p>
-No missing skills.
-</p>
-
-
-
-<% } %>
-
-
-
-</div>
-
-
-
-
-
-
-
-<hr>
-
-
-
-
-<a href="/hr/dashboard" class="back">
-
-← Back to HR Dashboard
-
-</a>
-
-
-
-</div>
-
-
+    </div>
 
 </body>
-
 
 </html>

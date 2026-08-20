@@ -1,451 +1,682 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
 
-```
-<meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <title>Add Interview Slot</title>
 
-<title>Add Interview Slot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<style>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
 
-    * {
-        box-sizing: border-box;
-    }
+    <style>
 
-    body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
+        /* =========================================
+           TOKENS
+        ========================================= */
 
-        background: linear-gradient(
-            135deg,
-            #eaf3ff,
-            #f8fbff
-        );
+        :root {
+            --ink: #0B1F3A;
+            --ink-2: #12294A;
+            --parchment: #F6F4EE;
+            --paper: #FFFFFF;
+            --brass: #AD8A54;
+            --brass-light: #E4D6B8;
+            --slate: #5B6B7C;
+            --hairline: #E2DDD0;
+            --hairline-dark: rgba(255,255,255,0.14);
+            --ledger-green: #1F6E45;
+            --error: #9A2E2E;
 
-        color: #1e293b;
-        min-height: 100vh;
-    }
+            --font-display: "Fraunces",
+                "Iowan Old Style",
+                Georgia,
+                serif;
 
-    /* =========================
-       HEADER
-    ========================= */
+            --font-body: "Inter",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+        }
 
-    .header {
-        background: linear-gradient(
-            135deg,
-            #123c69,
-            #1e5b94
-        );
 
-        color: white;
+        /* =========================================
+           GLOBAL
+        ========================================= */
 
-        padding: 22px 45px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        box-shadow:
-            0 4px 15px rgba(18, 60, 105, 0.2);
-    }
+        body {
+            min-height: 100vh;
 
-    .header h1 {
-        margin: 0;
-        padding: 0;
+            font-family: var(--font-body);
 
-        background: none;
+            color: var(--ink);
 
-        color: white;
+            background:
+                linear-gradient(
+                    rgba(246, 244, 238, 0.96),
+                    rgba(246, 244, 238, 0.96)
+                );
 
-        font-size: 27px;
-    }
+            line-height: 1.6;
+        }
 
-    /* =========================
-       BACK BUTTON
-    ========================= */
 
-    .back-btn {
-        position: absolute;
-
-        top: 20px;
-        right: 40px;
-
-        padding: 10px 20px;
-
-        background: white;
-        color: #123c69;
-
-        text-decoration: none;
-
-        font-weight: bold;
-
-        border-radius: 8px;
-
-        transition: 0.3s;
-    }
-
-    .back-btn:hover {
-        background: #eaf3ff;
-
-        transform: translateY(-2px);
-    }
-
-    /* =========================
-       FORM CONTAINER
-    ========================= */
-
-    .container {
-        width: 90%;
-        max-width: 650px;
-
-        margin: 45px auto;
-
-        background: white;
-
-        padding: 35px;
-
-        border-radius: 15px;
-
-        box-shadow:
-            0 10px 30px rgba(18, 60, 105, 0.12);
-    }
-
-    .container h2 {
-        margin-top: 0;
-
-        margin-bottom: 30px;
-
-        text-align: center;
-
-        color: #123c69;
-
-        font-size: 25px;
-    }
-
-    /* =========================
-       FORM
-    ========================= */
-
-    form {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 8px;
-    }
-
-    label {
-        margin-top: 10px;
-
-        color: #123c69;
-
-        font-weight: bold;
-
-        font-size: 14px;
-    }
-
-    select,
-    input[type="date"],
-    input[type="time"] {
-
-        width: 100%;
-
-        padding: 12px 14px;
-
-        border: 1px solid #cbd5e1;
-
-        border-radius: 8px;
-
-        background: white;
-
-        color: #334155;
-
-        font-size: 14px;
-
-        outline: none;
-
-        transition: 0.25s;
-    }
-
-    select:focus,
-    input[type="date"]:focus,
-    input[type="time"]:focus {
-
-        border-color: #123c69;
-
-        box-shadow:
-            0 0 0 3px rgba(
-                18,
-                60,
-                105,
-                0.1
-            );
-    }
-
-    /* =========================
-       SUBMIT BUTTON
-    ========================= */
-
-    button {
-
-        margin-top: 25px;
-
-        padding: 13px 20px;
-
-        border: none;
-
-        border-radius: 8px;
-
-        background: linear-gradient(
-            135deg,
-            #123c69,
-            #1e5b94
-        );
-
-        color: white;
-
-        font-size: 15px;
-
-        font-weight: bold;
-
-        cursor: pointer;
-
-        transition: 0.3s;
-    }
-
-    button:hover {
-
-        background: #0d3157;
-
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 6px 15px
-            rgba(18, 60, 105, 0.25);
-    }
-
-    /* =========================
-       INFO
-    ========================= */
-
-    .info {
-
-        margin-top: 25px;
-
-        padding: 15px;
-
-        background: #f7faff;
-
-        border-left: 4px solid #123c69;
-
-        border-radius: 7px;
-
-        color: #64748b;
-
-        font-size: 13px;
-
-        line-height: 1.6;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 600px) {
+        /* =========================================
+           HEADER
+        ========================================= */
 
         .header {
-            padding: 20px;
+            width: 100%;
+
+            min-height: 78px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--ink),
+                    var(--ink-2)
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 20px 6%;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.20);
         }
+
 
         .header h1 {
-            font-size: 21px;
+            margin: 0;
+
+            color: white;
+
+            font-family: var(--font-display);
+
+            font-size: 26px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.3px;
         }
+
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
 
         .back-btn {
-            right: 20px;
-            top: 15px;
+            display: inline-flex;
 
-            padding: 8px 13px;
+            align-items: center;
 
-            font-size: 13px;
+            justify-content: center;
+
+            padding: 10px 20px;
+
+            background: white;
+
+            color: var(--ink);
+
+            text-decoration: none;
+
+            border: 1px solid rgba(255,255,255,0.4);
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition: all 0.25s ease;
         }
+
+
+        .back-btn:hover {
+            background: var(--brass);
+
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
 
         .container {
+            width: 92%;
 
-            width: 94%;
+            max-width: 680px;
 
-            margin: 30px auto;
+            margin: 45px auto;
 
-            padding: 25px 20px;
+            background: rgba(255, 255, 255, 0.98);
+
+            padding: 38px;
+
+            border-radius: 16px;
+
+            border: 1px solid var(--hairline);
+
+            box-shadow:
+                0 15px 40px rgba(11, 31, 58, 0.12);
         }
+
+
+        /* =========================================
+           FORM TITLE
+        ========================================= */
 
         .container h2 {
-            font-size: 21px;
+            margin: 0 0 30px;
+
+            text-align: center;
+
+            color: var(--ink);
+
+            font-family: var(--font-display);
+
+            font-size: 28px;
+
+            font-weight: 600;
         }
 
-    }
 
-</style>
-```
+        /* =========================================
+           FORM
+        ========================================= */
 
+        form {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        /* =========================================
+           LABEL
+        ========================================= */
+
+        label {
+            margin-top: 12px;
+
+            color: var(--ink);
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================
+           INPUTS & SELECTS
+        ========================================= */
+
+        select,
+        input[type="date"],
+        input[type="time"] {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 14px;
+
+            border: 1px solid var(--hairline);
+
+            border-radius: 8px;
+
+            background: var(--paper);
+
+            color: var(--ink);
+
+            font-family: var(--font-body);
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: all 0.2s ease;
+        }
+
+
+        select:hover,
+        input[type="date"]:hover,
+        input[type="time"]:hover {
+
+            border-color: var(--brass-light);
+        }
+
+
+        select:focus,
+        input[type="date"]:focus,
+        input[type="time"]:focus {
+
+            border-color: var(--brass);
+
+            box-shadow:
+                0 0 0 3px rgba(173, 138, 84, 0.15);
+        }
+
+
+        /* =========================================
+           SUBMIT BUTTON
+        ========================================= */
+
+        button[type="submit"] {
+
+            width: 100%;
+
+            height: 50px;
+
+            margin-top: 25px;
+
+            padding: 0 20px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--ink),
+                    var(--ink-2)
+                );
+
+            color: white;
+
+            font-family: var(--font-body);
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: all 0.25s ease;
+        }
+
+
+        button[type="submit"]:hover {
+
+            background: var(--brass);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 18px rgba(11, 31, 58, 0.20);
+        }
+
+
+        button[type="submit"]:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           INFORMATION BOX
+        ========================================= */
+
+        .info {
+
+            margin-top: 28px;
+
+            padding: 17px 18px;
+
+            background: var(--parchment);
+
+            border-left: 4px solid var(--brass);
+
+            border-radius: 8px;
+
+            color: var(--slate);
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        .info strong {
+
+            color: var(--ink);
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           EMPTY DRIVE OPTION
+        ========================================= */
+
+        select option[value=""] {
+
+            color: var(--slate);
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .header {
+
+                min-height: 70px;
+
+                padding: 16px 20px;
+
+                gap: 15px;
+            }
+
+
+            .header h1 {
+
+                font-size: 20px;
+            }
+
+
+            .back-btn {
+
+                padding: 8px 13px;
+
+                font-size: 13px;
+
+                white-space: nowrap;
+            }
+
+
+            .container {
+
+                width: 94%;
+
+                margin: 30px auto;
+
+                padding: 25px 20px;
+
+                border-radius: 13px;
+            }
+
+
+            .container h2 {
+
+                font-size: 23px;
+
+                margin-bottom: 25px;
+            }
+
+
+            label {
+
+                font-size: 13px;
+            }
+
+
+            select,
+            input[type="date"],
+            input[type="time"] {
+
+                height: 46px;
+
+                font-size: 14px;
+            }
+
+
+            button[type="submit"] {
+
+                height: 48px;
+
+                font-size: 14px;
+            }
+
+
+            .info {
+
+                font-size: 12.5px;
+
+                padding: 15px;
+            }
+        }
+
+
+        /* =========================================
+           VERY SMALL DEVICES
+        ========================================= */
+
+        @media (max-width: 400px) {
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                text-align: center;
+            }
+
+
+            .back-btn {
+
+                width: 100%;
+            }
+
+
+            .container {
+
+                width: 96%;
+
+                padding: 22px 16px;
+            }
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
 
-<div class="header">
+    <!-- =========================================
+         HEADER
+    ========================================= -->
 
-```
-<h1>
-    🏢 HR Dashboard
-</h1>
+    <header class="header">
 
-<a
-    href="/hr/dashboard"
-    class="back-btn"
->
-    ← Back
-</a>
-```
+        <h1>
+            ■ HR Dashboard
+        </h1>
 
-</div>
+        <a
+            href="/hr/dashboard"
+            class="back-btn"
+        >
+            ← Back
+        </a>
 
-<!-- =========================
-     FORM
-========================= -->
-
-<div class="container">
-
-```
-<h2>
-    Add Interview Slot
-</h2>
+    </header>
 
 
-<form
-    action="/interview-slots/add"
-    method="POST"
->
+    <!-- =========================================
+         FORM CONTAINER
+    ========================================= -->
+
+    <main class="container">
+
+        <h2>
+            Add Interview Slot
+        </h2>
 
 
-    <!-- PLACEMENT DRIVE -->
+        <form
+            action="/interview-slots/add"
+            method="POST"
+        >
 
-    <label>
-        Placement Drive
-    </label>
 
-    <select
-        name="driveId"
-        required
-    >
+            <!-- =================================
+                 PLACEMENT DRIVE
+            ================================== -->
 
-        <option value="">
-            Select Drive
-        </option>
+            <label for="driveId">
+                Placement Drive
+            </label>
 
-        <% if (drives && drives.length > 0) { %>
+            <select
+                id="driveId"
+                name="driveId"
+                required
+            >
 
-            <% drives.forEach(drive => { %>
-
-                <option
-                    value="<%= drive._id %>"
-                >
-                    <%= drive.company %> -
-                    <%= drive.role %>
+                <option value="">
+                    Select Drive
                 </option>
 
-            <% }) %>
 
-        <% } else { %>
+                <% if (drives && drives.length > 0) { %>
 
-            <option value="">
-                No placement drives available
-            </option>
+                    <% drives.forEach(drive => { %>
 
-        <% } %>
+                        <option
+                            value="<%= drive._id %>"
+                        >
+                            <%= drive.company %>
+                            -
+                            <%= drive.role %>
+                        </option>
 
-    </select>
+                    <% }) %>
 
+                <% } else { %>
 
-    <!-- DATE -->
+                    <option
+                        value=""
+                        disabled
+                    >
+                        No placement drives available
+                    </option>
 
-    <label>
-        Interview Date
-    </label>
+                <% } %>
 
-    <input
-        type="date"
-        name="date"
-        required
-    >
-
-
-    <!-- TIME -->
-
-    <label>
-        Interview Time
-    </label>
-
-    <input
-        type="time"
-        name="time"
-        required
-    >
+            </select>
 
 
-    <!-- MODE -->
+            <!-- =================================
+                 INTERVIEW DATE
+            ================================== -->
 
-    <label>
-        Interview Mode
-    </label>
+            <label for="date">
+                Interview Date
+            </label>
 
-    <select
-        name="mode"
-        required
-    >
-
-        <option value="">
-            Select Mode
-        </option>
-
-        <option value="Online">
-            Online
-        </option>
-
-        <option value="Offline">
-            Offline
-        </option>
-
-    </select>
+            <input
+                id="date"
+                type="date"
+                name="date"
+                required
+            >
 
 
-    <!-- SUBMIT -->
+            <!-- =================================
+                 INTERVIEW TIME
+            ================================== -->
 
-    <button type="submit">
-        ➕ Add Interview Slot
-    </button>
+            <label for="time">
+                Interview Time
+            </label>
 
-</form>
+            <input
+                id="time"
+                type="time"
+                name="time"
+                required
+            >
 
 
-<div class="info">
+            <!-- =================================
+                 INTERVIEW MODE
+            ================================== -->
 
-    <strong>How it works:</strong>
+            <label for="mode">
+                Interview Mode
+            </label>
 
-    <br>
+            <select
+                id="mode"
+                name="mode"
+                required
+            >
 
-    Add multiple slots for the same placement drive.
-    Shortlisted students will see these available
-    slots and can select one for their interview.
+                <option value="">
+                    Select Mode
+                </option>
 
-</div>
-```
+                <option value="Online">
+                    Online
+                </option>
 
-</div>
+                <option value="Offline">
+                    Offline
+                </option>
+
+            </select>
+
+
+            <!-- =================================
+                 SUBMIT
+            ================================== -->
+
+            <button type="submit">
+                ■ Add Interview Slot
+            </button>
+
+        </form>
+
+
+        <!-- =====================================
+             INFORMATION
+        ====================================== -->
+
+        <div class="info">
+
+            <strong>
+                How it works:
+            </strong>
+
+            <br>
+
+            Add multiple slots for the same placement
+            drive. Shortlisted students will see these
+            available slots and can select one for their
+            interview.
+
+        </div>
+
+    </main>
+
 
 </body>
 </html>

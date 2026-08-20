@@ -3,13 +3,13 @@
 
 <head>
 
-    <meta charset="UTF-8">
+   <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Edit Student</title>
+   <title>Edit Student</title>
 
-    <link rel="stylesheet" href="/add.css">
+   <link rel="stylesheet" href="/add.css">
 
 </head>
 
@@ -20,73 +20,69 @@
 <div class="add-company-container">
 
 
-    <h1>
-        Edit Student
-    </h1>
+   <h1>
+       Edit Student
+   </h1>
 
 
 
-    <form 
-        action="/edit/<%= student.usn %>" 
-        method="POST" 
-        enctype="multipart/form-data"
-    >
+   <form
+       action="/edit/<%= student.usn %>"
+       method="POST"
+       enctype="multipart/form-data"
+   >
 
 
 
-        <label>
-            USN
-        </label>
+          <label>
+              USN
+          </label>
 
-        <input
-            type="text"
-            value="<%= student.usn %>"
-            disabled
-        >
-
-
-
-
-        <label>
-            Full Name
-        </label>
-
-        <input
-            type="text"
-            name="fullname"
-            value="<%= student.fullname %>"
-            placeholder="Enter Full Name"
-            required
-        >
+          <input
+              type="text"
+              value="<%= student.usn %>"
+              disabled
+          >
 
 
 
 
-        <label>
-            Email
-        </label>
+          <label>
+              Full Name
+          </label>
 
-        <input
-            type="email"
-            name="email"
-            value="<%= student.email %>"
-            placeholder="Enter Email"
-            required
-        >
-
-
+          <input
+              type="text"
+              name="fullname"
+              value="<%= student.fullname %>"
+              placeholder="Enter Full Name"
+              required
+          >
 
 
-        <label>
-            Branch
-        </label>
 
-        <input
-            type="text"
-            name="branch"
-            value="<%= student.branch %>"
-            placeholder="Enter Branch"
-            required
+
+          <label>
+              Email
+          </label>
+
+          <input
+              type="email"
+              name="email"
+              value="<%= student.email %>"
+              placeholder="Enter Email"
+              required
+          >
+          <label>
+              Branch
+          </label>
+          <input
+
+              type="text"
+              name="branch"
+              value="<%= student.branch %>"
+              placeholder="Enter Branch"
+              required
         >
 
 
@@ -129,7 +125,7 @@
     Current Photo
 </label>
 
-<input 
+<input
     type="text"
     value="<%= student.photo || 'No photo uploaded' %>"
     readonly
@@ -143,7 +139,7 @@
         </label>
 
 
-        <input 
+        <input
             type="file"
             name="photo"
             accept="image/*"
@@ -163,19 +159,18 @@
 
 
     <div class="company-links">
-
-
         <a href="/admin">
-            Back To Dashboard
-        </a>
+
+              Back To Dashboard
+          </a>
 
 
-        <a href="/student/<%= student.usn %>">
-            View Profile
-        </a>
+          <a href="/student/<%= student.usn %>">
+              View Profile
+          </a>
 
 
-    </div>
+   </div>
 
 
 

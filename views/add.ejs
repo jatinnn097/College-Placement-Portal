@@ -3,16 +3,16 @@
 
 <head>
 
-    <meta charset="UTF-8">
+   <meta charset="UTF-8">
 
-    <meta 
-        name="viewport" 
-        content="width=device-width, initial-scale=1.0"
-    >
+   <meta
+       name="viewport"
+       content="width=device-width, initial-scale=1.0"
+   >
 
-    <title>Add Student</title>
+   <title>Add Student</title>
 
-    <link rel="stylesheet" href="/add.css">
+   <link rel="stylesheet" href="/add.css">
 
 </head>
 
@@ -23,163 +23,155 @@
 <div class="add-company-container">
 
 
-    <h1>Add Student</h1>
+   <h1>Add Student</h1>
 
 
-    <form 
-        action="/add" 
-        method="POST" 
-        enctype="multipart/form-data"
-    >
+   <form
+       action="/add"
+       method="POST"
+       enctype="multipart/form-data"
+   >
 
 
-        <label>
-            USN
-        </label>
+          <label>
+              USN
+          </label>
 
-        <input 
-            type="text" 
-            name="usn"
-            placeholder="Enter Student USN"
-            required
-        >
+          <input
+              type="text"
+              name="usn"
+              placeholder="Enter Student USN"
+              required
+          >
 
 
 
-        <br>
+          <br>
 
 
 
-        <label>
-            Full Name
-        </label>
+          <label>
+              Full Name
+          </label>
 
-        <input 
-            type="text"
-            name="fullname"
-            placeholder="Enter Full Name"
-            required
-        >
+          <input
+              type="text"
+              name="fullname"
+              placeholder="Enter Full Name"
+              required
+          >
 
 
 
-        <br>
+          <br>
 
 
 
-        <label>
-            Email
-        </label>
+          <label>
+              Email
+          </label>
 
-        <input 
-            type="email"
-            name="email"
-            placeholder="Enter Email Address"
-            required
-        >
+          <input
+              type="email"
+              name="email"
+              placeholder="Enter Email Address"
+              required
+          >
 
+   <br>
 
 
-        <br>
 
+   <label>
+       Branch
+   </label>
 
+   <input
+       type="text"
+       name="branch"
+       placeholder="Example: ISE / CSE / ECE"
+       required
+   >
 
-        <label>
-            Branch
-        </label>
 
-        <input 
-            type="text"
-            name="branch"
-            placeholder="Example: ISE / CSE / ECE"
-            required
-        >
 
+   <br>
 
 
-        <br>
 
+   <label>
+       Semester
+   </label>
 
+   <input
+       type="number"
+       name="sem"
+       placeholder="Enter Semester"
+       min="1"
+       max="8"
+       required
+   >
 
-        <label>
-            Semester
-        </label>
 
-        <input 
-            type="number"
-            name="sem"
-            placeholder="Enter Semester"
-            min="1"
-            max="8"
-            required
-        >
 
+   <br>
 
 
-        <br>
 
+   <label>
+       CGPA
+   </label>
 
+   <input
+       type="number"
+       step="0.01"
+       name="cgpa"
+       placeholder="Example: 8.5"
+       min="0"
+       max="10"
+       required
+   >
 
-        <label>
-            CGPA
-        </label>
 
-        <input 
-            type="number"
-            step="0.01"
-            name="cgpa"
-            placeholder="Example: 8.5"
-            min="0"
-            max="10"
-            required
-        >
 
+   <br>
 
 
-        <br>
 
+   <label>
+       Student Photo
+   </label>
 
+   <input
+       type="file"
+       name="photo"
+       accept="image/*"
+       required
+   >
 
-        <label>
-            Student Photo
-        </label>
 
-        <input 
-            type="file"
-            name="photo"
-            accept="image/*"
-            required
-        >
 
+   <br><br>
 
 
-        <br><br>
 
+    <button type="submit">
+        Add Student
+    </button>
+</form>
+<div class="company-links">
 
+          <a href="/admin">
+              Back To Dashboard
+          </a>
 
-        <button type="submit">
-            Add Student
-        </button>
 
+          <a href="/students">
+              View Students
+          </a>
 
-    </form>
 
-
-
-    <div class="company-links">
-
-
-        <a href="/admin">
-            Back To Dashboard
-        </a>
-
-
-        <a href="/students">
-            View Students
-        </a>
-
-
-    </div>
+   </div>
 
 
 </div>

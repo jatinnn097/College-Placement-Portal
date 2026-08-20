@@ -1,20 +1,256 @@
+:root {
+    --navy: #0b1f3a;
+    --navy-dark: #07172c;
+    --navy-light: #12294a;
+
+    --brass: #ad8a54;
+    --brass-light: #e4d6b8;
+
+    --paper: #ffffff;
+    --parchment: #f6f4ee;
+
+    --slate: #66758a;
+    --text: #26384d;
+
+    --border: #e3e7ec;
+
+    --green: #1f6e45;
+    --green-light: #eaf6ef;
+
+    --red: #9a2e2e;
+    --red-light: #fff0f0;
+
+    --blue: #245c91;
+    --blue-light: #edf5fc;
+
+    --yellow: #a46c00;
+    --yellow-light: #fff7df;
+}
+
+
 /* =========================
-   GLOBAL
+   RESET
 ========================= */
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(
-        135deg,
-        #eaf3ff,
-        #f8fbff
-    );
-    color: #1e293b;
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: var(--parchment);
+
+    color: var(--text);
+}
+
+
+/* =========================
+   PORTAL
+========================= */
+
+.portal {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 250px;
+
+    min-height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--navy),
+            var(--navy-dark)
+        );
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 28px 18px;
+
+    z-index: 100;
+}
+
+
+/* BRAND */
+
+.sidebar-brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 10px 28px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.12);
+}
+
+.brand-mark {
+    color: var(--brass);
+
+    font-size: 24px;
+}
+
+.brand-title {
+    font-size: 15px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+.brand-subtitle {
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: #aeb9c8;
+
+    margin-top: 3px;
+}
+
+
+/* ROLE */
+
+.sidebar-role {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--brass);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    padding: 25px 12px 13px;
+}
+
+
+/* NAVIGATION */
+
+.sidebar-nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.nav-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px 13px;
+
+    border-radius: 7px;
+
+    color: #d6dde7;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+
+.nav-item:hover {
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    transform: translateX(2px);
+}
+
+
+.nav-item.active {
+    background:
+        rgba(173,138,84,.18);
+
+    color: white;
+
+    border-left:
+        3px solid var(--brass);
+
+    padding-left: 10px;
+}
+
+
+.nav-icon {
+    width: 18px;
+
+    text-align: center;
+
+    color: var(--brass);
+
+    font-size: 15px;
+}
+
+
+/* BOTTOM */
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid rgba(255,255,255,.12);
+}
+
+.logout-side:hover {
+    color: #ffb0b0;
+}
+
+
+/* =========================
+   MAIN AREA
+========================= */
+
+.main-area {
+    width: calc(100% - 250px);
+
+    margin-left: 250px;
+
     min-height: 100vh;
 }
 
@@ -23,374 +259,447 @@ body {
    HEADER
 ========================= */
 
-h1 {
-    margin: 0;
-    padding: 22px 45px;
-    background: linear-gradient(
-        135deg,
-        #123c69,
-        #1e5b94
-    );
-    color: white;
-    font-size: 27px;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(18, 60, 105, 0.2);
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-a[href="/logout"] {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-
-    padding: 10px 20px;
-
-    background: white;
-    color: #123c69;
-
-    text-decoration: none;
-    font-weight: bold;
-
-    border-radius: 8px;
-
-    transition: 0.3s;
-}
-
-a[href="/logout"]:hover {
-    background: #eaf3ff;
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   PAGE TITLE
-========================= */
-
-h2 {
-    width: 92%;
-    margin: 35px auto 20px;
-
-    text-align: center;
-
-    color: #123c69;
-
-    font-size: 25px;
-}
-
-
-/* =========================
-   TABLE CONTAINER
-========================= */
-
-table {
-    width: 92%;
-    margin: 20px auto 40px;
-
-    border-collapse: separate;
-    border-spacing: 0;
+.top-header {
+    height: 74px;
 
     background: white;
 
-    border-radius: 15px;
+    border-bottom:
+        1px solid var(--border);
 
-    overflow: hidden;
+    display: flex;
 
-    box-shadow:
-        0 10px 30px rgba(18, 60, 105, 0.12);
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 35px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
 }
 
 
-/* =========================
-   TABLE HEADER
-========================= */
+.header-left {
+    display: flex;
 
-table tr:first-child {
-    background: linear-gradient(
-        135deg,
-        #123c69,
-        #1e5b94
-    );
+    align-items: center;
 
-    color: white;
+    gap: 15px;
 }
 
-th {
-    padding: 17px 12px;
+
+.mobile-menu {
+    display: none;
+}
+
+.header-title {
+    color: var(--navy);
 
     font-size: 14px;
 
-    text-align: center;
+    font-weight: 800;
 
-    letter-spacing: 0.3px;
+    letter-spacing: 1.1px;
+}
+
+.header-subtitle {
+    color: var(--slate);
+
+    font-size: 12px;
+
+    margin-top: 3px;
 }
 
 
-/* =========================
-   TABLE BODY
-========================= */
+.header-right {
+    display: flex;
 
-td {
-    padding: 15px 12px;
+    align-items: center;
 
-    text-align: center;
-
-    border-bottom: 1px solid #e8eef5;
-
-    font-size: 14px;
-}
-
-tr:not(:first-child):hover {
-    background: #f6faff;
+    gap: 22px;
 }
 
 
-/* =========================
-   ACTION BUTTONS
-========================= */
+.user-info {
+    display: flex;
 
-td a {
-    display: inline-block;
+    align-items: center;
 
-    padding: 8px 13px;
+    gap: 9px;
 
-    margin: 3px;
-
-    border-radius: 7px;
-
-    text-decoration: none;
+    color: var(--navy);
 
     font-size: 13px;
 
-    font-weight: bold;
-
-    transition: 0.25s;
+    font-weight: 700;
 }
 
 
-/* Shortlist */
+.user-avatar {
+    width: 34px;
+    height: 34px;
 
-td a[href*="/shortlist/"] {
-    background: #fff4d6;
-    color: #9a6700;
-}
+    border-radius: 50%;
 
-td a[href*="/shortlist/"]:hover {
-    background: #f5b700;
-    color: white;
-    transform: translateY(-2px);
-}
+    background: var(--navy);
 
+    color: var(--brass);
 
-/* Reject */
+    display: flex;
 
-td a[href*="/reject/"] {
-    background: #ffe5e8;
-    color: #c62828;
-}
+    align-items: center;
 
-td a[href*="/reject/"]:hover {
-    background: #dc3545;
-    color: white;
-    transform: translateY(-2px);
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
 }
 
 
-/* Select */
-
-td a[href*="/select/"] {
-    background: #dff7e8;
-    color: #16803c;
-}
-
-td a[href*="/select/"]:hover {
-    background: #198754;
-    color: white;
-    transform: translateY(-2px);
+.dropdown-arrow {
+    color: var(--slate);
 }
 
 
-/* =========================
-   ATS BUTTON
-========================= */
+.header-logout {
+    text-decoration: none;
 
-td a[href*="/ats/scan/"] {
-    background: #123c69;
-    color: white;
+    color: var(--slate);
 
-    padding: 9px 17px;
+    font-size: 13px;
 
-    box-shadow: 0 3px 8px rgba(18, 60, 105, 0.2);
+    font-weight: 700;
+
+    padding-left: 20px;
+
+    border-left:
+        1px solid var(--border);
 }
 
-td a[href*="/ats/scan/"]:hover {
-    background: #0d3157;
 
-    transform: translateY(-2px);
+.header-logout:hover {
+    color: var(--red);
 }
 
 
 /* =========================
-   INTERVIEW SECTION
+   CONTENT
 ========================= */
 
-td[colspan="7"] {
-    background: #f7faff;
+.dashboard-content {
+    max-width: 1400px;
 
-    padding: 20px;
+    margin: auto;
 
-    text-align: center;
-
-    border-bottom: 1px solid #e5edf6;
+    padding: 38px 40px 50px;
 }
 
-td[colspan="7"] strong {
-    color: #123c69;
+
+.page-intro {
+    margin-bottom: 28px;
+}
+
+
+.page-intro h1 {
+    color: var(--navy);
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 31px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+
+.page-intro p {
+    color: var(--slate);
 
     font-size: 14px;
 }
 
 
 /* =========================
-   INTERVIEW FORM
+   STATISTICS
 ========================= */
 
+.stats-grid {
+    display: grid;
 
+    grid-template-columns:
+        repeat(3, 1fr);
 
-/* =========================
-   NO APPLICATIONS
-========================= */
+    gap: 18px;
 
-p {
-    text-align: center;
-
-    color: #64748b;
-
-    font-size: 15px;
+    margin-bottom: 35px;
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+.stat-card {
+    background: white;
 
-@media (max-width: 900px) {
-
-    h1 {
-        padding: 20px;
-        font-size: 22px;
-    }
-
-    a[href="/logout"] {
-        right: 20px;
-        top: 15px;
-
-        padding: 8px 14px;
-    }
-
-    table {
-        width: 96%;
-
-        display: block;
-
-        overflow-x: auto;
-    }
-
-    form {
-        flex-wrap: wrap;
-
-        margin: 15px 0 0;
-    }
-}
-/* =========================
-   ADD INTERVIEW SLOT
-========================= */
-
-a[href="/interview-slots/add"] {
-    display: block;
-
-    width: 92%;
-    margin: 25px auto;
-
-    padding: 14px 20px;
-
-    background: linear-gradient(
-        135deg,
-        #123c69,
-        #1e5b94
-    );
-
-    color: white;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    font-weight: bold;
+    border:
+        1px solid var(--border);
 
     border-radius: 9px;
 
-    box-shadow:
-        0 5px 15px rgba(18, 60, 105, 0.18);
+    padding: 22px;
 
-    transition: 0.3s;
-}
+    display: flex;
 
-a[href="/interview-slots/add"]:hover {
-    background: #0d3157;
+    align-items: center;
 
-    transform: translateY(-2px);
+    gap: 18px;
 
     box-shadow:
-        0 8px 20px rgba(18, 60, 105, 0.25);
+        0 3px 12px rgba(11,31,58,.04);
+
+    border-top:
+        3px solid var(--brass);
+}
+
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 8px;
+
+    background: var(--parchment);
+
+    color: var(--brass);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+.stat-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.stat-number {
+    color: var(--navy);
+
+    font-size: 27px;
+
+    font-weight: 700;
+}
+
+
+.stat-label {
+    color: var(--slate);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .6px;
 }
 
 
 /* =========================
-   ATS DETAILS
+   CONTENT SECTION
 ========================= */
 
-td[colspan="7"] {
-    background: #f7faff;
+.content-section {
+    background: white;
 
-    padding: 20px;
+    border:
+        1px solid var(--border);
 
-    text-align: center;
+    border-radius: 10px;
 
-    line-height: 1.7;
+    margin-bottom: 28px;
 
-    color: #475569;
+    box-shadow:
+        0 3px 15px rgba(11,31,58,.04);
+
+    overflow: hidden;
 }
 
-td[colspan="7"] strong {
-    color: #123c69;
+
+.section-heading {
+    padding: 23px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.section-heading h2 {
+    color: var(--navy);
+
+    font-size: 19px;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+
+.section-heading p {
+    color: var(--slate);
+
+    font-size: 12px;
 }
 
 
 /* =========================
-   ATS SCORE
+   TABLE
 ========================= */
 
-td:nth-child(6) {
-    font-weight: bold;
+.table-wrapper {
+    width: 100%;
 
-    color: #123c69;
+    overflow-x: auto;
+}
 
-    font-size: 15px;
+
+.applications-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 950px;
+}
+
+
+.applications-table th {
+    background: #f8f8f6;
+
+    color: var(--slate);
+
+    text-align: left;
+
+    font-size: 10px;
+
+    letter-spacing: .8px;
+
+    font-weight: 800;
+
+    padding: 14px 18px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.applications-table td {
+    padding: 17px 18px;
+
+    border-bottom:
+        1px solid #edf0f3;
+
+    vertical-align: middle;
+
+    font-size: 13px;
+}
+
+
+.applications-table tbody tr:hover {
+    background: #fcfbf8;
 }
 
 
 /* =========================
-   INTERVIEW SCHEDULED
+   STUDENT CELL
 ========================= */
 
-td[colspan="7"] strong:first-child {
-    font-size: 16px;
+.student-cell {
+    display: flex;
 
-    color: #123c69;
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.student-avatar {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background: var(--navy);
+
+    color: var(--brass);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 800;
+
+    font-size: 13px;
+}
+
+
+.student-cell strong {
+    display: block;
+
+    color: var(--navy);
+
+    font-size: 13px;
+
+    margin-bottom: 3px;
+}
+
+
+.student-cell small {
+    color: var(--slate);
+
+    font-size: 11px;
+}
+
+
+.usn {
+    color: var(--navy);
+
+    font-weight: 700;
+
+    font-size: 12px;
+}
+
+
+.role-text {
+    color: var(--text);
+
+    font-weight: 600;
 }
 
 
@@ -398,29 +707,528 @@ td[colspan="7"] strong:first-child {
    STATUS
 ========================= */
 
-td:nth-child(5) {
-    font-weight: bold;
+.status {
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.status.applied {
+    color: var(--blue);
+
+    background: var(--blue-light);
+}
+
+
+.status.shortlisted {
+    color: var(--green);
+
+    background: var(--green-light);
+}
+
+
+.status.selected {
+    color: var(--green);
+
+    background: #dff2e7;
+}
+
+
+.status.interview {
+    color: var(--yellow);
+
+    background: var(--yellow-light);
+}
+
+
+.status.rejected {
+    color: var(--red);
+
+    background: var(--red-light);
 }
 
 
 /* =========================
-   EXTRA MOBILE FIX
+   ATS
 ========================= */
 
-@media (max-width: 600px) {
+.ats-score {
+    min-width: 90px;
+}
 
-    a[href="/interview-slots/add"] {
-        width: 94%;
 
-        margin: 20px auto;
+.score-number {
+    display: block;
 
-        font-size: 14px;
+    color: var(--navy);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+}
+
+
+.score-bar {
+    width: 80px;
+
+    height: 5px;
+
+    background: #e8ebee;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.score-fill {
+    height: 100%;
+
+    background: var(--brass);
+
+    border-radius: 10px;
+}
+
+
+.not-scanned {
+    color: var(--slate);
+
+    font-size: 11px;
+
+    font-style: italic;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.action-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    max-width: 260px;
+}
+
+
+.action-btn {
+    text-decoration: none;
+
+    padding: 6px 9px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    transition: .2s;
+}
+
+
+.action-btn:hover {
+    transform: translateY(-1px);
+}
+
+
+.action-btn.shortlist {
+    background: var(--green-light);
+
+    color: var(--green);
+}
+
+
+.action-btn.reject {
+    background: var(--red-light);
+
+    color: var(--red);
+}
+
+
+.action-btn.select {
+    background: #eaf2f9;
+
+    color: var(--blue);
+}
+
+
+.action-btn.scan {
+    background: var(--parchment);
+
+    color: var(--navy);
+
+    border:
+        1px solid var(--brass-light);
+}
+
+
+/* =========================
+   DETAILS
+========================= */
+
+.details-row td {
+    padding: 0;
+
+    background: #fbfaf7;
+}
+
+
+.details-container {
+    padding: 18px 25px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 25px;
+
+    border-top:
+        1px dashed var(--border);
+}
+
+
+.detail-label {
+    display: block;
+
+    color: var(--slate);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .8px;
+
+    margin-bottom: 7px;
+}
+
+
+.match-result {
+    color: var(--navy);
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.skills-block {
+    max-width: 330px;
+}
+
+
+.skill-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+}
+
+
+.skill {
+    padding: 4px 7px;
+
+    border-radius: 4px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.skill.matched {
+    color: var(--green);
+
+    background: var(--green-light);
+}
+
+
+.skill.missing {
+    color: var(--red);
+
+    background: var(--red-light);
+}
+
+
+.none-text {
+    color: var(--slate);
+
+    font-size: 11px;
+}
+
+
+.resume-not-scanned {
+    color: var(--slate);
+
+    font-size: 12px;
+
+    font-style: italic;
+}
+
+
+/* =========================
+   INTERVIEW DETAILS
+========================= */
+
+.interview-details {
+    width: 100%;
+
+    padding: 15px;
+
+    background: var(--blue-light);
+
+    border-left:
+        3px solid var(--brass);
+
+    border-radius: 5px;
+}
+
+
+.interview-title {
+    color: var(--navy);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+}
+
+
+.interview-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+.interview-grid span {
+    display: block;
+
+    color: var(--slate);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    margin-bottom: 4px;
+}
+
+
+.interview-grid strong {
+    color: var(--navy);
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+    padding: 55px 20px;
+
+    text-align: center;
+}
+
+
+.empty-icon {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: var(--parchment);
+
+    color: var(--brass);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+}
+
+
+.empty-state h3 {
+    color: var(--navy);
+
+    font-size: 17px;
+
+    margin-bottom: 7px;
+}
+
+
+.empty-state p {
+    color: var(--slate);
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   INTERVIEW SLOT
+========================= */
+
+.interview-section {
+    padding-bottom: 0;
+}
+
+
+.primary-btn {
+    display: inline-block;
+
+    background: var(--navy);
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 10px 16px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: .2s;
+}
+
+
+.primary-btn:hover {
+    background: var(--brass);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    text-align: center;
+
+    color: var(--slate);
+
+    font-size: 11px;
+
+    padding: 0 30px 25px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 215px;
     }
 
-    td[colspan="7"] {
-        padding: 15px;
+    .main-area {
+        width: calc(100% - 215px);
 
-        font-size: 13px;
+        margin-left: 215px;
     }
 
+    .dashboard-content {
+        padding: 30px 25px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 0;
+
+        padding: 0;
+
+        overflow: hidden;
+    }
+
+    .main-area {
+        width: 100%;
+
+        margin-left: 0;
+    }
+
+    .mobile-menu {
+        display: block;
+
+        color: var(--navy);
+
+        font-size: 20px;
+    }
+
+    .top-header {
+        padding: 0 18px;
+    }
+
+    .header-logout {
+        display: none;
+    }
+
+    .user-info span:not(.dropdown-arrow) {
+        display: none;
+    }
+
+    .dashboard-content {
+        padding: 25px 15px;
+    }
+
+    .page-intro h1 {
+        font-size: 26px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .primary-btn {
+        width: 100%;
+
+        text-align: center;
+    }
+
+    .interview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .details-container {
+        flex-direction: column;
+    }
 }

@@ -5,8 +5,8 @@
 
     <meta charset="UTF-8">
 
-    <meta 
-        name="viewport" 
+    <meta
+        name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
@@ -29,14 +29,14 @@
 
     <div class="top-links">
 
-        <a href="/company/add">
-            + Add Company
-        </a>
+          <a href="/company/add">
+              + Add Company
+          </a>
 
 
-        <a href="/admin">
-            Dashboard
-        </a>
+          <a href="/admin">
+              Dashboard
+          </a>
 
     </div>
 
@@ -45,131 +45,127 @@
     <div class="table-container">
 
 
-        <table>
+          <table>
 
 
-            <thead>
+              <thead>
 
-            <tr>
+              <tr>
 
-                <th>Company</th>
+                    <th>Company</th>
 
-                <th>Email</th>
+                    <th>Email</th>
 
-                <th>Role</th>
+                    <th>Role</th>
 
-                <th>Package</th>
+                    <th>Package</th>
 
-                <th>Min CGPA</th>
+                    <th>Min CGPA</th>
 
-                <th>Deadline</th>
+                    <th>Deadline</th>
 
-                <th>Actions</th>
+                    <th>Actions</th>
 
-            </tr>
+              </tr>
 
-            </thead>
-
-
-
-            <tbody>
-
-
-            <% data.forEach(company => { %>
-
-
-            <tr>
-
-
-                <td>
-                    <%= company.company %>
-                </td>
-
-
-                <td>
-                    <%= company.email %>
-                </td>
-
-
-                <td>
-                    <%= company.role %>
-                </td>
-
-
-                <td>
-                    <%= company.package %>
-                </td>
-
-
-                <td>
-                    <%= company.mincgpa %>
-                </td>
-
-
-                <td>
-                    <%= company.deadline %>
-                </td>
+              </thead>
 
 
 
-                <td class="action-buttons">
+              <tbody>
 
 
-                    <a 
-                    class="edit-btn"
-                    href="/company/edit/<%= company._id %>">
-                        Edit
-                    </a>
+              <% data.forEach(company => { %>
+              <tr>
+
+             <td>
+                 <%= company.company %>
+             </td>
+
+
+             <td>
+                 <%= company.email %>
+             </td>
+
+
+             <td>
+                 <%= company.role %>
+             </td>
+
+
+             <td>
+                 <%= company.package %>
+             </td>
+
+
+             <td>
+                 <%= company.mincgpa %>
+             </td>
+
+
+             <td>
+                 <%= company.deadline %>
+             </td>
 
 
 
-                    <a 
-                    class="delete-btn"
-                    href="/company/delete/<%= company._id %>"
-                    onclick="return confirm('Delete this company?')">
-                        Delete
-                    </a>
+             <td class="action-buttons">
 
 
-                </td>
+                 <a
+                 class="edit-btn"
+                 href="/company/edit/<%= company._id %>">
+                      Edit
+                 </a>
 
 
-            </tr>
+
+                 <a
+                 class="delete-btn"
+                 href="/company/delete/<%= company._id %>"
+                 onclick="return confirm('Delete this company?')">
+                      Delete
+                 </a>
 
 
-            <% }) %>
+             </td>
 
 
-            </tbody>
+         </tr>
 
 
-        </table>
+         <% }) %>
 
 
-    </div>
+         </tbody>
+
+
+   </table>
+
+
+</div>
 
 
 
 
-    <div class="hr-box">
+<div class="hr-box">
 
 
-        <h2>
-            HR Login Credentials
-        </h2>
+   <h2>
+       HR Login Credentials
+   </h2>
 
 
-        <p>
-            <b>Email:</b> Company HR Email
-        </p>
+   <p>
+       <b>Email:</b> Company HR Email
+   </p>
+   <p>
+
+              <b>Password:</b> company123
+          </p>
 
 
-        <p>
-            <b>Password:</b> company123
-        </p>
-
-
-    </div>
+   </div>
 
 
 

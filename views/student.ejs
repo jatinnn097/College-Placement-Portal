@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Student Details</title>
+    <title>Student Profile</title>
 
     <link rel="stylesheet" href="/student.css">
 
@@ -17,160 +20,711 @@
 <body>
 
 
-<div class="student-details-container">
+<div class="student-page">
 
 
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-    <h1>
-        Student Profile
-    </h1>
+    <header class="student-header">
+
+        <div class="header-brand">
+
+            <div class="brand-icon">
+                ◆
+            </div>
+
+            <div>
+
+                <h1>
+                    CAMPUS PLACEMENT PORTAL
+                </h1>
+
+                <span>
+                    STUDENT PROFILE
+                </span>
+
+            </div>
+
+        </div>
 
 
-
-
-    <!-- PHOTO -->
-
-    <div class="student-photo-card">
-
-        <img 
-            src="/photo/<%= student.usn %>"
-            alt="Student Photo"
+        <a
+            href="/admin"
+            class="back-dashboard"
         >
+            ← Dashboard
+        </a>
 
-    </div>
-
-
-
-
-    <!-- BASIC DETAILS -->
-
-    <div class="detail-section">
+    </header>
 
 
-        <h2>
-            Personal Details
-        </h2>
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="student-container">
 
 
-        <div class="details-grid">
+        <!-- =================================================
+             PROFILE HEADER
+        ================================================== -->
+
+        <section class="profile-card">
 
 
-            <p>
-                <b>USN:</b>
-                <%= student.usn %>
-            </p>
+            <div class="profile-photo-section">
+
+                <% if (student && student.photo) { %>
+
+                    <img
+                        src="/photo/<%= student.usn %>"
+                        alt="Student Photo"
+                        class="profile-photo"
+                    >
+
+                <% } else { %>
+
+                    <div class="profile-photo-placeholder">
+
+                        <%= student && student.fullname
+                            ? student.fullname
+                                .charAt(0)
+                                .toUpperCase()
+                            : "S"
+                        %>
+
+                    </div>
+
+                <% } %>
+
+            </div>
 
 
-            <p>
-                <b>Name:</b>
-                <%= student.fullname %>
-            </p>
+            <div class="profile-main-info">
+
+                <span class="profile-label">
+                    STUDENT PROFILE
+                </span>
 
 
-            <p>
-                <b>Email:</b>
-                <%= student.email %>
-            </p>
+                <h2>
+
+                    <%= student && student.fullname
+                        ? student.fullname
+                        : "Student"
+                    %>
+
+                </h2>
 
 
-            <p>
-                <b>Branch:</b>
-                <%= student.branch %>
-            </p>
+                <p class="profile-usn">
 
+                    <%= student && student.usn
+                        ? student.usn
+                        : "-"
+                    %>
+
+                </p>
+
+
+                <div class="profile-tags">
+
+                    <span>
+                        <%= student && student.branch
+                            ? student.branch
+                            : "-"
+                        %>
+                    </span>
+
+
+                    <span>
+                        Semester
+                        <%= student && student.sem
+                            ? student.sem
+                            : "-"
+                        %>
+                    </span>
+
+
+                    <span class="active-tag">
+                        ● Active
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             BASIC + QR
+        ================================================== -->
+
+        <section class="top-content">
+
+
+            <!-- PERSONAL DETAILS -->
+
+            <div class="details-card">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span>
+                            INFORMATION
+                        </span>
+
+                        <h2>
+                            Personal Details
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="details-grid">
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            FULL NAME
+                        </span>
+
+                        <strong>
+                            <%= student && student.fullname
+                                ? student.fullname
+                                : "-"
+                            %>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            USN
+                        </span>
+
+                        <strong>
+                            <%= student && student.usn
+                                ? student.usn
+                                : "-"
+                            %>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            EMAIL
+                        </span>
+
+                        <strong>
+                            <%= student && student.email
+                                ? student.email
+                                : "-"
+                            %>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            BRANCH
+                        </span>
+
+                        <strong>
+                            <%= student && student.branch
+                                ? student.branch
+                                : "-"
+                            %>
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QR CARD -->
+
+            <div class="qr-card">
+
+
+                <div class="qr-card-header">
+
+                    <div>
+
+                        <span>
+                            DIGITAL PROFILE
+                        </span>
+
+                        <h2>
+                            Student QR
+                        </h2>
+
+                    </div>
+
+
+                    <div class="qr-icon">
+                        QR
+                    </div>
+
+                </div>
+
+
+                <div class="qr-wrapper">
+
+                    <img
+                        src="<%= qrCode %>"
+                        alt="Student QR Code"
+                        class="qr-image"
+                    >
+
+                </div>
+
+
+                <p class="qr-description">
+                    Scan this QR code to open the student's
+                    complete placement profile.
+                </p>
+
+
+                <a
+                    href="<%= qrCode %>"
+                    download="<%= student.usn %>-QR.png"
+                    class="download-qr"
+                >
+                    ↓ Download QR Code
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACADEMIC DETAILS
+        ================================================== -->
+
+        <section class="details-card">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        ACADEMICS
+                    </span>
+
+                    <h2>
+                        Academic Details
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="academic-grid">
+
+
+                <div class="academic-box">
+
+                    <span>
+                        CURRENT SEMESTER
+                    </span>
+
+                    <strong>
+                        <%= student && student.sem
+                            ? student.sem
+                            : "-"
+                        %>
+                    </strong>
+
+                </div>
+
+
+                <div class="academic-box">
+
+                    <span>
+                        CGPA
+                    </span>
+
+                    <strong class="cgpa">
+                        <%= student && student.cgpa
+                            ? student.cgpa
+                            : "-"
+                        %>
+                    </strong>
+
+                </div>
+
+
+                <div class="academic-box">
+
+                    <span>
+                        GRADUATION YEAR
+                    </span>
+
+                    <strong>
+                        <%= student && student.graduationYear
+                            ? student.graduationYear
+                            : "2028"
+                        %>
+                    </strong>
+
+                </div>
+
+
+                <div class="academic-box">
+
+                    <span>
+                        STATUS
+                    </span>
+
+                    <strong class="active-status">
+                        ● Active
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PLACEMENT DETAILS
+        ================================================== -->
+
+        <section class="details-card placement-card">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        PLACEMENT
+                    </span>
+
+                    <h2>
+                        Placement Details
+                    </h2>
+
+                </div>
+
+
+                <div class="application-count">
+
+                    <%= applicationsList
+                        ? applicationsList.length
+                        : 0
+                    %>
+
+                    Applications
+
+                </div>
+
+            </div>
+
+
+
+            <% if (
+                selectedApplications &&
+                selectedApplications.length > 0
+            ) { %>
+
+
+                <div class="selected-list">
+
+
+                    <% selectedApplications.forEach(function(application) { %>
+
+
+                        <div class="company-card">
+
+
+                            <div class="company-logo">
+
+                                <%= application.company
+                                    ? application.company
+                                        .charAt(0)
+                                        .toUpperCase()
+                                    : "C"
+                                %>
+
+                            </div>
+
+
+                            <div class="company-info">
+
+                                <strong>
+                                    <%= application.company || "Company" %>
+                                </strong>
+
+                                <span>
+                                    <%= application.role || "Placement Role" %>
+                                </span>
+
+                            </div>
+
+
+                            <div class="selected-badge">
+                                ✓ SELECTED
+                            </div>
+
+
+                        </div>
+
+
+                    <% }); %>
+
+
+                </div>
+
+
+            <% } else { %>
+
+
+                <div class="no-placement">
+
+                    <div class="no-placement-icon">
+                        ◇
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            No Placement Selection Yet
+                        </h3>
+
+                        <p>
+                            Student placement selections will appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            <% } %>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             APPLICATION HISTORY
+        ================================================== -->
+
+        <section class="details-card">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        APPLICATIONS
+                    </span>
+
+                    <h2>
+                        Application History
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <% if (
+                applicationsList &&
+                applicationsList.length > 0
+            ) { %>
+
+
+                <div class="application-list">
+
+
+                    <% applicationsList.forEach(function(application) { %>
+
+
+                        <div class="application-row">
+
+
+                            <div class="application-company">
+
+                                <div class="small-company-logo">
+
+                                    <%= application.company
+                                        ? application.company
+                                            .charAt(0)
+                                            .toUpperCase()
+                                        : "C"
+                                    %>
+
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        <%= application.company || "Company" %>
+                                    </strong>
+
+                                    <span>
+                                        <%= application.role || "-" %>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="application-status">
+
+                                <% if (
+                                    application.status === "Selected"
+                                ) { %>
+
+                                    <span class="status selected">
+                                        ✓ Selected
+                                    </span>
+
+                                <% } else if (
+                                    application.status === "Shortlisted"
+                                ) { %>
+
+                                    <span class="status shortlisted">
+                                        ✓ Shortlisted
+                                    </span>
+
+                                <% } else if (
+                                    application.status ===
+                                    "Interview Scheduled"
+                                ) { %>
+
+                                    <span class="status interview">
+                                        Interview Scheduled
+                                    </span>
+
+                                <% } else if (
+                                    application.status === "Rejected"
+                                ) { %>
+
+                                    <span class="status rejected">
+                                        ✕ Rejected
+                                    </span>
+
+                                <% } else { %>
+
+                                    <span class="status applied">
+                                        • Applied
+                                    </span>
+
+                                <% } %>
+
+                            </div>
+
+
+                        </div>
+
+
+                    <% }); %>
+
+
+                </div>
+
+
+            <% } else { %>
+
+
+                <div class="empty-applications">
+
+                    No applications found for this student.
+
+                </div>
+
+
+            <% } %>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="bottom-actions">
+
+
+            <a
+                href="/admin"
+                class="secondary-btn"
+            >
+                ← Back to Dashboard
+            </a>
+
+
+            <a
+                href="/edit/<%= student.usn %>"
+                class="primary-btn"
+            >
+                Edit Student
+            </a>
+
+
+            <a
+                href="/result/<%= student.usn %>"
+                class="secondary-btn"
+            >
+                View Results
+            </a>
 
 
         </div>
 
 
-    </div>
+    </main>
 
 
 
+    <!-- FOOTER -->
 
+    <footer class="student-footer">
 
-    <!-- ACADEMIC DETAILS -->
+        © 2026 Campus Placement Portal
 
-
-    <div class="detail-section">
-
-
-        <h2>
-            Academic Details
-        </h2>
-
-
-        <div class="details-grid">
-
-
-            <p>
-                <b>Semester:</b>
-                <%= student.sem %>
-            </p>
-
-
-            <p>
-                <b>CGPA:</b>
-                <%= student.cgpa %>
-            </p>
-
-
-            <p>
-                <b>Graduation Year:</b>
-                2028
-            </p>
-
-
-            <p>
-                <b>Status:</b>
-                Active
-            </p>
-
-
-        </div>
-
-
-    </div>
-
-
-
-
-
-
-    <!-- PLACEMENT DETAILS -->
-
-
-    <div class="detail-section">
-
-
-        <h2>
-            Placement Details
-        </h2>
-
-
-
-        
-
-    </div>
-
-
-
-
-    <div class="student-links">
-
-
-        <a href="/admin">
-            Back To Dashboard
-        </a>
-
-
-        <a href="/edit/<%= student.usn %>">
-            Edit Student
-        </a>
-
-
-    </div>
-
+    </footer>
 
 
 </div>
